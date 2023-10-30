@@ -1,7 +1,6 @@
 package entity;
+import items.Item;
 
 interface IPlayer {
-    public void draw();
-
-    public void attack(Entity enemy);
+    public void consumeConsummable(Item consumable);
 }
