@@ -1,7 +1,122 @@
 Classe Game:
-Atributos:
-    - numBosses: int
-    - player: Player
-    - bossesDefeated: int 
-    - bosses[]: Boss
-    - gameState: 
+    Atributos:
+        - numFloors: int
+        - player: Player
+        - currentFloor: int 
+        - bosses[]: Boss
+        - gameState: int
+        - score: int
+        - scene: Scene
+    Métodos:
+        + openGame(): void // Chamado pela main, abre a janela de jogo no menu inicial
+        + startGame(): void // Inicia de fato o jogo e suas variáveis
+        - checkInputs(): void // Verifica inputs do usuário (cliques e apertos de tecla), tratando-os como necessário
+        - nextTurn(): void // Avança um turno no jogo
+        - initializeBosses(): Boss[]
+        - initializePlayer(): Player
+        + endGame(): void // Chamado assim que o jogador morre ou chega ao final da Dungeon, finaliza o jogo e retorna ao menu inicial
+        + closeGame(): void // Fecha a janela do jogo
+
+Classe Scene:
+    Atributos:
+        - spritePlayer: texture(raylib)
+        - spriteBosses[]: texture(raylib)
+        - spriteItems[]: texture(raylib)
+        - spritesWeapons[]: texture(raylib)
+        - spritesArmors[]: texture(raylib)
+    Métodos:
+        + loadTextures(): void // Chamado ao abrir o jogo, carrega as texturas utilizando funções LoadTexture() da raylib
+        + unloadTextures(): void // Descarrega as texturas ao fim do jogo
+        + renderFrame(): void // Renderiza um frame utilizando funções da raylib, e as funções abaixo
+        - drawInterface: void
+        - drawPlayer(Player): void
+        - drawInventory(Inventory): void
+        - drawBoss(Boss): void
+        - drawButtons(): void
+
+Classe Character:
+    Atributos:
+        - hp: int
+        - mp: int
+        - baseDefence: int
+        - baseDamage: int
+        - baseCritChance: double
+        - baseAccuracy: double
+        - alive: bool
+    Métodos:
+        + (static)randomDouble(double, double): double // função auxiliar que gera um double aleatório, usado para verificar se um hit acerta ou não, ou se é crítico
+        + defend(): void
+        + checkHit(): bool // Verifica se um ataque acerta ou não
+        - die(): void 
+
+Classe Player:
+    Atributos:
+        - level: int
+        - exp: int
+        - expToLevel: int
+        - inventory: Inventory
+        - class: string
+
+    Métodos:
+        - initializePlayer(string): void // Chamada pelo construtor, inicializa um jogador com certos atributos, dependendo da classe (passada como string)
+        + levelUp(): void // Chamada assim que exp seja maior que expToLevel, incrementa o nível do jogador e aumenta seus atributos base
+        + useItem(Item): void
+        + attack(): void
+        + special1(): void
+        + special2(): void
+        + special3(): void
+        - calculateDamage(): int // Utilizado dentro das funções de ataque para calcular o dano de um ataque
+
+Classe Boss:
+    Atributos:
+        - name: string
+        - expReward: int
+        - consumableReward: Consumable
+        - weaponReward: Weapon
+        - armorReward: Armor
+
+    Métodos:
+        + attackPlayer(): void
+        - calculateDamage(): int
+
+Classe Inventory:
+    Atributos:
+        - weapon: Weapon
+        - armor: Armor
+        - consumables[]: Consumable
+        - maxConsumables: int
+
+    Métodos:
+        + addConsumable(Consumable): void // Adiciona um consumível no inventário, chamado ao ser recebido
+        + removeConsumable(Consumable): void // Remove um consumível do inventário, chamado ao ser consumido
+        + switchWeapon(Weapon): void // Chamado ao receber uma nova arma de um Boss e decidir trocar pela sua atual.
+        + switchArmor(Armor): void
+
+Classe Weapon:
+    Atributos:
+        - name: string
+        - type: string
+        - damageMultiplier: double
+        - accuracyMultiplier: double
+        - critMultiplier: double
+
+    Métodos:
+        //
+
+Classe Consumable:
+    Atributos:
+        - name: string
+        - hpBoost: int // Quantidade de hp que uma poção recupera
+        - mpBoost: int
+
+    Métodos:
+        //
+
+Classe Consumable:
+    Atributos:
+        - name: string
+        - type: string
+        - defence: int // Defesa que a armadura adiciona
+
+    Métodos:
+        //
