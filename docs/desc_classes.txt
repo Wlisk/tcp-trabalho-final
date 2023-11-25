@@ -1,0 +1,7 @@
+Classe Game:
+Atributos:
+    - numBosses: int
+    - player: Player
+    - bossesDefeated: int 
+    - bosses[]: Boss
+    - gameState: 
