@@ -9,6 +9,7 @@ public class Player extends Entity /*implements IPlayer */{
     final Item[] inventory = new Item[MAX_INVENTORY_SIZE];
 
     public Player() {
+        super();
         inventory[0].type = Item.Type.CONSUMABLE;
     }
 

@@ -44,11 +44,12 @@ public class Mouse implements MouseListener, MouseMotionListener {
     @Override
     public void mouseDragged(MouseEvent event) {
         Print.line("mouse dragged"); // arrastar (mover) mouse enquanto pressionado
+        this.gamePanel.setPos(event.getX(), event.getY());
     }
 
     @Override
     public void mouseMoved(MouseEvent event) {
         //Print.line("mouse moved");
-        this.gamePanel.setPos(event.getX(), event.getY());
+        
     }
 }

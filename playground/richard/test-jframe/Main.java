@@ -3,10 +3,8 @@ import game.Game;
 
 public class Main {
     public static void main(String[] args) {
-        Print.line("hello");
+        Print.line("executing game");
 
-        Game game = new Game();
-
-        game.loop();
+        new Game();
     }
 }
