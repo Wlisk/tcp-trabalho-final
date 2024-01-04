@@ -1,8 +1,8 @@
 package items.armor;
 
 public enum ArmorType {
-    PLATE_ARMOR("Plate Armor"), 
-    LEATHER_ARMOR("Leather Armor"), 
+    PLATE("Plate"), 
+    LEATHER("Leather"), 
     ROBE("Robe");
 
     private final String armorTypeName;

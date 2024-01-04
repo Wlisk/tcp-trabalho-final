@@ -1,6 +1,6 @@
 package utils.exceptions;
 
-public class NumberOverflowException extends Exception {
+public final class NumberOverflowException extends Exception {
     public NumberOverflowException(int maxvalue) {
         super("The max size for the number is " + maxvalue);
     }

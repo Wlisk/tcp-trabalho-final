@@ -1,15 +1,17 @@
 package items.consumable;
 
-public class Consumables {
+public final class Consumables {
     private static final Consumable[] FOODS = {
         new Consumable(
             ConsumableType.FOOD, "Piece of Bread", 
-            50, 0, 0
+            50, 0, 0,
+            "Better than nothing"
         ), 
 
         new Consumable(
             ConsumableType.FOOD, "Apple\'s Pie", 
-            50, 50, 0
+            50, 50, 0,
+            "A pie from a strange ol\'lady"
         )
     };
 
@@ -18,24 +20,31 @@ public class Consumables {
     private static final Consumable[] POTIONS = {
         new Consumable(
             ConsumableType.POTION, "Vial of Healing", 
-            100, 0, 0
+            100, 0, 
+            0,
+            "Can save you from dire straits"
         ),
 
         new Consumable(
             ConsumableType.POTION, "Vial of Mana", 
-            0, 100, 0
+            0, 100, 0,
+            "The power in liquid form"
         )
     };
 
     private static final Consumable[] POISONS = {
         new Consumable(
             ConsumableType.POISON, "Drake\'s Blood", 
-            0, 0, 50
+            0, 0, 
+            50,
+            "A bit diluted but still strong"
         ),
 
         new Consumable(
             ConsumableType.POISON, "Death\'s Touch", 
-            0, 0, 100
+            0, 0, 
+            100,
+            "One touch and your are dead"
         )
     };
 

@@ -47,7 +47,7 @@ public class Entity {
     // TODO: variables yet to create and impement
     // Sprite sprite;
     // Vector2D position; 
-    // ArrayList<Super> supers;
+    // Super[] supers = new Super[MAX_SUPERS];
   
 
     protected void resetToZero() {
@@ -107,7 +107,7 @@ public class Entity {
     }
     
     // pure damage taken, do nothing else
-    private void takeDamage(int damage) {
+    private int takeDamage(int damage) {
         int _hpWithLoss = currHP - damage;
 
         if (_hpWithLoss <= 0) { 
@@ -116,6 +116,7 @@ public class Entity {
         }
 
         currHP = _hpWithLoss;
+        return currHP;
     }
 
     protected int calcDamage() {
@@ -224,7 +225,7 @@ public class Entity {
                 getMessageNumberOverflow("HP", maxHP)
             );
 
-        this.currHP = hp;
+        currHP = hp;
     }
 
     protected void setCurrMP(int mp) throws NumberOverflowException {

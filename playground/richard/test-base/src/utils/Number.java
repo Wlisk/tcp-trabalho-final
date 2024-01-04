@@ -2,7 +2,7 @@ package utils;
 
 import utils.exceptions.NumberOverflowException;
 
-public class Number {
+public final class Number {
     public static final double MIN_PERCENTAGE = 0.0;
     public static final double MAX_PERCENTAGE = 1.0;
     

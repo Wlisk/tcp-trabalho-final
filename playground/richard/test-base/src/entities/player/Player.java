@@ -2,7 +2,7 @@ package entities.player;
 
 import entities.Entity;
 import entities.boss.Boss;
-import items.*;
+import items.Inventory;
 import items.consumable.Consumable;
 import utils.exceptions.NumberOverflowException;
 import utils.exceptions.UnknownTypeException;
@@ -85,7 +85,7 @@ public final class Player extends Entity {
         return level;
     }
 
-    public boolean useConsumable(int index) {
+    public Consumable useConsumable(int index) {
         Consumable _consumable = (Consumable)inventory.getItem(index);
 
         if (_consumable != null) {
@@ -93,9 +93,8 @@ public final class Player extends Entity {
             healHP(_consumable.getBoostHP());
             recoverMP(_consumable.getBoostMP());
             temporaryDamageBoost = _consumable.getBoostDamage();
-            return true;
         }
-        return false;
+        return _consumable;
     }
 
     public int attack(Boss enemy) {

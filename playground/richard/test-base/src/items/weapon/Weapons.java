@@ -11,7 +11,8 @@ public final class Weapons {
             0, 
             0.05, 
             0.05, 
-            0.1
+            0.1,
+            "Made from a rotting magical tree, sometimes it backfires"
         ), 
 
         new Weapon(
@@ -21,7 +22,8 @@ public final class Weapons {
             30, 
             0.15, 
             0.2, 
-            1.5
+            1.5, 
+            "Made from a branch droped by the olsdest tree in the realm"
         )
     };
 
@@ -33,7 +35,8 @@ public final class Weapons {
             30,  
             0.05, 
             0.05, 
-            0.1
+            0.1,
+            "Its rustiness is a double edge sword, for you and for your enemies"
         ),
 
         new Weapon(
@@ -43,7 +46,8 @@ public final class Weapons {
             100,  
             0.15, 
             0.3, 
-            1.0
+            1.0, 
+            "Made to protect the realm against the invasion"
         )
     };
 
@@ -55,7 +59,8 @@ public final class Weapons {
             0, 
             0.05, 
             0.05, 
-            0.1
+            0.1, 
+            "An archer is made by their habilities not the weapon, but this one.. well.. be carefull"
         ),
 
         new Weapon(
@@ -65,7 +70,8 @@ public final class Weapons {
             50, 
             0.45, 
             0.3, 
-            1.2
+            1.2, 
+            "No enemy shall enter the realm, cause its unpredictable shots shall shot them all"
         )
     };
 

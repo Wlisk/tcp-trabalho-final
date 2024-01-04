@@ -4,7 +4,7 @@ import entities.Entity;
 import utils.Number;
 import utils.exceptions.NumberOverflowException;
 
-public class Boss extends Entity {
+public final class Boss extends Entity {
     private int expReward;
     private StateType currState;
     private double percentageDefend;
@@ -74,8 +74,6 @@ public class Boss extends Entity {
 
             // TODO: logic for
             case ATTACK_SUPER:
-                break;
-            case DEFEND_SUPER:
                 break;
 
             default: 

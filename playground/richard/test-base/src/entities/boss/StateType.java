@@ -5,7 +5,6 @@ public enum StateType {
     ATTACK,
     DEFEND, 
     ATTACK_SUPER,
-    DEFEND_SUPER,
     BERSERK,
     WEAK
 }

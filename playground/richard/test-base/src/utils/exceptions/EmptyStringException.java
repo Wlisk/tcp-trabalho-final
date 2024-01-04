@@ -1,6 +1,6 @@
 package utils.exceptions;
 
-public class EmptyStringException extends Exception { 
+public final class EmptyStringException extends Exception { 
     public EmptyStringException() {
         super("String passed is NULL");
     }

@@ -2,7 +2,7 @@ package utils;
 
 import java.util.Random;
 
-public class Randomic {
+public final class Randomic {
     private static final Random generator = new Random();
     private static int lastRandomInt = 0;
     private static double lastRandomDouble = 0.0;

@@ -9,10 +9,10 @@ public final class Weapon extends Item {
     public Weapon(
         WeaponType weaponType, String name, 
         int boostDamage, int boostDefense,
-        double boostAccuracy, double boostCritChance, double boostCritMultiplier
+        double boostAccuracy, double boostCritChance, double boostCritMultiplier, String description
     ) 
     {
-        super(ItemType.WEAPON, name);
+        super(ItemType.WEAPON, name, description);
         this.weaponType = weaponType;
 
         this.boostDamage = boostDamage;

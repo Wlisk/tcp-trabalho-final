@@ -12,7 +12,7 @@ import utils.exceptions.NumberOverflowException;
 import utils.exceptions.UnknownTypeException;
 
 public class Game {
-    private static final String WINDOW_TITLE = "BOSSFIGHTER";
+    public static final String WINDOW_TITLE = "BOSSFIGHTER";
 
     public static final int 
         WINDOW_WIDTH = 600, 
@@ -22,7 +22,7 @@ public class Game {
     private String playerName = "Test";
     private Player player;
 
-    private Boss currentBoss;
+    private Boss currBoss;
 
     private GameState gameState;
     private int score;
@@ -36,7 +36,7 @@ public class Game {
         gameState = GameState.MAIN_MENU;
 
         Bosses.resetBossNextCounter();
-        currentBoss = Bosses.getNextBoss();
+        currBoss = Bosses.getNextBoss();
 
         if(Bosses.getException() != null)
             throw Bosses.getException();
@@ -48,22 +48,22 @@ public class Game {
 
             switch(gameState) {
                 case MAIN_MENU:
-                    if (Buttons.PLAY_BUTTON.isPressed()) 
+                    if (Buttons.PLAY_BUTTON.isMousePressed()) 
                         gameState = GameState.SELECTING_CLASS;
-                    else if (Buttons.EXIT_BUTTON.isPressed()) 
+                    else if (Buttons.EXIT_BUTTON.isMousePressed()) 
                         gameState = GameState.GAME_END;
                     break;
 
                 case SELECTING_CLASS:
-                    if (Buttons.getClassButton(ClassType.MAGE).isPressed()) {
+                    if (Buttons.getClassButton(ClassType.MAGE).isMousePressed()) {
                         initializeNewGame(ClassType.MAGE);
                         gameState = GameState.BATTLE_START;
                     }
-                    else if (Buttons.getClassButton(ClassType.WARRIOR).isPressed()) {
+                    else if (Buttons.getClassButton(ClassType.WARRIOR).isMousePressed()) {
                         initializeNewGame(ClassType.WARRIOR);
                         gameState = GameState.BATTLE_START;
                     }  
-                    else if (Buttons.getClassButton(ClassType.ARCHER).isPressed()) {
+                    else if (Buttons.getClassButton(ClassType.ARCHER).isMousePressed()) {
                         initializeNewGame(ClassType.ARCHER);
                         gameState = GameState.BATTLE_START;
                     }
@@ -80,7 +80,7 @@ public class Game {
         player = new Player(playerName, playerClass);
 
         Bosses.resetBossNextCounter();
-        currentBoss = Bosses.getNextBoss();
+        currBoss = Bosses.getNextBoss();
         score = 0;
     }
 
@@ -95,7 +95,7 @@ public class Game {
 
     public GameState getGameState() { return gameState; }
     public Scene getScene() { return scene; }
-    public Boss getCurrentBoss() { return currentBoss; }
+    public Boss getCurrBoss() { return currBoss; }
     public Player getPlayer() { return player; }
     public int getScore() { return score; }
 }

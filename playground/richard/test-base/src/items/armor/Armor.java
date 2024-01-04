@@ -8,10 +8,10 @@ public final class Armor extends Item {
 
     public Armor(
         ArmorType armorType, String name, 
-        int boostDefense, int boostHP, int boostMP
+        int boostDefense, int boostHP, int boostMP, String description
     ) 
     {
-        super(ItemType.ARMOR, name);
+        super(ItemType.ARMOR, name, description);
         this.armorType = armorType;
 
         this.boostDefense = boostDefense;

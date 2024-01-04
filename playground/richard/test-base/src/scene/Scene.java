@@ -32,7 +32,7 @@ public class Scene {
     private static final Jaylib.Vector2[] SPRITE_POS = getSpritesPos();
     
     private final ArrayList<Jaylib.Texture> textures = 
-        new ArrayList<Jaylib.Texture>( ClassType.getNumClasses() );
+        new ArrayList<Jaylib.Texture>( ClassType.size() );
 
     private String windowTitle;
 
@@ -127,7 +127,7 @@ public class Scene {
 
     private static Jaylib.Vector2[] getSpritesPos() {
         float _distanceX = SPRITES_START_DISTANCEX;
-        final Jaylib.Vector2[] _spritesPos = new Jaylib.Vector2[ClassType.getNumClasses()];
+        final Jaylib.Vector2[] _spritesPos = new Jaylib.Vector2[ClassType.size()];
 
         for(final ClassType _classType: ClassType.values()) {
             _spritesPos[_classType.getIndex()] = new Jaylib.Vector2(

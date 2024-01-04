@@ -4,16 +4,15 @@ package entities.boss;
 import utils.exceptions.NumberOverflowException;
 //import utils.Number;
 
-public class Bosses {
+public final class Bosses {
     private static int bossNextCounter = 0;
-    private static Boss[] bossList = getBosses();
     private static NumberOverflowException err = null;
 
     private static Boss[] getBosses() {
         Boss[] _bosses = null;
 
         try {
-            Boss[] _tempBosses = {
+            final Boss[] _tempBosses = {
                 new Boss(
                     "Aragdhar", 
                     500,
@@ -53,9 +52,12 @@ public class Bosses {
 
         return _bosses;
     }
+
+    private final static Boss[] bossList = getBosses();
     
     public static Boss[] getBossList() { return bossList; }
     public static NumberOverflowException getException() { return err; }
+    public static int getQuantity() { return bossList.length; }
     
     public static Boss getNextBoss() { 
         if(bossNextCounter >= bossList.length) return null;

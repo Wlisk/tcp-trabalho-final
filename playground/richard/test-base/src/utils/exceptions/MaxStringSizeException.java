@@ -1,6 +1,6 @@
 package utils.exceptions;
 
-public class MaxStringSizeException extends Exception { 
+public final class MaxStringSizeException extends Exception { 
     public MaxStringSizeException() {
         super("Max String size reached!");
     }

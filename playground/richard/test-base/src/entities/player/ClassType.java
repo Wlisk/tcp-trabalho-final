@@ -19,19 +19,13 @@ public enum ClassType {
     public int getIndex() { return this.index; }
     public String getImageSrc() { return this.imageSrc; }
 
-
-    public static final int size;
+    private static final int size;
     static {
         size = values().length;
     }
-    
-    public static int getNumClasses() {
-        return size;
-    }
 
     public static String[] getStrings() {
-        final int numClasses = getNumClasses();
-        final String[] strings = new String[numClasses];
+        final String[] strings = new String[size];
 
         int i = 0;
         for(ClassType classType: values()) {
@@ -41,4 +35,6 @@ public enum ClassType {
 
         return strings;
     }
+
+    public static int size() { return size; }
 }

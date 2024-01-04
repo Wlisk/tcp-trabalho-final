@@ -10,16 +10,19 @@ import static com.raylib.Jaylib.CheckCollisionPointRec;
 import static com.raylib.Jaylib.IsMouseButtonDown;
 import static com.raylib.Jaylib.MOUSE_BUTTON_LEFT;
 
+import interfaces.IClickable;
 import interfaces.IDrawable;
+import interfaces.IMouseOverable;
 
-public class Button implements IDrawable {
+public class Button 
+implements IDrawable, IMouseOverable, IClickable 
+{
     private Rectangle rectangle;
     private Color buttonColor;
     private Color mouseOverColor;
     private String text;
     private float textSize;
     private Color textColor;
-    
 
     public Button(
         Rectangle rectangle, 
@@ -40,7 +43,7 @@ public class Button implements IDrawable {
         return CheckCollisionPointRec(mousePoint, rectangle);
     }
 
-    public boolean isPressed() {
+    public boolean isMousePressed() {
         return isMouseOver() && IsMouseButtonDown(MOUSE_BUTTON_LEFT);
     }
     
@@ -52,7 +55,6 @@ public class Button implements IDrawable {
     public float getTextSize() { return this.textSize; }
     public Color getTextColor() { return this.textColor; }
     
-    @Override
     public void draw() {
         Color _currColor = this.isMouseOver() ? mouseOverColor : buttonColor;
 

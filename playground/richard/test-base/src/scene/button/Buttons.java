@@ -23,7 +23,7 @@ public class Buttons {
         BUTTON_EXIT_POS_Y = WINDOW_HEIGHT * 0.75f,
         BUTTON_CLASS_SEL_POS_Y = WINDOW_HEIGHT * 0.8f;
 
-    private static final float CENTER_WIDTH = WINDOW_WIDTH / 2 - BUTTON_WIDTH / 2;
+    private static final float CENTER_WIDTH = (WINDOW_WIDTH / 2) - (BUTTON_WIDTH / 2);
 
 
     //*************************** PLAY BUTTON ***************************//
@@ -59,17 +59,15 @@ public class Buttons {
     );
 
     //*************************** PLAYER CLASS BUTTONS ***************************//
-    private static final int numClasses = ClassType.size;
-    private static String[] buttonsText = ClassType.getStrings();
-
     private static final float BUTTONS_START_DISTANCEX = 0.1f;
     private static final float BUTTONS_BETWEEN_DISTANCEX = 0.3f;
 
-    private static Button[] createButton() {
-        final Button[] _buttons = new Button[numClasses];
+    private static Button[] createClassButtons() {
+        final Button[] _buttons = new Button[ClassType.size()];
         float _distanceX = BUTTONS_START_DISTANCEX;
 
-        for(int i = 0; i < numClasses; ++i) {
+        int i = 0;
+        for(String _buttonText: ClassType.getStrings()) {
             final Rectangle _buttonClassSelRectangle = new Rectangle(
                 WINDOW_WIDTH * _distanceX, 
                 BUTTON_CLASS_SEL_POS_Y, 
@@ -77,11 +75,11 @@ public class Buttons {
                 (float)BUTTON_HEIGHT
             );
 
-            _buttons[i] = new Button(
+            _buttons[i++] = new Button(
                 _buttonClassSelRectangle, 
                 Jaylib.GRAY, Jaylib.
                 LIGHTGRAY, 
-                buttonsText[i], 
+                _buttonText, 
                 FONT_SIZE_BUTTONS, 
                 Jaylib.RED
             );
@@ -92,7 +90,7 @@ public class Buttons {
         return _buttons;
     }
 
-    public static final Button[] CLASS_BUTTONS = createButton();
+    public static final Button[] CLASS_BUTTONS = createClassButtons();
 
     public static Button getClassButton(ClassType classType) throws UnknownTypeException {
         switch(classType) {

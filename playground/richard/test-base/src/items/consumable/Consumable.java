@@ -9,9 +9,9 @@ public final class Consumable extends Item {
 
     public Consumable(
         ConsumableType consumableType, String name, 
-        int boostHP, int boostMP, int boostDamage
+        int boostHP, int boostMP, int boostDamage, String description
     ) {
-        super(ItemType.CONSUMABLE, name);
+        super(ItemType.CONSUMABLE, name, description);
         this.consumableType = consumableType;
 
         this.boostHP = boostHP;

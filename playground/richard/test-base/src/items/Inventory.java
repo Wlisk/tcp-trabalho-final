@@ -7,7 +7,7 @@ import items.consumable.Consumables;
 import items.weapon.Weapon;
 
 public final class Inventory {
-    private static final int MAX_ITEMS = 5;
+    public static final int MAX_ITEMS = 5;
 
     private Weapon equipedWeapon;
     private Armor equipedArmor;
@@ -63,9 +63,8 @@ public final class Inventory {
 
     public Item getItem(int index) { return items.get(index); }
     public boolean isFull() { return items.size() >= MAX_ITEMS; }
-    public int quantity() { return items.size(); }
+    public int size() { return items.size(); }
 
     public Armor getEquipedArmor() { return equipedArmor; }
     public Weapon getEquipedWeapon() { return equipedWeapon; }
-    public static int getMaxItems() { return MAX_ITEMS; }
 }
