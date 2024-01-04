@@ -1,9 +1,9 @@
 package entities.player;
 
 public enum ClassType {
-    MAGE("Mage", 0, "src/resources/sprites/classes/mage.png"), 
-    WARRIOR("Warrior", 1, "src/resources/sprites/classes/warrior.png"), 
-    ARCHER("Archer", 2, "src/resources/sprites/classes/ranger.png");
+    MAGE("Mage", 0, "resources/sprites/classes/mage.png"), 
+    WARRIOR("Warrior", 1, "resources/sprites/classes/warrior.png"), 
+    ARCHER("Archer", 2, "resources/sprites/classes/ranger.png");
 
     private final String classTypeName;
     private final int index;
@@ -13,6 +13,10 @@ public enum ClassType {
         this.classTypeName = classTypeName;
         this.index = index;
         this.imageSrc = imageSrc;
+    }
+
+    static {
+        System.out.println("$DIR" + System.getProperty("user.dir"));
     }
 
     public String getTypeName() { return this.classTypeName; }

@@ -24,8 +24,8 @@ public final class Player extends Entity {
     private int level;
     private int exp;
     private int expToLevel = 0;
-    private Inventory inventory;
-    private ClassType classType;
+    private final Inventory inventory;
+    private final ClassType classType;
     private int temporaryDamageBoost;
 
     public Player(String name, ClassType classType) throws UnknownTypeException {
@@ -35,6 +35,7 @@ public final class Player extends Entity {
         exp = 0;
         expToLevel = calcExpToLevel(level);
         temporaryDamageBoost = 0;
+        inventory = new Inventory();
 
         this.classType = ClassTypeUtil.setClassType(classType);
 
@@ -47,6 +48,9 @@ public final class Player extends Entity {
         setBaseCritChance( ClassTypeUtil.getCritChance() );
         setBaseCritMultiplier( ClassTypeUtil.getCritMultiplier() );
         setBaseAccuracy( ClassTypeUtil.getAccuracy() );
+
+        inventory.setEquipedArmor( ClassTypeUtil.getInitialArmor() );
+        inventory.setEquipedWeapon( ClassTypeUtil.getInitialWeapon() );
     }
 
     public int receiveExp(int gainedExp) throws NumberOverflowException {
@@ -86,10 +90,9 @@ public final class Player extends Entity {
     }
 
     public Consumable useConsumable(int index) {
-        Consumable _consumable = (Consumable)inventory.getItem(index);
+        Consumable _consumable = inventory.use(index);
 
         if (_consumable != null) {
-            inventory.remove(index);
             healHP(_consumable.getBoostHP());
             recoverMP(_consumable.getBoostMP());
             temporaryDamageBoost = _consumable.getBoostDamage();

@@ -1,6 +1,6 @@
 import com.raylib.Jaylib;
-import game.Game;
 
+import game.Game;
 import utils.exceptions.NumberOverflowException;
 import utils.exceptions.UnknownTypeException;
 

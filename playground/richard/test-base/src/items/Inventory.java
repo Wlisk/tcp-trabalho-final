@@ -3,6 +3,7 @@ package items;
 import java.util.ArrayList;
 
 import items.armor.Armor;
+import items.consumable.Consumable;
 import items.consumable.Consumables;
 import items.weapon.Weapon;
 
@@ -25,7 +26,6 @@ public final class Inventory {
     }
 
     public Item remove(int index) {
-        if(getItem(index) == null) return null;
         return items.remove(index);
     }
 
@@ -47,18 +47,18 @@ public final class Inventory {
 
         else return null;
 
-        items.remove(index);
+        remove(index);
         return _selectedItem;
     }
 
-    public Item use(int index) {
+    public Consumable use(int index) {
         Item _selectedItem = getItem(index);
         if(_selectedItem == null) return null;
 
         if(_selectedItem.getItemType() != ItemType.CONSUMABLE) return null;
 
-        items.remove(index);
-        return _selectedItem;
+        remove(index);
+        return (Consumable)_selectedItem;
     }
 
     public Item getItem(int index) { return items.get(index); }
@@ -67,4 +67,11 @@ public final class Inventory {
 
     public Armor getEquipedArmor() { return equipedArmor; }
     public Weapon getEquipedWeapon() { return equipedWeapon; }
+
+    public void setEquipedArmor(Armor equipedArmor) {
+        this.equipedArmor = equipedArmor;
+    }
+    public void setEquipedWeapon(Weapon equipedWeapon) {
+        this.equipedWeapon = equipedWeapon;
+    }
 }

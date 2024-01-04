@@ -56,15 +56,15 @@ public class Game {
 
                 case SELECTING_CLASS:
                     if (Buttons.getClassButton(ClassType.MAGE).isMousePressed()) {
-                        initializeNewGame(ClassType.MAGE);
+                        newGame(ClassType.MAGE);
                         gameState = GameState.BATTLE_START;
                     }
                     else if (Buttons.getClassButton(ClassType.WARRIOR).isMousePressed()) {
-                        initializeNewGame(ClassType.WARRIOR);
+                        newGame(ClassType.WARRIOR);
                         gameState = GameState.BATTLE_START;
                     }  
                     else if (Buttons.getClassButton(ClassType.ARCHER).isMousePressed()) {
-                        initializeNewGame(ClassType.ARCHER);
+                        newGame(ClassType.ARCHER);
                         gameState = GameState.BATTLE_START;
                     }
 
@@ -76,7 +76,7 @@ public class Game {
 
     }
 
-    public void initializeNewGame(ClassType playerClass) throws UnknownTypeException {
+    public void newGame(ClassType playerClass) throws UnknownTypeException {
         player = new Player(playerName, playerClass);
 
         Bosses.resetBossNextCounter();
