@@ -61,7 +61,11 @@ src/items/weapon/*.java \
 src/scene/*.java \
 src/scene/button/*.java \
 src/utils/*.java \
-src/exceptions/*.java;
+src/exceptions/*.java \
+src/scene/bars/*.java \
+src/scene/textbox/*.java \
+src/scene/sprite/*.java \
+src/scene/statbox/*.java;
 ```
 
 ## Windows
@@ -82,7 +86,11 @@ src/items/weapon/*.java \
 src/scene/*.java \
 src/scene/button/*.java \
 src/utils/*.java \
-src/exceptions/*.java;
+src/exceptions/*.java \
+src/scene/bars/*.java \
+src/scene/textbox/*.java \
+src/scene/sprite/*.java \
+src/scene/statbox/*.java;
 ```
 
 ### Win Execution
