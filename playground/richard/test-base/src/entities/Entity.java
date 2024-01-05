@@ -1,9 +1,9 @@
 package entities;
 
-import utils.exceptions.MaxStringSizeException;
-import utils.exceptions.EmptyStringException;
-import utils.exceptions.NumberOverflowException;
 import utils.Text;
+import exceptions.EmptyStringException;
+import exceptions.MaxStringSizeException;
+import exceptions.NumberOverflowException;
 import utils.Randomic;
 
 // TODO: setters must be completed with guard statements

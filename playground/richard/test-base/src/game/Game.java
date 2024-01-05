@@ -6,10 +6,10 @@ import entities.boss.Boss;
 import entities.boss.Bosses;
 import entities.player.ClassType;
 import entities.player.Player;
+import exceptions.NumberOverflowException;
+import exceptions.UnknownTypeException;
 import scene.Scene;
 import scene.button.Buttons;
-import utils.exceptions.NumberOverflowException;
-import utils.exceptions.UnknownTypeException;
 
 public class Game {
     public static final String WINDOW_TITLE = "BOSSFIGHTER";
@@ -42,9 +42,23 @@ public class Game {
             throw Bosses.getException();
     }
 
+    private static GameState gameStateCache = null;
+    private static void setWindowTitle(GameState gameState) {
+        if(gameStateCache == gameState) return;
+        gameStateCache = gameState;
+        
+        String _stateString = gameState.toString();
+
+        String _titleString = (_stateString.length() > 0) ? 
+            (WINDOW_TITLE + ": " + _stateString) : WINDOW_TITLE;
+
+        Jaylib.SetWindowTitle( _titleString );
+    }
+
     public void gameLoop() throws UnknownTypeException {
         while (!Jaylib.WindowShouldClose() && gameState != GameState.GAME_END) {
             scene.drawWindow(gameState);
+            setWindowTitle(gameState);
 
             switch(gameState) {
                 case MAIN_MENU:
@@ -57,20 +71,20 @@ public class Game {
                 case SELECTING_CLASS:
                     if (Buttons.getClassButton(ClassType.MAGE).isMousePressed()) {
                         newGame(ClassType.MAGE);
-                        gameState = GameState.BATTLE_START;
                     }
                     else if (Buttons.getClassButton(ClassType.WARRIOR).isMousePressed()) {
                         newGame(ClassType.WARRIOR);
-                        gameState = GameState.BATTLE_START;
                     }  
                     else if (Buttons.getClassButton(ClassType.ARCHER).isMousePressed()) {
                         newGame(ClassType.ARCHER);
-                        gameState = GameState.BATTLE_START;
                     }
+                    break;
 
+                case BATTLE_START:
                     break;
                     
-                default: break;
+                default: 
+                    break;
             }
         }
 
@@ -82,6 +96,8 @@ public class Game {
         Bosses.resetBossNextCounter();
         currBoss = Bosses.getNextBoss();
         score = 0;
+
+        gameState = GameState.BATTLE_START;
     }
 
     public void sceneLoad() {

@@ -1,8 +1,8 @@
 package entities.boss;
 
 import entities.Entity;
+import exceptions.NumberOverflowException;
 import utils.Number;
-import utils.exceptions.NumberOverflowException;
 
 public final class Boss extends Entity {
     private int expReward;
@@ -108,9 +108,4 @@ public final class Boss extends Entity {
         // attacks with super when MP greater then X%?
         return false; 
     }
-    // There is a need for DefendSuper?
-    /*private boolean reachedStateDefendSuper() { 
-        // defends super when enemy MP greater then x%?
-        return false; 
-    }*/
 }

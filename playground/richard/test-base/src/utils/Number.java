@@ -1,6 +1,6 @@
 package utils;
 
-import utils.exceptions.NumberOverflowException;
+import exceptions.NumberOverflowException;
 
 public final class Number {
     public static final double MIN_PERCENTAGE = 0.0;

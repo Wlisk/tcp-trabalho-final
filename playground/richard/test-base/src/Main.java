@@ -1,8 +1,8 @@
 import com.raylib.Jaylib;
 
+import exceptions.NumberOverflowException;
+import exceptions.UnknownTypeException;
 import game.Game;
-import utils.exceptions.NumberOverflowException;
-import utils.exceptions.UnknownTypeException;
 
 public class Main {
     public static void main(String args[])

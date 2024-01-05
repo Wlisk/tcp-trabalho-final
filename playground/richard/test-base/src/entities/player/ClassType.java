@@ -15,9 +15,9 @@ public enum ClassType {
         this.imageSrc = imageSrc;
     }
 
-    static {
+    /*static {
         System.out.println("$DIR" + System.getProperty("user.dir"));
-    }
+    }*/
 
     public String getTypeName() { return this.classTypeName; }
     public int getIndex() { return this.index; }
@@ -33,8 +33,7 @@ public enum ClassType {
 
         int i = 0;
         for(ClassType classType: values()) {
-            strings[i] = classType.toString();
-            ++i;
+            strings[i++] = classType.toString();
         }
 
         return strings;

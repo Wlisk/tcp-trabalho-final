@@ -34,16 +34,16 @@ public class Scene {
     private final ArrayList<Jaylib.Texture> textures = 
         new ArrayList<Jaylib.Texture>( ClassType.size() );
 
-    private String windowTitle;
+    private String gameTitle;
 
     public Scene() {
-        windowTitle = null;
+        gameTitle = null;
     }
 
-    public void initializeWindow(String windowTitle) {
-        Jaylib.InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, windowTitle);
+    public void initializeWindow(String gameTitle) {
+        Jaylib.InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, gameTitle);
         Jaylib.SetTargetFPS(FPS);
-        this.windowTitle = windowTitle;
+        this.gameTitle = gameTitle;
     }
 
     public void loadTextures() {
@@ -84,10 +84,10 @@ public class Scene {
 
     private void drawMainMenu() {
         final int _textCenterPosX = 
-            (WINDOW_WIDTH / 2) - (Jaylib.MeasureText(windowTitle, FONT_SIZE_TITLE) / 2); 
+            (WINDOW_WIDTH / 2) - (Jaylib.MeasureText(gameTitle, FONT_SIZE_TITLE) / 2); 
 
         Jaylib.DrawText(
-            windowTitle, 
+            gameTitle, 
             _textCenterPosX, 
             TITLE_TEXT_POS_Y, 
             FONT_SIZE_TITLE, 

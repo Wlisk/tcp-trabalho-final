@@ -5,8 +5,8 @@ import com.raylib.Jaylib.Rectangle;
 
 import entities.player.ClassType;
 import entities.player.ClassTypeUtil;
+import exceptions.UnknownTypeException;
 import game.Game;
-import utils.exceptions.UnknownTypeException;
 
 public class Buttons {
     private static final int 

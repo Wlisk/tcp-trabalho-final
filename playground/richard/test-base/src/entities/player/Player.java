@@ -2,10 +2,10 @@ package entities.player;
 
 import entities.Entity;
 import entities.boss.Boss;
+import exceptions.NumberOverflowException;
+import exceptions.UnknownTypeException;
 import items.Inventory;
 import items.consumable.Consumable;
-import utils.exceptions.NumberOverflowException;
-import utils.exceptions.UnknownTypeException;
 
 public final class Player extends Entity {
     // Warrior: 1000HP, 200MP, 50DEF, 85DMG, 0.8ACC

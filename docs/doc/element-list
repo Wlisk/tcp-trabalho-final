@@ -2,6 +2,7 @@ unnamed package
 entities
 entities.boss
 entities.player
+exceptions
 game
 interfaces
 items
@@ -11,4 +12,3 @@ items.weapon
 scene
 scene.button
 utils
-utils.exceptions

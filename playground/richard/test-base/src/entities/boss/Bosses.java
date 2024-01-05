@@ -1,8 +1,6 @@
 package entities.boss;
 
-//import entities.boss.Boss;
-import utils.exceptions.NumberOverflowException;
-//import utils.Number;
+import exceptions.NumberOverflowException;
 
 public final class Bosses {
     private static int bossNextCounter = 0;
@@ -55,9 +53,9 @@ public final class Bosses {
 
     private final static Boss[] bossList = getBosses();
     
-    public static Boss[] getBossList() { return bossList; }
     public static NumberOverflowException getException() { return err; }
     public static int getQuantity() { return bossList.length; }
+    public static int getCounter() { return bossNextCounter; }
     
     public static Boss getNextBoss() { 
         if(bossNextCounter >= bossList.length) return null;

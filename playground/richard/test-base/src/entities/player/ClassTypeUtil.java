@@ -1,6 +1,6 @@
 package entities.player;
 
-import utils.exceptions.UnknownTypeException;
+import exceptions.UnknownTypeException;
 import items.armor.Armor;
 import items.armor.Armors;
 import items.weapon.Weapon;
