@@ -6,11 +6,16 @@ Tarefas concluídas e ainda a serem feitas no projeto.
 
 ### Tarefas
 
+(Richard)
+
 - [ ] implementar class Sprite
   - [ ] pegar imagem e subdividir em partes
   - [ ] implementar metodo nextSprite()
   - [ ] menu de selecao com sprites/imagens animadas (se movendo)
   - [ ] criar interface ISpritable
+  - [ ] criar propriedade sprites em cada classe spritable
+    - [ ] class Player
+    - [ ] class Boss
 
 ---
 
