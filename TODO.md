@@ -166,13 +166,13 @@ Tarefas concluídas e ainda a serem feitas no projeto.
 
 ---
 
-- [ ] implementar barras
-  - [ ] barra de vida
-    - [ ] do Player
-    - [ ] do Boss
-  - [ ] barra de mana
-    - [ ] do Player
-    - [ ] do Boss
+- [x] implementar barras
+  - [x] barra de vida
+    - [x] do Player
+    - [x] do Boss
+  - [x] barra de mana
+    - [x] do Player
+    - [x] do Boss
 
 ---
 

@@ -10,9 +10,11 @@ import exceptions.NumberOverflowException;
 import exceptions.UnknownTypeException;
 import scene.Scene;
 import scene.button.Buttons;
+import scene.textbox.TextBoxes;
 
 public class Game {
     public static final String WINDOW_TITLE = "BOSSFIGHTER";
+    public static final int BATTLE_START_DELAY = 2;
 
     public static final int 
         WINDOW_WIDTH = 600, 
@@ -27,6 +29,7 @@ public class Game {
     private GameState gameState;
     private int score;
     private Scene scene;
+    private int battleStartTimer;
 
     public Game() throws NumberOverflowException {
         player = null;
@@ -62,25 +65,13 @@ public class Game {
 
             switch(gameState) {
                 case MAIN_MENU:
-                    if (Buttons.PLAY_BUTTON.isMousePressed()) 
-                        gameState = GameState.SELECTING_CLASS;
-                    else if (Buttons.EXIT_BUTTON.isMousePressed()) 
-                        gameState = GameState.GAME_END;
+                    mainMenu();
                     break;
-
                 case SELECTING_CLASS:
-                    if (Buttons.getClassButton(ClassType.MAGE).isMousePressed()) {
-                        newGame(ClassType.MAGE);
-                    }
-                    else if (Buttons.getClassButton(ClassType.WARRIOR).isMousePressed()) {
-                        newGame(ClassType.WARRIOR);
-                    }  
-                    else if (Buttons.getClassButton(ClassType.ARCHER).isMousePressed()) {
-                        newGame(ClassType.ARCHER);
-                    }
+                    selectingClass();
                     break;
-
                 case BATTLE_START:
+                    battleStart();
                     break;
                     
                 default: 
@@ -89,6 +80,39 @@ public class Game {
         }
 
     }
+
+    public void mainMenu(){
+        if (Buttons.PLAY_BUTTON.isMousePressed()) 
+            gameState = GameState.SELECTING_CLASS;
+        else if (Buttons.EXIT_BUTTON.isMousePressed()) 
+            gameState = GameState.GAME_END;
+    }
+
+    public void selectingClass() throws UnknownTypeException {
+        if (Buttons.getClassButton(ClassType.MAGE).isMousePressed()) {
+            newGame(ClassType.MAGE);
+            battleStartTimer = BATTLE_START_DELAY * FPS; 
+            TextBoxes.TEXTBOX.newMessage(TextBoxes.BATTLE_START, battleStartTimer);
+            gameState = GameState.BATTLE_START;
+        } else if (Buttons.getClassButton(ClassType.WARRIOR).isMousePressed()) {
+            newGame(ClassType.WARRIOR);
+            battleStartTimer = BATTLE_START_DELAY * FPS; 
+            TextBoxes.TEXTBOX.newMessage(TextBoxes.BATTLE_START, battleStartTimer);
+            gameState = GameState.BATTLE_START;
+        }  else if (Buttons.getClassButton(ClassType.ARCHER).isMousePressed()) {
+            newGame(ClassType.ARCHER);
+            battleStartTimer = BATTLE_START_DELAY * FPS; 
+            TextBoxes.TEXTBOX.newMessage(TextBoxes.BATTLE_START, battleStartTimer);
+            gameState = GameState.BATTLE_START;
+        }
+    }
+
+    public void battleStart(){
+        if (battleStartTimer-- == 0){
+            gameState = GameState.TURN_START;
+        }
+    }
+
 
     public void newGame(ClassType playerClass) throws UnknownTypeException {
         player = new Player(playerName, playerClass);
