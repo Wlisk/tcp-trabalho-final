@@ -23,14 +23,17 @@ public class TextBoxes {
         BOX_POS_Y = WINDOW_HEIGHT / 2 - BOX_HEIGHT / 2;
 
     private static final Rectangle
-        TEXTBOX_REC = new Rectangle(BOX_POS_X, BOX_POS_Y, BOX_WIDTH, BOX_HEIGHT);
+        ALERT_TEXTBOX_REC = new Rectangle(BOX_POS_X, BOX_POS_Y, BOX_WIDTH, BOX_HEIGHT);
+
     
     public static final TextBox
-        TEXTBOX = new TextBox(TEXTBOX_REC, FONT_SIZE, BORDER_SIZE, Jaylib.WHITE, Jaylib.BLACK, Jaylib.WHITE);
+        ALERT_TEXTBOX = new TextBox(ALERT_TEXTBOX_REC, FONT_SIZE, BORDER_SIZE, Jaylib.WHITE, Jaylib.BLACK, Jaylib.WHITE);
 
     public static final String
         BATTLE_START = "FIGHT!",
         PLAYER_HIT = "ENEMY HIT FOR ",
         BOSS_HIT = "YOU WERE HIT FOR ";
+
+    
 
 }

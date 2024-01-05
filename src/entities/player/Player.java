@@ -48,7 +48,7 @@ public final class Player extends Entity {
         setBaseCritChance( ClassTypeUtil.getCritChance() );
         setBaseCritMultiplier( ClassTypeUtil.getCritMultiplier() );
         setBaseAccuracy( ClassTypeUtil.getAccuracy() );
-
+        
         inventory.setEquipedArmor( ClassTypeUtil.getInitialArmor() );
         inventory.setEquipedWeapon( ClassTypeUtil.getInitialWeapon() );
     }

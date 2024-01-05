@@ -4,9 +4,7 @@ import exceptions.NumberOverflowException;
 
 /**
  * Class with static properties and methods to manage number limitations 
- * throwing errors in case the limits are passed.
- * <p>
- * Notice that it's not intended to be instantiated.
+ * throwing errors in case the limits are passed
  * @see exceptions.NumberOverflowException
  */
 public final class Number {

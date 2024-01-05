@@ -4,11 +4,14 @@ import com.raylib.Jaylib;
 import java.util.ArrayList;
 
 import game.GameState;
+import entities.boss.Boss;
+import entities.player.Player;
 import game.Game;
 import scene.button.Button;
 import scene.button.Buttons;
 import entities.player.ClassType;
 import scene.textbox.TextBoxes;
+import scene.statbox.Statboxes;
 
 public class Scene {
     private static final int 
@@ -61,7 +64,7 @@ public class Scene {
         }
     }
 
-    public void drawWindow(GameState gameState) {
+    public void drawWindow(GameState gameState, Player player, Boss currBoss) {
         Jaylib.BeginDrawing();
         Jaylib.ClearBackground(Jaylib.BLACK);
 
@@ -73,13 +76,16 @@ public class Scene {
                 drawClassSelections();
                 break;
             case BATTLE_START:
+                drawBattleStart();
                 break;
             case TURN_START:
+                drawTurnStart(player, currBoss);
                 break;
 
             default: break;
         }
-        TextBoxes.TEXTBOX.draw();
+
+        TextBoxes.ALERT_TEXTBOX.draw();
 
         Jaylib.EndDrawing();
     }
@@ -125,6 +131,15 @@ public class Scene {
         for(final Button _button: Buttons.CLASS_BUTTONS) {
             _button.draw();
         }
+    }
+
+    private void drawBattleStart(){
+
+    }
+
+    private void drawTurnStart(Player player, Boss currBoss){
+        Statboxes.PLAYER_STATBOX.draw(player);
+        Statboxes.BOSS_STATBOX.draw(currBoss);
     }
 
     private static Jaylib.Vector2[] getSpritesPos() {

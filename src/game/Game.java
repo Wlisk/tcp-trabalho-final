@@ -60,7 +60,7 @@ public class Game {
 
     public void gameLoop() throws UnknownTypeException {
         while (!Jaylib.WindowShouldClose() && gameState != GameState.GAME_END) {
-            scene.drawWindow(gameState);
+            scene.drawWindow(gameState, player, currBoss);
             setWindowTitle(gameState);
 
             switch(gameState) {
@@ -72,6 +72,9 @@ public class Game {
                     break;
                 case BATTLE_START:
                     battleStart();
+                    break;
+                case TURN_START:
+                    turnStart();
                     break;
                     
                 default: 
@@ -92,17 +95,17 @@ public class Game {
         if (Buttons.getClassButton(ClassType.MAGE).isMousePressed()) {
             newGame(ClassType.MAGE);
             battleStartTimer = BATTLE_START_DELAY * FPS; 
-            TextBoxes.TEXTBOX.newMessage(TextBoxes.BATTLE_START, battleStartTimer);
+            TextBoxes.ALERT_TEXTBOX.newMessage(TextBoxes.BATTLE_START, battleStartTimer);
             gameState = GameState.BATTLE_START;
         } else if (Buttons.getClassButton(ClassType.WARRIOR).isMousePressed()) {
             newGame(ClassType.WARRIOR);
             battleStartTimer = BATTLE_START_DELAY * FPS; 
-            TextBoxes.TEXTBOX.newMessage(TextBoxes.BATTLE_START, battleStartTimer);
+            TextBoxes.ALERT_TEXTBOX.newMessage(TextBoxes.BATTLE_START, battleStartTimer);
             gameState = GameState.BATTLE_START;
         }  else if (Buttons.getClassButton(ClassType.ARCHER).isMousePressed()) {
             newGame(ClassType.ARCHER);
             battleStartTimer = BATTLE_START_DELAY * FPS; 
-            TextBoxes.TEXTBOX.newMessage(TextBoxes.BATTLE_START, battleStartTimer);
+            TextBoxes.ALERT_TEXTBOX.newMessage(TextBoxes.BATTLE_START, battleStartTimer);
             gameState = GameState.BATTLE_START;
         }
     }
@@ -111,6 +114,10 @@ public class Game {
         if (battleStartTimer-- == 0){
             gameState = GameState.TURN_START;
         }
+    }
+
+    public void turnStart(){
+        
     }
 
 
