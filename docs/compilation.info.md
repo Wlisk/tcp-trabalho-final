@@ -47,7 +47,7 @@ java -cp lib/*:out:. Main
 
 ```console
 javadoc -cp lib/*:. \
--d ../../../docs/doc \
+-d docs/doc \
 -sourcepath . src/Main.java \
 src/entities/*.java \
 src/entities/player/*.java \
