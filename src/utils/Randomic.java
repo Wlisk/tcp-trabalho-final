@@ -3,7 +3,9 @@ package utils;
 import java.util.Random;
 
 /**
- * Class with static properties and methods to get random numbers
+ * Class with static properties and methods to get random numbers.
+ * <p>
+ * Notice that it's not intended to be instantiated.
  * @see java.util.Random
  */
 public final class Randomic {
