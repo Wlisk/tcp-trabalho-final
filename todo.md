@@ -12,6 +12,8 @@ Tarefas concluídas e ainda a serem feitas no projeto.
   - [ ] menu de selecao com sprites/imagens animadas (se movendo)
   - [ ] criar interface ISpritable
 
+---
+
 - [ ] criar cenas do jogo
   - [x] MAIN_MENU
   - [x] SELECTING_CLASS
@@ -24,8 +26,12 @@ Tarefas concluídas e ainda a serem feitas no projeto.
   - [ ] TURN_END
   - [ ] BATTLE_END
 
+---
+
 - [ ] implementar acoes usando teclado
   - [ ] selecionar botoes menu inicial com teclado
+
+---
 
 - [ ] criar testes para todas as classes
   - [ ] testar classes em entities/
@@ -40,10 +46,14 @@ Tarefas concluídas e ainda a serem feitas no projeto.
     - [ ] em scene/button
   - [ ] testar classes em utils/
 
+---
+
 - [ ] implementar sons de jogo
   - [ ] sons ao selecionar, passar mouse por botoes do jogo
   - [ ] musica de fundo menu inicial e selecao
   - [ ] musica de fundo para os bosses
+
+---
 
 - [ ] implementar batalhas Player vs Boss
   - [ ] implementar jogada de turnos
@@ -57,6 +67,8 @@ Tarefas concluídas e ainda a serem feitas no projeto.
   - [ ] implementar logica de defesa nas batalhas
     - [ ] se Player estiver defendendo nao pode atacar
     - [ ] se Boss estiver defendendo nao pode atacar
+
+---
 
 - [ ] setar interfaces e implementar seus devidos códigos
   - [] para class Button
@@ -81,7 +93,11 @@ Tarefas concluídas e ainda a serem feitas no projeto.
     - [ ] IDrawable
     - [ ] IMouseOverable: mostrar descricao e estatistica
 
+---
+
 - [ ] caixa de texto para jogador colocar/setar o nome
+
+---
 
 - [ ] implementar estado do jogo
   - [x] MAIN_MENU
@@ -96,34 +112,54 @@ Tarefas concluídas e ainda a serem feitas no projeto.
   - [ ] BATTLE_END
   - [x] GAME_END
 
+---
+
 - [ ] criar logica do score do jogador
+
+---
 
 - [ ] criar logica para drop de items
   - [ ] criar novos items
   - [ ] selecionar de uma lista de items um item randomicamente
+
+---
 
 - [ ] implementar classe Super
   - [ ] implementar super para o Player
   - [ ] implementar super para o Boss
   - [ ] implementar caixa de selecao de supers para o Player
 
+---
+
 - [ ] implementar callbacks para butoes e outros clicaveis
   - [ ] quando botao clicado aciona um callback (funcao)
   - [ ] adicionar callback em Iclickable
 
+---
+
 - [ ] implementar posicao (Vector2D) em todos os items que aparecem graficamente
+
+---
 
 - [ ] conferir e implementar codigo de setters
   - [ ] setters definidos devem ser protegidos com 'guard statements'
   - [ ] verificar e proteger setters em class Entity
 
+---
+
 - [ ] implementar bloco grafico de visualizacao de estatisticas do jogador
   - [ ] desenhar em canto especifico das laterais
   - [ ] apresenta dados corrente do Player
 
+---
+
 - [ ] implementar logica de itens que geram buff/debuff overtime (por X turnos)
 
+---
+
 - [ ] implementar logica de attackSuper() da class Entity
+
+---
 
 - [ ] implementar barras
   - [ ] barra de vida
@@ -133,11 +169,17 @@ Tarefas concluídas e ainda a serem feitas no projeto.
     - [ ] do Player
     - [ ] do Boss
 
+---
+
 - [ ] parte grafica da class Inventory
   - [ ] desenhar equipamentos equipados
   - [ ] desenhar itens no inventario
 
+---
+
 - [ ] apresentar/desenhar relacao entre quantidade de Boss e o indice do Boss corrente
+
+---
 
 - [ ] criar e implementar detalhes para que itens tenham dados 'corretos'
   - [ ] detalhes de bosses
@@ -145,7 +187,11 @@ Tarefas concluídas e ainda a serem feitas no projeto.
   - [ ] detalhes de armaduras
   - [ ] detalhes de consumiveis
 
+---
+
 - [ ] apresentar estatisticas basicas das classes no menu de selecao de classes
+
+---
 
 - [ ] criar e implementar logica de estados (FSM) para o Boss
   - [ ] estados podem trocar a cada turno
@@ -173,3 +219,20 @@ Tarefas concluídas e ainda a serem feitas no projeto.
     - [ ] setStateBerserk()
     - [ ] setStateWeak()
     - [ ] setStateAttackSuper()
+
+---
+
+- [ ] escrever comentarios estilo jsdoc para documentar projeto
+  - [ ]  documentar classes em entities/
+    - [ ] documentar classes em entities/boss
+    - [ ] documentar classes em entities/player
+  - [ ] documentar classes em exceptions/
+  - [ ] documentar classes em game/
+  - [ ] documentar classes em interfaces/
+  - [ ] documentar classes em items/
+    - [ ] documentar classes em items/armor
+    - [ ] documentar classes em items/consumable
+    - [ ] documentar classes em items/weapon
+  - [ ] documentar classes em scene/
+    - [ ] documentar classes em scene/button
+  - [ ] documentar classes em utils/
