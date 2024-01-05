@@ -2,7 +2,7 @@
 
 Tarefas concluídas e ainda a serem feitas no projeto.
 
-##
+## &nbsp;
 
 ### Tarefas
 

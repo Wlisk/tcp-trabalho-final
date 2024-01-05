@@ -18,7 +18,7 @@ cd project
 
 ## LINUX
 
-### Compilation
+### Lnx Compilation
 
 ```console
 javac -cp lib/*:. -d out -sourcepath . src/Main.java \
@@ -37,17 +37,17 @@ src/utils/*.java \
 src/exceptions/*.java;
 ```
 
-### Execution
+### Lnx Execution
 
 ```console
 java -cp lib/*:out:. Main
 ```
 
-### Documentation
+### Lnx Documentation
 
 ```console
 javadoc -cp lib/*:. \
--d ../../../docs/doc \
+-d docs/doc \
 -sourcepath . src/Main.java \
 src/entities/*.java \
 src/entities/player/*.java \
@@ -66,7 +66,7 @@ src/exceptions/*.java;
 
 ## Windows
 
-### Compilation
+### Win Compilation
 
 ```console
 javac -cp lib/*;. -d out -sourcepath . src/Main.java \
@@ -85,7 +85,7 @@ src/utils/*.java \
 src/exceptions/*.java;
 ```
 
-### Execution
+### Win Execution
 
 ```console
 java -cp lib/*;out;. Main
