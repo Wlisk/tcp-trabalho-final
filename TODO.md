@@ -151,7 +151,7 @@ Tarefas concluídas e ainda a serem feitas no projeto.
   - [ ] verificar e proteger setters em class Entity
 
 ---
-
+(Francisco)
 - [ ] implementar bloco grafico de visualizacao de estatisticas do jogador
   - [ ] desenhar em canto especifico das laterais
   - [ ] apresenta dados corrente do Player
