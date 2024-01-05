@@ -8,6 +8,7 @@ import game.Game;
 import scene.button.Button;
 import scene.button.Buttons;
 import entities.player.ClassType;
+import scene.textbox.TextBoxes;
 
 public class Scene {
     private static final int 
@@ -68,16 +69,17 @@ public class Scene {
             case MAIN_MENU:
                 drawMainMenu();
                 break;
-
             case SELECTING_CLASS:
                 drawClassSelections();
                 break;
-
+            case BATTLE_START:
+                break;
             case TURN_START:
                 break;
 
             default: break;
         }
+        TextBoxes.TEXTBOX.draw();
 
         Jaylib.EndDrawing();
     }
