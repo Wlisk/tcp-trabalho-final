@@ -222,7 +222,9 @@ Tarefas concluídas e ainda a serem feitas no projeto.
 
 ---
 
-- [ ] escrever comentarios estilo jsdoc para documentar projeto
+(Richard)
+
+- [ ] escrever comentarios/anotacoes jsdoc para documentar projeto
   - [ ]  documentar classes em entities/
     - [ ] documentar classes em entities/boss
     - [ ] documentar classes em entities/player
@@ -235,12 +237,12 @@ Tarefas concluídas e ainda a serem feitas no projeto.
     - [ ] documentar classes em items/weapon
   - [ ] documentar classes em scene/
     - [ ] documentar classes em scene/button
-  - [ ] documentar classes em utils/
- 
+  - [x] documentar classes em utils/
+
 ---
 
- - [ ] implementar logica de turnos
-   - [ ] logica de regeneracao de mana ao longo dos turnos
+- [ ] implementar logica de turnos
+  - [ ] logica de regeneracao de mana ao longo dos turnos
   
 ---
 
@@ -248,5 +250,3 @@ Tarefas concluídas e ainda a serem feitas no projeto.
   - [ ] efeitos especiais ao atacar
   - [ ] efeitos especiais ao defender
   - [ ] efeitos especiais ao interagir com objetos/itens
-
-
