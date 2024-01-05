@@ -107,7 +107,7 @@ Tarefas concluídas e ainda a serem feitas no projeto.
 - [ ] implementar estado do jogo
   - [x] MAIN_MENU
   - [x] SELECTING_CLASS
-  - [ ] BATTLE_START
+  - [x] BATTLE_START
   - [ ] TURN_START
   - [ ] TURN_PLAYER_CHOOSE
   - [ ] TURN_PLAYER_CHOSEN
@@ -152,9 +152,9 @@ Tarefas concluídas e ainda a serem feitas no projeto.
 
 ---
 (Francisco)
-- [ ] implementar bloco grafico de visualizacao de estatisticas do jogador
-  - [ ] desenhar em canto especifico das laterais
-  - [ ] apresenta dados corrente do Player
+- [x] implementar bloco grafico de visualizacao de estatisticas do jogador
+  - [x] desenhar em canto especifico das laterais
+  - [x] apresenta dados corrente do Player
 
 ---
 
