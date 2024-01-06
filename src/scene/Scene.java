@@ -7,6 +7,7 @@ import game.GameState;
 import entities.boss.Boss;
 import entities.player.Player;
 import game.Game;
+import scene.bars.Bars;
 import scene.button.Button;
 import scene.button.Buttons;
 import entities.player.ClassType;
@@ -140,6 +141,21 @@ public class Scene {
     private void drawTurnStart(Player player, Boss currBoss){
         Statboxes.PLAYER_STATBOX.draw(player);
         Statboxes.BOSS_STATBOX.draw(currBoss);
+        drawBars(player, currBoss);
+    }
+
+    private void drawBars(Player player, Boss currBoss){
+        Bars.PLAYER_HEALTHBAR.updateHP(player); // Here for debugging purposes; Can be optimized later by only updating the healthbar whenever the current or max of a stat changes
+        Bars.PLAYER_HEALTHBAR.draw();
+
+        Bars.PLAYER_MANABAR.updateMP(player);
+        Bars.PLAYER_MANABAR.draw();
+
+        Bars.BOSS_HEALTHBAR.updateHP(currBoss);
+        Bars.BOSS_HEALTHBAR.draw();
+        
+        Bars.BOSS_MANABAR.updateMP(currBoss);
+        Bars.BOSS_MANABAR.draw();
     }
 
     private static Jaylib.Vector2[] getSpritesPos() {

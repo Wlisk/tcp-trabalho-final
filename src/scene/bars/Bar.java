@@ -39,9 +39,14 @@ public class Bar {
         return curVal;
     }
 
-    public void updateHealthBar(Entity entity){
+    public void updateHP(Entity entity){
         curVal = entity.getCurrHP();
         maxVal = entity.getMaxHP();
+    }
+
+    public void updateMP(Entity entity){
+        curVal = entity.getCurrMP();
+        maxVal = entity.getMaxMP();
     }
 
     public void draw(){
