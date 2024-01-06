@@ -35,7 +35,7 @@ public class Game {
         player = null;
         score = 0;
 
-        scene = new Scene();
+        scene = new Scene(this);
         gameState = GameState.MAIN_MENU;
 
         Bosses.resetBossNextCounter();
@@ -75,7 +75,7 @@ public class Game {
                     break;
                 case TURN_START:
                     turnStart();
-                    break;
+                    break;    
                     
                 default: 
                     break;
@@ -128,6 +128,8 @@ public class Game {
         currBoss = Bosses.getNextBoss();
         score = 0;
 
+        battleStartTimer = BATTLE_START_DELAY * FPS; 
+        TextBoxes.ALERT_TEXTBOX.newMessage(TextBoxes.BATTLE_START, battleStartTimer);
         gameState = GameState.BATTLE_START;
     }
 
