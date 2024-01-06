@@ -37,12 +37,12 @@ public class PlayerStatBox {
     public void draw(Player player){
         String textArr[] = {LVL_TEXT + Integer.toString(player.getLevel()),
                          XP_TEXT + Integer.toString(player.getExp()) + "/" + Integer.toString(player.getExpToLevel()),
-                         DMG_TEXT + Integer.toString(player.getBaseDamage()),
-                         CRIT_TEXT + Integer.toString((int)player.getBaseCritChance() * 100) + "%",
-                         CRITMULT_TEXT + Integer.toString((int)player.getBaseCritMultiplier() * 100) + "%",
-                         ACC_TEXT + Integer.toString((int)player.getBaseAccuracy() * 100) + "%",
-                         DEF_TEXT + Integer.toString(player.getBaseDefense()),
-                         DEFMULT_TEXT + Integer.toString((int)player.getBaseDefenseMultiplier() * 100) + "%"
+                         DMG_TEXT + Integer.toString(player.getCurrDamage()),
+                         CRIT_TEXT + Integer.toString((int)player.getCurrCritChance() * 100) + "%",
+                         CRITMULT_TEXT + Integer.toString((int)player.getCurrCritMultiplier() * 100) + "%",
+                         ACC_TEXT + Integer.toString((int)player.getCurrAccuracy() * 100) + "%",
+                         DEF_TEXT + Integer.toString(player.getCurrDefense()),
+                         DEFMULT_TEXT + Integer.toString((int)player.getCurrDefenseMultiplier() * 100) + "%"
                          };
         
         int fontSize = (int) ((innerRec.height() * 0.9 + (MARGIN * textArr.length)) / (textArr.length)); // Reasonable estimate for font size to fit all information
