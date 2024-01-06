@@ -35,7 +35,7 @@ public class Game {
         player = null;
         score = 0;
 
-        scene = new Scene();
+        scene = new Scene(this);
         gameState = GameState.MAIN_MENU;
 
         Bosses.resetBossNextCounter();
@@ -73,6 +73,8 @@ public class Game {
                 case BATTLE_START:
                     battleStart();
                     break;
+                case TURN_START:
+                    break;
                     
                 default: 
                     break;
@@ -91,19 +93,10 @@ public class Game {
     public void selectingClass() throws UnknownTypeException {
         if (Buttons.getClassButton(ClassType.MAGE).isMousePressed()) {
             newGame(ClassType.MAGE);
-            battleStartTimer = BATTLE_START_DELAY * FPS; 
-            TextBoxes.TEXTBOX.newMessage(TextBoxes.BATTLE_START, battleStartTimer);
-            gameState = GameState.BATTLE_START;
         } else if (Buttons.getClassButton(ClassType.WARRIOR).isMousePressed()) {
             newGame(ClassType.WARRIOR);
-            battleStartTimer = BATTLE_START_DELAY * FPS; 
-            TextBoxes.TEXTBOX.newMessage(TextBoxes.BATTLE_START, battleStartTimer);
-            gameState = GameState.BATTLE_START;
         }  else if (Buttons.getClassButton(ClassType.ARCHER).isMousePressed()) {
             newGame(ClassType.ARCHER);
-            battleStartTimer = BATTLE_START_DELAY * FPS; 
-            TextBoxes.TEXTBOX.newMessage(TextBoxes.BATTLE_START, battleStartTimer);
-            gameState = GameState.BATTLE_START;
         }
     }
 
@@ -113,7 +106,6 @@ public class Game {
         }
     }
 
-
     public void newGame(ClassType playerClass) throws UnknownTypeException {
         player = new Player(playerName, playerClass);
 
@@ -121,6 +113,8 @@ public class Game {
         currBoss = Bosses.getNextBoss();
         score = 0;
 
+        battleStartTimer = BATTLE_START_DELAY * FPS; 
+        TextBoxes.TEXTBOX.newMessage(TextBoxes.BATTLE_START, battleStartTimer);
         gameState = GameState.BATTLE_START;
     }
 

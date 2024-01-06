@@ -1,5 +1,7 @@
 package entities;
 
+import static com.raylib.Jaylib.Vector2;
+
 import utils.Text;
 import exceptions.EmptyStringException;
 import exceptions.MaxStringSizeException;
@@ -43,11 +45,11 @@ public class Entity {
     private double currAccuracy;
     private double currDefenseMultiplier;
     
-
     // TODO: variables yet to create and impement
     // Sprite sprite;
     // Vector2D position; 
     // Super[] supers = new Super[MAX_SUPERS];
+    private Vector2 position;
   
 
     protected void resetToZero() {
@@ -80,6 +82,7 @@ public class Entity {
     public Entity(String name) {
         resetToZero();
         this.name = name;
+        this.position = new Vector2(0.0f, 0.0f);
         ++countEntities;
     }
 
@@ -195,6 +198,10 @@ public class Entity {
     public double getCurrCritMultiplier() { return currCritMultiplier; }
     public double getBaseDefenseMultiplier() { return baseDefenseMultiplier; }
     public double getCurrDefenseMultiplier() { return currDefenseMultiplier; }
+
+    public float posX() { return position.x(); }
+    public float posY() { return position.y(); }
+    public Vector2 pos() { return position; }
     
 
     // --------------------------- SETTERS --------------------------- //
@@ -307,6 +314,14 @@ public class Entity {
 
     public void setCurrDefenseMultiplier(double currDefenseMultiplier) {
         this.currDefenseMultiplier = currDefenseMultiplier;
+    }
+
+    public float posX(float x) { return position.x(x).x(); }
+    public float posY(float y) { return position.y(y).y(); }
+    public Vector2 pos(float x, float y) { 
+        position.x(x);
+        position.y(y);
+        return position;
     }
 
 

@@ -1,13 +1,34 @@
 package scene;
 
-import com.raylib.Jaylib;
 import java.util.ArrayList;
+import com.raylib.Jaylib;
+import com.raylib.Jaylib.Vector2;
+import com.raylib.Raylib.Texture;
+import com.raylib.Raylib.float16;
+
+//import static com.raylib.Jaylib.Texture;
+//import static com.raylib.Jaylib.Vector2;
+/*import static com.raylib.Raylib.DrawText;
+import static com.raylib.Raylib.DrawTextureEx;
+import static com.raylib.Raylib.LoadTexture;
+import static com.raylib.Raylib.MeasureText;
+import static com.raylib.Raylib.UnloadTexture;*/
+import static com.raylib.Jaylib.LoadTexture;
+import static com.raylib.Jaylib.UnloadTexture;
+import static com.raylib.Jaylib.DrawTextureEx;
+import static com.raylib.Jaylib.DrawTextureV;
+import static com.raylib.Jaylib.DrawText;
+import static com.raylib.Jaylib.MeasureText;
 
 import game.GameState;
 import game.Game;
+import entities.boss.Boss;
+import entities.boss.Bosses;
+import entities.player.ClassType;
+import entities.player.Player;
+import exceptions.UnknownTypeException;
 import scene.button.Button;
 import scene.button.Buttons;
-import entities.player.ClassType;
 import scene.textbox.TextBoxes;
 
 public class Scene {
@@ -30,15 +51,21 @@ public class Scene {
     private static final float SPRITES_START_DISTANCEX = 0.1f;
     private static final float SPRITES_BETWEEN_DISTANCEX = 0.3f;
 
-    private static final Jaylib.Vector2[] SPRITE_POS = getSpritesPos();
+    private static final Vector2[] SPRITE_POS = getSpritesPos();
     
-    private final ArrayList<Jaylib.Texture> textures = 
-        new ArrayList<Jaylib.Texture>( ClassType.size() );
+    private final ArrayList<Texture> texturesClassSel = 
+        new ArrayList<Texture>( ClassType.size() );
+    private final ArrayList<Texture> texturesClassSprite = 
+        new ArrayList<Texture>( ClassType.size() );
+    private final ArrayList<Texture> texturesBosses = 
+        new ArrayList<Texture>( 1/*Bosses.quantity()*/ );
 
     private String gameTitle;
+    private final Game game;
 
-    public Scene() {
+    public Scene(Game game) {
         gameTitle = null;
+        this.game = game;
     }
 
     public void initializeWindow(String gameTitle) {
@@ -49,15 +76,33 @@ public class Scene {
 
     public void loadTextures() {
         for(final ClassType _classType: ClassType.values()) {
-            textures.add(
-                Jaylib.LoadTexture(_classType.getImageSrc())
+            texturesClassSel.add(
+                LoadTexture(_classType.getImageSrc())
+            );
+            texturesClassSprite.add(
+                LoadTexture(_classType.getSpriteSheetSrc())
+            );
+        }
+
+        Boss[] _bosses = Bosses.getList();
+        for(int i = 0; i < 1/*Bosses.quantity()*/; ++i) {
+            texturesBosses.add(
+                LoadTexture(_bosses[i].getImageSrc())
             );
         }
     }
 
     public void unloadTextures() {
-        for(final Jaylib.Texture _texture: textures) {
-            Jaylib.UnloadTexture(_texture);
+        for(final Texture _textureClassSel: texturesClassSel) {
+            UnloadTexture(_textureClassSel);
+        }
+
+        for(final Texture _textureSprite: texturesClassSprite) {
+            UnloadTexture(_textureSprite);
+        }
+
+        for(final Texture _textureBoss: texturesBosses) {
+            UnloadTexture(_textureBoss);
         }
     }
 
@@ -75,6 +120,7 @@ public class Scene {
             case BATTLE_START:
                 break;
             case TURN_START:
+                drawBattle();
                 break;
 
             default: break;
@@ -86,9 +132,9 @@ public class Scene {
 
     private void drawMainMenu() {
         final int _textCenterPosX = 
-            (WINDOW_WIDTH / 2) - (Jaylib.MeasureText(gameTitle, FONT_SIZE_TITLE) / 2); 
+            (WINDOW_WIDTH / 2) - (MeasureText(gameTitle, FONT_SIZE_TITLE) / 2); 
 
-        Jaylib.DrawText(
+        DrawText(
             gameTitle, 
             _textCenterPosX, 
             TITLE_TEXT_POS_Y, 
@@ -102,9 +148,9 @@ public class Scene {
 
     private void drawClassSelections() {
         final int _textCenterPosX = 
-            (WINDOW_WIDTH / 2) - (Jaylib.MeasureText(SELECTION_TEXT, FONT_SIZE_SELECTION) / 2); 
+            (WINDOW_WIDTH / 2) - (MeasureText(SELECTION_TEXT, FONT_SIZE_SELECTION) / 2); 
         
-        Jaylib.DrawText(
+        DrawText(
             SELECTION_TEXT, 
             _textCenterPosX, 
             TITLE_TEXT_POS_Y, 
@@ -113,8 +159,8 @@ public class Scene {
         );
 
         for(final ClassType _classType: ClassType.values()) {
-            Jaylib.DrawTextureEx(
-                textures.get( _classType.getIndex() ), 
+            DrawTextureEx(
+             texturesClassSel.get( _classType.getIndex() ), 
                 SPRITE_POS[_classType.getIndex()], 
                 0f, 
                 SELECT_SPRITE_SCALE, 
@@ -127,12 +173,12 @@ public class Scene {
         }
     }
 
-    private static Jaylib.Vector2[] getSpritesPos() {
+    private static Vector2[] getSpritesPos() {
         float _distanceX = SPRITES_START_DISTANCEX;
-        final Jaylib.Vector2[] _spritesPos = new Jaylib.Vector2[ClassType.size()];
+        final Vector2[] _spritesPos = new Vector2[ClassType.size()];
 
         for(final ClassType _classType: ClassType.values()) {
-            _spritesPos[_classType.getIndex()] = new Jaylib.Vector2(
+            _spritesPos[_classType.getIndex()] = new Vector2(
                 WINDOW_WIDTH * _distanceX, 
                 SELECT_CLASS_POS_Y
             );
@@ -141,5 +187,56 @@ public class Scene {
         }
 
         return _spritesPos;
+    }
+
+    public void drawBattle() {
+        final Player _player = game.getPlayer();
+        final Boss _boss = game.getCurrBoss();
+
+        //Jaylib.DrawTexture(null, 15, 15, Jaylib.WHITE);
+    }
+
+    public static void main(String[] args) throws UnknownTypeException {
+        Jaylib.InitWindow(Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT, "test");
+        Jaylib.SetTargetFPS(Game.FPS);
+
+        final Player _player = new Player("Test", ClassType.MAGE);
+        final Boss _boss = Bosses.getNextBoss();
+
+        final Texture _textureBoss = LoadTexture(_boss.getImageSrc());
+        final Texture _texturePlayer = LoadTexture(_player.getClassType().getImageSrc());
+
+        final float _baselineY = Game.WINDOW_HEIGHT * 0.75f;
+
+        //final float _posY = _baselineY;
+        final float _borderDistanceX = 15.0f;
+
+        final float _bossScale = _boss.getImageScale();
+        final float _bossHeightScaled = _textureBoss.height() * _bossScale;
+        final float _bossWidthScaled = _textureBoss.width() * _bossScale;
+        final float _bossPosX = Game.WINDOW_WIDTH - (_borderDistanceX + _bossWidthScaled);
+        final float _bossPosY = _baselineY - _bossHeightScaled;
+
+        final float _playerScale = 3.0f;
+        final float _playerHeightScaled = _texturePlayer.height() *  _playerScale;
+        final float _playerPosY = _baselineY - _playerHeightScaled;
+
+        _player.pos(_borderDistanceX, _playerPosY);
+        _boss.pos(_bossPosX, _bossPosY);
+
+        while (!Jaylib.WindowShouldClose()) {
+            Jaylib.BeginDrawing();
+            Jaylib.ClearBackground(Jaylib.BLACK);
+
+            //DrawTextureV(_texturePlayer, _player.pos(), Jaylib.WHITE);
+            DrawTextureEx(_texturePlayer, _player.pos(), 0.0f, _playerScale, Jaylib.WHITE);
+            DrawTextureEx(_textureBoss, _boss.pos(), 0.0f, _bossScale , Jaylib.WHITE);
+
+            Jaylib.EndDrawing();
+        }
+
+        Jaylib.UnloadTexture(_textureBoss);
+        Jaylib.UnloadTexture(_texturePlayer);
+        Jaylib.CloseWindow();
     }
 }

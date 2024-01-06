@@ -5,16 +5,20 @@ import exceptions.NumberOverflowException;
 import utils.Number;
 
 public final class Boss extends Entity {
-    private int expReward;
+    private final int expReward;
     private StateType currState;
     private double percentageDefend;
     private double percentageBerserk;
-    private String description;
+    private final String description;
+    private final String imageSrc;
+    private final float imageScale;
 
     public Boss(
         String name, 
         int expReward,
         double percentageBerserk, double percentageDefend, 
+        float imageScale,
+        String imageSrc,
         String description
     )
     throws NumberOverflowException
@@ -28,6 +32,8 @@ public final class Boss extends Entity {
         this.expReward = expReward;
         this.percentageBerserk = percentageBerserk;
         this.percentageDefend = percentageDefend;
+        this.imageScale = imageScale;
+        this.imageSrc = imageSrc;
         this.description = description;
     }
 
@@ -87,6 +93,8 @@ public final class Boss extends Entity {
     public double getPercentageDefend() { return percentageDefend; }
     public String getDescription() { return description; }
     public int getExpReward() { return this.expReward; }
+    public String getImageSrc() { return this.imageSrc; }
+    public float getImageScale() { return this.imageScale; }
 
     // TODO: BERSERK can only be reached one time
     // or more, depending of the boss logic
