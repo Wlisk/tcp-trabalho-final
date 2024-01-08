@@ -96,11 +96,12 @@ Tarefas concluídas e ainda a serem feitas no projeto.
 **Prioridade**: ALTA
 
 **Descricao**: mostrar os items equipados e armazenados no inventory, alem de logica de uso
-
+(Francisco)
 - [ ] parte grafica da class Inventory
+  - [x] desenhar informações dos items
   - [ ] desenhar equipamentos equipados
   - [ ] desenhar itens no inventario
-
+  
 ---
 
 **Prioridade**: ALTA
