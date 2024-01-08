@@ -65,7 +65,8 @@ src/exceptions/*.java \
 src/scene/bars/*.java \
 src/scene/textbox/*.java \
 src/scene/sprite/*.java \
-src/scene/statbox/*.java;
+src/scene/statbox/*.java \
+src/scene/inventory/*.java;
 ```
 
 ## Windows
@@ -90,7 +91,8 @@ src/exceptions/*.java \
 src/scene/bars/*.java \
 src/scene/textbox/*.java \
 src/scene/sprite/*.java \
-src/scene/statbox/*.java;
+src/scene/statbox/*.java \
+src/scene/inventory/*.java;
 ```
 
 ### Win Execution
