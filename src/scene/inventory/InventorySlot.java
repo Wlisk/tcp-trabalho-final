@@ -2,9 +2,12 @@ package scene.inventory;
 
 import com.raylib.Jaylib;
 import com.raylib.Raylib;
+
+import interfaces.IClickable;
+import interfaces.IMouseOverable;
 import items.Item;
 
-public class InventorySlot {
+public class InventorySlot implements IClickable, IMouseOverable {
     private Jaylib.Rectangle rectangle, innerRec;
     private Raylib.Color backgroundColor, borderColor;
 
@@ -25,5 +28,16 @@ public class InventorySlot {
         // TODO: draw item sprite
     }
 
+    public boolean isMouseOver(){
+        Raylib.Vector2 mousePos = Jaylib.GetMousePosition();
+        return Jaylib.CheckCollisionPointRec(mousePos, rectangle);
+    }
 
+    public boolean isMousePressed() {
+        return isMouseOver() && Jaylib.IsMouseButtonDown(Jaylib.MOUSE_BUTTON_LEFT);
+    }
+
+    public Jaylib.Rectangle getRec(){
+        return this.rectangle;
+    }
 }

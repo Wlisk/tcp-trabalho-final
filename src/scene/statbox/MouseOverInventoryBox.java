@@ -5,7 +5,6 @@ import items.consumable.Consumable;
 import items.weapon.Weapon;
 import items.armor.Armor;
 import items.Item;
-import items.weapon.WeaponType;
 
 import com.raylib.Jaylib;
 import com.raylib.Raylib;
