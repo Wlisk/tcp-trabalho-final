@@ -29,7 +29,7 @@ Tarefas concluídas e ainda a serem feitas no projeto.
 - [ ] implementar estado do jogo
   - [x] MAIN_MENU (Francisco)
   - [x] SELECTING_CLASS (Francisco)
-  - [ ] BATTLE_START 
+  - [ ] BATTLE_START
     - [x] apresentar mensagem de inicio de batalha (Francisco)
     - [ ] deve resetar o player para cada nova batalha (Richard)
     - [ ] deve iniciar um novo boss (Richard)
@@ -71,6 +71,7 @@ Tarefas concluídas e ainda a serem feitas no projeto.
 **Descricao**: mostra dados (estatisticas) atuais do player
 
 (Francisco)
+
 - [x] implementar bloco grafico de visualizacao de estatisticas do jogador
   - [x] desenhar em canto especifico das laterais
   - [x] apresenta dados corrente do Player
@@ -96,12 +97,36 @@ Tarefas concluídas e ainda a serem feitas no projeto.
 **Prioridade**: ALTA
 
 **Descricao**: mostrar os items equipados e armazenados no inventory, alem de logica de uso
+
 (Francisco)
+
 - [ ] parte grafica da class Inventory
   - [x] desenhar informações dos items
   - [ ] desenhar equipamentos equipados
   - [ ] desenhar itens no inventario
   
+---
+
+**Prioridade**: ALTA
+
+**Descricao**: criacao de testes e verificacao de erros, melhor estrategia seria TDD
+
+- [ ] criar testes para todas as classes
+  - [ ] testar classes em entities/
+    - [ ] em entities/player
+    - [ ] em entities/boss
+  - [ ] testar classes em game/
+  - [ ] testar classes em items/
+    - [ ] em items/armor
+    - [ ] em items/consumable
+    - [ ] em items/weapon
+  - [ ] testar classes em scene/
+    - [ ] em scene/button
+    - [ ] em scene/bars
+    - [ ] em scene/sprite
+    - [ ] em scene/textbox
+  - [ ] testar classes em utils/
+
 ---
 
 **Prioridade**: ALTA
@@ -249,28 +274,6 @@ Tarefas concluídas e ainda a serem feitas no projeto.
 
 - [ ] implementar acoes usando teclado
   - [ ] selecionar botoes menu inicial com teclado
-
----
-
-**Prioridade**: BAIXA
-
-**Descricao**: verificar se erros nao ocorrerao durante runtime, melhor estrategia seria TDD
-
-- [ ] criar testes para todas as classes
-  - [ ] testar classes em entities/
-    - [ ] em entities/player
-    - [ ] em entities/boss
-  - [ ] testar classes em game/
-  - [ ] testar classes em items/
-    - [ ] em items/armor
-    - [ ] em items/consumable
-    - [ ] em items/weapon
-  - [ ] testar classes em scene/
-    - [ ] em scene/button
-    - [ ] em scene/bars
-    - [ ] em scene/sprite
-    - [ ] em scene/textbox
-  - [ ] testar classes em utils/
 
 ---
 

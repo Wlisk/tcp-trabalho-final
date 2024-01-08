@@ -48,12 +48,13 @@ Obs: deve ser escrito um texto sucinto indicando o motivo de ter excolhido a ord
 Deve conter projeto da parte funcional, apartir da definicao de um diagrama de classes, seguindo a perspectiva de implementacao do sistema mais voltada ao desenvolvimento do software.
 
 Deve conter:
-	- modificadores de acesso
-	- tipos dos atributos
-	- nomes
-	- tipos dos parametros dos metodos
-	- tipos de retorno dos metodos
-	
+
+- modificadores de acesso
+- tipos dos atributos
+- nomes
+- tipos dos parametros dos metodos
+- tipos de retorno dos metodos
+
 ### Do Projeto
 
 - deve ser definido no minimo 8 classes
@@ -87,5 +88,3 @@ Deve ser projetado a UI (User Interface ou Interface de Usuario) esperada para o
 - cada pagina deve conter uma tela ou unidade de apresentacao da funcionalidade (imagem)
 - estas telas ou imagens devem ser seguidas de explicacoes e argumentacoes que justifiquem o layout ou o comportamento da UI
 - a qualidade dos desenhos/rascunhos da UI nao e importante
-
-
