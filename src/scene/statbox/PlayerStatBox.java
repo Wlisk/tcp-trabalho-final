@@ -21,20 +21,26 @@ public class PlayerStatBox {
 
     private Jaylib.Rectangle rectangle, innerRec;
     private Raylib.Color textColor, backgroundColor, borderColor;
+    private Player player;
+    private int fontSize;
 
     public PlayerStatBox(Jaylib.Rectangle rectangle, 
+                         int fontSize,
                          int borderSize, 
                          Raylib.Color textColor, 
                          Raylib.Color backgroundColor, 
-                         Raylib.Color borderColor){
+                         Raylib.Color borderColor,
+                         Player player){
         this.rectangle = rectangle;
+        this.fontSize = fontSize;
         this.textColor = textColor;
         this.backgroundColor = backgroundColor;
         this.borderColor = borderColor;
         this.innerRec = new Jaylib.Rectangle(rectangle.x() + borderSize, rectangle.y() + borderSize, rectangle.width() - borderSize * 2, rectangle.height() - borderSize * 2);
+        this.player = player;
     }
 
-    public void draw(Player player){
+    public void draw(){
         String textArr[] = {LVL_TEXT + Integer.toString(player.getLevel()),
                          XP_TEXT + Integer.toString(player.getExp()) + "/" + Integer.toString(player.getExpToLevel()),
                          DMG_TEXT + Integer.toString(player.getCurrDamage()),
@@ -45,19 +51,21 @@ public class PlayerStatBox {
                          DEFMULT_TEXT + Integer.toString((int)player.getCurrDefenseMultiplier() * 100) + "%"
                          };
         
-        int fontSize = (int) ((innerRec.height() * 0.9 + (MARGIN * textArr.length)) / (textArr.length)); // Reasonable estimate for font size to fit all information
-
         Jaylib.DrawRectangleRec(rectangle, borderColor);
         Jaylib.DrawRectangleRec(innerRec, backgroundColor);
 
         int spacing = (int)Jaylib.MeasureTextEx(Jaylib.GetFontDefault(), "!", (float)fontSize, 0f).y();
 
         for (int i = 0; i < textArr.length; i++){
-            Jaylib.DrawText(textArr[i], 
-                            (int)(innerRec.x() + MARGIN), 
-                            (int)(MARGIN + spacing * i), 
-                            fontSize, 
+            Jaylib.DrawText(textArr[i],
+                            (int)(innerRec.x() + MARGIN),
+                            (int)(MARGIN + spacing * i),
+                            fontSize,
                             textColor);
         }
+    }
+
+    public void setPlayer(Player player){
+        this.player = player;
     }
 }

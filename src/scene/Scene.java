@@ -34,6 +34,7 @@ import scene.button.Button;
 import scene.button.Buttons;
 import scene.textbox.TextBoxes;
 import scene.statbox.Statboxes;
+import scene.inventory.InventorySlotInst;
 
 public class Scene {
     private static final int 
@@ -185,23 +186,17 @@ public class Scene {
     }
 
     private void drawTurnStart(Player player, Boss currBoss) {
-        Statboxes.PLAYER_STATBOX.draw(player);
-        Statboxes.BOSS_STATBOX.draw(currBoss);
+        Statboxes.PLAYER_STATBOX.draw();
+        Statboxes.BOSS_STATBOX.draw();
         drawBars(player, currBoss);
+        InventorySlotInst.INVENTORY_SLOTS.draw();
     }
 
     private void drawBars(Player player, Boss currBoss) {
-        Bars.PLAYER_HEALTHBAR.updateHP(player); // Here for debugging purposes; Can be optimized later by only updating the healthbar whenever the current or max of a stat changes
-        Bars.PLAYER_HEALTHBAR.draw();
-
-        Bars.PLAYER_MANABAR.updateMP(player);
-        Bars.PLAYER_MANABAR.draw();
-
-        Bars.BOSS_HEALTHBAR.updateHP(currBoss);
-        Bars.BOSS_HEALTHBAR.draw();
-        
-        Bars.BOSS_MANABAR.updateMP(currBoss);
-        Bars.BOSS_MANABAR.draw();
+        Bars.PLAYER_HEALTHBAR.drawHP();
+        Bars.PLAYER_MANABAR.drawMP();
+        Bars.BOSS_HEALTHBAR.drawHP();
+        Bars.BOSS_MANABAR.drawMP();
     }
 
     private static Vector2[] getSpritesPos() {

@@ -18,12 +18,13 @@ public class Statboxes {
         
 
     private static final int
+        FONT_SIZE = WINDOW_HEIGHT / 26,
         BORDER_SIZE = 2;
 
     private static final Jaylib.Rectangle 
         PLAYER_STATBOX_REC = new Jaylib.Rectangle(PLAYER_BOX_POS_X, PLAYER_BOX_POS_Y, BOX_WIDTH, BOX_HEIGHT),
         BOSS_STATBOX_REC = new Jaylib.Rectangle(BOSS_BOX_POS_X, BOSS_BOX_POS_Y, BOX_WIDTH, BOX_HEIGHT);
 
-    public static final PlayerStatBox PLAYER_STATBOX = new PlayerStatBox(PLAYER_STATBOX_REC, BORDER_SIZE, Jaylib.WHITE, Jaylib.BLACK, Jaylib.WHITE);
-    public static final BossStatBox BOSS_STATBOX = new BossStatBox(BOSS_STATBOX_REC, BORDER_SIZE, Jaylib.WHITE, Jaylib.BLACK, Jaylib.WHITE);
+    public static final PlayerStatBox PLAYER_STATBOX = new PlayerStatBox(PLAYER_STATBOX_REC, FONT_SIZE, BORDER_SIZE, Jaylib.WHITE, Jaylib.BLACK, Jaylib.WHITE, null);
+    public static final BossStatBox BOSS_STATBOX = new BossStatBox(BOSS_STATBOX_REC, FONT_SIZE, BORDER_SIZE, Jaylib.WHITE, Jaylib.BLACK, Jaylib.WHITE, null);
 }

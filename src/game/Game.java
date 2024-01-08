@@ -9,8 +9,11 @@ import entities.player.Player;
 import exceptions.NumberOverflowException;
 import exceptions.UnknownTypeException;
 import scene.Scene;
+import scene.bars.Bars;
 import scene.button.Buttons;
 import scene.textbox.TextBoxes;
+import scene.statbox.Statboxes;
+import scene.inventory.InventorySlotInst;
 
 public class Game {
     public static final String WINDOW_TITLE = "BOSSFIGHTER";
@@ -123,9 +126,17 @@ public class Game {
 
     public void newGame(ClassType playerClass) throws UnknownTypeException {
         player = new Player(playerName, playerClass);
+        Statboxes.PLAYER_STATBOX.setPlayer(player); // Link UI elements to new player
+        Bars.PLAYER_HEALTHBAR.setEntity(player);
+        Bars.PLAYER_MANABAR.setEntity(player);
+        InventorySlotInst.INVENTORY_SLOTS.setInventory(player.getInventory());
+
 
         Bosses.resetBossNextCounter();
         currBoss = Bosses.getNextBoss();
+        Statboxes.BOSS_STATBOX.setBoss(currBoss); // Link UI elements to current boss
+        Bars.BOSS_HEALTHBAR.setEntity(currBoss);
+        Bars.BOSS_MANABAR.setEntity(currBoss);
         score = 0;
 
         battleStartTimer = BATTLE_START_DELAY * FPS; 

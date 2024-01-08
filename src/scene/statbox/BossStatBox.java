@@ -21,20 +21,25 @@ public class BossStatBox {
 
     private Jaylib.Rectangle rectangle, innerRec;
     private Raylib.Color textColor, backgroundColor, borderColor;
+    private Boss boss;
+    private int fontSize;
 
     public BossStatBox(Jaylib.Rectangle rectangle, 
-                         int borderSize, 
-                         Raylib.Color textColor, 
-                         Raylib.Color backgroundColor, 
-                         Raylib.Color borderColor){
+                       int fontSize,
+                       int borderSize, 
+                       Raylib.Color textColor, 
+                       Raylib.Color backgroundColor, 
+                       Raylib.Color borderColor,
+                       Boss boss){
         this.rectangle = rectangle;
+        this.fontSize = fontSize;
         this.textColor = textColor;
         this.backgroundColor = backgroundColor;
         this.borderColor = borderColor;
         this.innerRec = new Jaylib.Rectangle(rectangle.x() + borderSize, rectangle.y() + borderSize, rectangle.width() - borderSize * 2, rectangle.height() - borderSize * 2);
     }
 
-    public void draw(Boss boss){
+    public void draw(){
         String textArr[] = {XP_TEXT + Integer.toString(boss.getExpReward()),
                             DMG_TEXT + Integer.toString(boss.getCurrDamage()),
                             CRIT_TEXT + Integer.toString((int)boss.getCurrCritChance() * 100) + "%",
@@ -44,8 +49,6 @@ public class BossStatBox {
                             DEFMULT_TEXT + Integer.toString((int)boss.getCurrDefenseMultiplier() * 100) + "%"
                             };
         
-        int fontSize = (int) ((innerRec.height() * 0.9 + (MARGIN * textArr.length)) / (textArr.length)); // Reasonable estimate for font size to fit all information
-
         Jaylib.DrawRectangleRec(rectangle, borderColor);
         Jaylib.DrawRectangleRec(innerRec, backgroundColor);
 
@@ -58,5 +61,9 @@ public class BossStatBox {
                             fontSize, 
                             textColor);
         }
+    }
+
+    public void setBoss(Boss boss){
+        this.boss = boss;
     }
 }

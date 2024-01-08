@@ -61,7 +61,12 @@ public final class Inventory {
         return (Consumable)_selectedItem;
     }
 
-    public Item getItem(int index) { return items.get(index); }
+    public Item getItem(int index) {
+        if (index < this.items.size()){
+            return items.get(index);
+        } 
+        return null;
+    }
     public boolean isFull() { return items.size() >= MAX_ITEMS; }
     public int size() { return items.size(); }
 

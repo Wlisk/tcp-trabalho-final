@@ -28,10 +28,10 @@ public class Bars {
         BOSS_MANABAR_REC = new Rectangle(BOSS_BARS_POS_X, BARS_POS_Y + BAR_HEIGHT + BAR_MARGIN, BAR_WIDTH, BAR_HEIGHT);
 
     public static final Bar
-        PLAYER_HEALTHBAR = new Bar(PLAYER_HEALTHBAR_REC, 0, 0, Jaylib.RED, Jaylib.LIGHTGRAY, BAR_TEXT_SIZE, Jaylib.WHITE),
-        PLAYER_MANABAR = new Bar(PLAYER_MANABAR_REC, 0, 0, Jaylib.BLUE, Jaylib.LIGHTGRAY, BAR_TEXT_SIZE, Jaylib.WHITE),
-        BOSS_HEALTHBAR = new Bar(BOSS_HEALTHBAR_REC, 0, 0, Jaylib.RED, Jaylib.LIGHTGRAY, BAR_TEXT_SIZE, Jaylib.WHITE),
-        BOSS_MANABAR = new Bar(BOSS_MANABAR_REC, 0, 0, Jaylib.BLUE, Jaylib.LIGHTGRAY, BAR_TEXT_SIZE, Jaylib.WHITE);
+        PLAYER_HEALTHBAR = new Bar(null, PLAYER_HEALTHBAR_REC, Jaylib.RED, Jaylib.LIGHTGRAY, BAR_TEXT_SIZE, Jaylib.WHITE),
+        PLAYER_MANABAR = new Bar(null, PLAYER_MANABAR_REC, Jaylib.BLUE, Jaylib.LIGHTGRAY, BAR_TEXT_SIZE, Jaylib.WHITE),
+        BOSS_HEALTHBAR = new Bar(null, BOSS_HEALTHBAR_REC, Jaylib.RED, Jaylib.LIGHTGRAY, BAR_TEXT_SIZE, Jaylib.WHITE),
+        BOSS_MANABAR = new Bar(null, BOSS_MANABAR_REC, Jaylib.BLUE, Jaylib.LIGHTGRAY, BAR_TEXT_SIZE, Jaylib.WHITE);
 
         
 
