@@ -29,7 +29,7 @@ Esta parte do projeto presenta apenas uma introducao informal sobre o conceito
 
 ### O Que Deve Ser Feito?
 
-Deve ser elaborado um conjunto de requisitos que o sistema deve possuir. 
+Deve ser elaborado um conjunto de requisitos que o sistema deve possuir.
 
 - cada requisito deve ser apresentado em uma unica frase
 - deve haver duas listas conforme o tipo (funcional e nao-funcional)
@@ -66,7 +66,7 @@ Deve conter:
 ### Do Diagrama de Classes
 
 - devem ser indicado todos os relacionamentos
-- os relacionamentos devem conter/indicar pelo menos o seu tipo 
+- os relacionamentos devem conter/indicar pelo menos o seu tipo
 - os tipos de relacionamentos sao: dependencia, generalizacao/especializacao, associacao, associacao-agregacao e associacao-composicao
 - os relacionamentos devem ser indicado conforme notacao grafica
 - e obrigatorio o uso de no minimo um relacionamento de cada tipo, exceto associacao que pode ser um dos 3 existentes (associacao, assossiacao-agregacao e associacao-composicao)
