@@ -60,4 +60,18 @@ public class InventorySlots {
     public void setInventory(Inventory inventory){
         this.inventory = inventory;
     }
+
+    public int checkClickedIndex(){
+        // Returns the index of a slot being clicked by the mouse. -1 if none are being clicked.
+        Raylib.Vector2 mousePos = Jaylib.GetMousePosition();
+        for (int i = 0; i < Inventory.MAX_ITEMS + 2; i++){
+            Jaylib.Rectangle curRec = new Jaylib.Rectangle(rectangle.x() + rectangle.width() * i, rectangle.y(), rectangle.width(), rectangle.height());
+            if (Jaylib.CheckCollisionPointRec(mousePos, curRec) && Jaylib.IsMouseButtonDown(Jaylib.MOUSE_BUTTON_LEFT)){
+                System.out.println(i);
+                return i;
+            }
+        }
+
+        return -1;
+    }
 }
