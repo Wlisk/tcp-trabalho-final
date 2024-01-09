@@ -83,9 +83,9 @@ public final class ClassTypeUtil {
 
     public static double getCritMultiplier() throws UnknownTypeException {
         switch($classType) {
-            case MAGE: return BASE_CRIT_M * getDPercentage(15);
-            case WARRIOR: return BASE_CRIT_M * getDPercentage(10);
-            case ARCHER: return BASE_CRIT_M * getDPercentage(15);
+            case MAGE: return BASE_CRIT_M * getDPercentage(115);
+            case WARRIOR: return BASE_CRIT_M * getDPercentage(110);
+            case ARCHER: return BASE_CRIT_M * getDPercentage(115);
             default: 
                 throw new UnknownTypeException(ERR_TYPE_MESSAGE);
         }

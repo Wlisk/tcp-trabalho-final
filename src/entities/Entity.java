@@ -2,11 +2,12 @@ package entities;
 
 import static com.raylib.Jaylib.Vector2;
 
+import com.raylib.Jaylib.Vector2;
+
 import utils.Text;
 import exceptions.EmptyStringException;
 import exceptions.MaxStringSizeException;
 import exceptions.NumberOverflowException;
-import utils.Randomic;
 
 // TODO: setters must be completed with guard statements
 // - 'if' must be put to guard against values below 0 or 0.0
@@ -14,14 +15,16 @@ import utils.Randomic;
 public class Entity {
     public static final int MAX_NAME_SIZE = 32;
     public static final int ATTACK_MISSED = 0;
+    public static final int DEFENDED = -1;
     public static final double MAX_BASE_CRIT = 1.0;
     public static final double MAX_BASE_ACCUR = 1.0;
     public static final double MAX_CRIT_MULTIPLIER = 10.0;
+    public static final double DEFEND_DEFENSEMULT_CHANGE = 0.75;
+    public static final double MIN_DAMAGE_POST_REDUCTION = 0.2;
     private static int countEntities = 0;
 
     private String name;
     private boolean isDead;
-    private boolean isDefending;
 
     private int maxHP;
     private int maxMP;
@@ -44,6 +47,8 @@ public class Entity {
     private double currCritMultiplier;
     private double currAccuracy;
     private double currDefenseMultiplier;
+
+    private int defendDuration;
     
     // TODO: variables yet to create and impement
     // Sprite sprite;
@@ -86,71 +91,37 @@ public class Entity {
         ++countEntities;
     }
 
-    private int computeDefense() {
-        int _multipliedDefense = 0;
-
-        if(this.isDefending == true) 
-            _multipliedDefense = (int)((double)currDefense * currDefenseMultiplier);
-        
-        return (_multipliedDefense < currDefense) ? currDefense : _multipliedDefense;
-    }
-
-    // defends from a damage value, possibily reducing it to zero
-    public int defend(int damage) {
-        int _defenseValue = computeDefense() - damage;
-
-        // here, instead of missing the attack, we could
-        // have a reduce in damage of 80%~90%
-        if(_defenseValue >= 0) return ATTACK_MISSED;
-
-        int _damageTaken = -_defenseValue;
-        takeDamage(_damageTaken);
-
-        return _damageTaken;
-    }
-    
-    // pure damage taken, do nothing else
-    private int takeDamage(int damage) {
+    public void takeDamage(int damage) {
         int _hpWithLoss = currHP - damage;
 
         if (_hpWithLoss <= 0) { 
             currHP = 0;
             isDead = true;
+        }else {
+            currHP = _hpWithLoss;
+        }
+    }
+
+    // Defending increases an entity's defense multiplier by 75% for 3 turns. The counter is lowered at the end of every turn
+    public int defend() {
+        if (defendDuration == 0){
+            this.currDefenseMultiplier += DEFEND_DEFENSEMULT_CHANGE;
+        }
+        this.defendDuration = 3;
+        return DEFENDED;
+    }
+
+    public void updateEndTurn(){
+        if (this.defendDuration == 1){ // If defending has run out, lower the defense multiplier
+            this.currDefenseMultiplier -= DEFEND_DEFENSEMULT_CHANGE;
         }
 
-        currHP = _hpWithLoss;
-        return currHP;
-    }
-
-    protected int calcDamage() {
-        boolean _hasCrit = baseCritChance >= Randomic.between(0.0, MAX_BASE_CRIT);
-
-        int _damage = baseDamage;
-
-        if (_hasCrit) { 
-            _damage += (int)(baseDamage * currCritMultiplier);
+        if (this.defendDuration > 0){
+            this.defendDuration--;
         }
-            
-        return _damage;
-    }
-    
-    public int attack(Entity enemy) {
-        boolean _haveHit = this.baseAccuracy >= Randomic.between(0.0, MAX_BASE_ACCUR);
 
-        if(!_haveHit) return ATTACK_MISSED;
-
-        int _damage = calcDamage();
-        int _damageDone = enemy.defend(_damage);
-        return _damageDone;
+        recoverMP(maxMP / 10); // Entities recover 10% of their max mp per turn
     }
-    
-    public int attackSuper(Entity enemy)/*, Super super */ {
-        // TODO
-        return attack(enemy);
-    }
-    /* 
-    public int defendSuper(Super super)
-    */
 
     protected int healHP(int amount) {
         if(amount >= 0) {
@@ -175,8 +146,8 @@ public class Entity {
     // --------------------------- GETTERS --------------------------- //
     public String getName() { return name; }
     public boolean getIsDead() { return isDead; }
-    public boolean getIsDefending() { return isDefending; }
-    
+
+    public int getDefendDuration() { return defendDuration; }
     public int getMaxHP() { return maxHP; }
     public int getMaxMP() { return maxMP; }
     public int getCurrHP() { return currHP; }
@@ -214,8 +185,12 @@ public class Entity {
         this.name = name;
     }
 
-    protected void setIsDefending(boolean isDefending) {
-        this.isDefending = isDefending;
+    protected void setIsDead(boolean isDead){
+        this.isDead = isDead;
+    }
+
+    protected void setDefendDuration(int defendDuration) {
+        this.defendDuration = defendDuration;
     }
 
     protected void setMaxHP(int maxHP) { 
@@ -303,7 +278,7 @@ public class Entity {
     }
 
     protected void setCurrCritMultiplier(double critValue) {
-        if(critValue > MAX_CRIT_MULTIPLIER) this.currCritMultiplier = critValue;
+        if(critValue > MAX_CRIT_MULTIPLIER) this.currCritMultiplier = MAX_CRIT_MULTIPLIER;
         else if(critValue < 0.0) this.currCritMultiplier = 0.0;
         else this.currCritMultiplier = critValue;
     }
@@ -336,6 +311,5 @@ public class Entity {
 
     private void resetBooleans() {
         isDead = false;
-        isDefending = false;
     }
 }

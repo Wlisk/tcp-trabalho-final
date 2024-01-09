@@ -29,6 +29,7 @@ import entities.boss.Boss;
 import entities.boss.Bosses;
 import entities.player.ClassType;
 import entities.player.Player;
+import exceptions.NumberOverflowException;
 import exceptions.UnknownTypeException;
 import scene.button.Button;
 import scene.button.Buttons;
@@ -222,7 +223,7 @@ public class Scene {
         //Jaylib.DrawTexture(null, 15, 15, Jaylib.WHITE);
     }
 
-    public static void main(String[] args) throws UnknownTypeException {
+    public static void main(String[] args) throws UnknownTypeException, NumberOverflowException {
         Jaylib.InitWindow(Game.WINDOW_WIDTH, Game.WINDOW_HEIGHT, "test");
         Jaylib.SetTargetFPS(Game.FPS);
 

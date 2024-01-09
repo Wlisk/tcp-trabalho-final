@@ -8,8 +8,8 @@ public final class Armors {
             ArmorType.ROBE, 
             "Tattered Robe" , 
             20, 
-            20, 
-            100, 
+            //20, 
+            //100, 
             "It has seen better days"
         )
     };
@@ -19,8 +19,8 @@ public final class Armors {
             ArmorType.PLATE, 
             "Rusty Plate Armor", 
             50, 
-            100, 
-            20,
+            //100, 
+            //20,
             "Be aware that any punch can scraps it"
         )
     };
@@ -30,8 +30,8 @@ public final class Armors {
             ArmorType.LEATHER, 
             "Old Leather Armor", 
             35, 
-            60, 
-            60,
+            //60, 
+            //60,
             "Sew with rats leather"
         )
     };

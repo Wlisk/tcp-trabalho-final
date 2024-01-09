@@ -4,13 +4,13 @@ public final class Consumables {
     private static final Consumable[] FOODS = {
         new Consumable(
             ConsumableType.FOOD, "Piece of Bread", 
-            50, 0, 0,
+            50, 0, /*0,*/
             "Better than nothing"
         ), 
 
         new Consumable(
             ConsumableType.FOOD, "Apple\'s Pie", 
-            50, 50, 0,
+            50, 50, /*0,*/
             "A pie from a strange ol\'lady"
         )
     };
@@ -21,18 +21,18 @@ public final class Consumables {
         new Consumable(
             ConsumableType.POTION, "Vial of Healing", 
             100, 0, 
-            0,
+            /*0,*/
             "Can save you from dire straits"
         ),
 
         new Consumable(
             ConsumableType.POTION, "Vial of Mana", 
-            0, 100, 0,
+            0, 100, /*0,*/
             "The power in liquid form"
         )
     };
 
-    private static final Consumable[] POISONS = {
+    /*private static final Consumable[] POISONS = {
         new Consumable(
             ConsumableType.POISON, "Drake\'s Blood", 
             0, 0, 
@@ -46,7 +46,7 @@ public final class Consumables {
             100,
             "One touch and your are dead"
         )
-    };
+    };*/
 
     public static Consumable getConsumableFood(int index) {
         if(index < 0 || index >= FOODS.length) return null;
@@ -58,8 +58,8 @@ public final class Consumables {
         return POTIONS[index];
     }
 
-    public static Consumable getConsumablePoison(int index) {
+    /*public static Consumable getConsumablePoison(int index) {
         if(index < 0 || index >= POISONS.length) return null;
         return POISONS[index];
-    }
+    }*/
 }

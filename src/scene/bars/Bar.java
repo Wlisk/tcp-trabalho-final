@@ -39,7 +39,7 @@ public class Bar {
         
         float ratio = 1;
         if (maxVal != 0){ // Division by 0 prevention
-            ratio = (float)maxVal / (float) currVal;
+            ratio = (float)currVal / (float) maxVal;
         }
 
         Rectangle filledRec = new Rectangle(rectangle.x(), rectangle.y(), (float) rectangle.width() * ratio, rectangle.height()); // Draws the filled in rectangle on top of the empty one

@@ -25,8 +25,8 @@ public class InventorySlots {
     }
 
     public void draw(){
-        this.slots[0].draw(inventory.getEquipedWeapon());
-        this.slots[1].draw(inventory.getEquipedArmor());
+        this.slots[0].draw(inventory.getEquippedWeapon());
+        this.slots[1].draw(inventory.getEquippedArmor());
         for (int i = 2; i < Inventory.MAX_ITEMS + 2; i++){
             this.slots[i].draw(inventory.getItem(i));
         }
@@ -39,10 +39,10 @@ public class InventorySlots {
             if (slots[i].isMouseOver()){
                 switch (i){
                     case 0:
-                        MouseOverInventoryBox.drawMouseOver(inventory.getEquipedWeapon());
+                        MouseOverInventoryBox.drawMouseOver(inventory.getEquippedWeapon());
                         break;
                     case 1:
-                        MouseOverInventoryBox.drawMouseOver(inventory.getEquipedArmor());
+                        MouseOverInventoryBox.drawMouseOver(inventory.getEquippedArmor());
                         break;
                     default:
                         MouseOverInventoryBox.drawMouseOver(inventory.getItem(i - 2));

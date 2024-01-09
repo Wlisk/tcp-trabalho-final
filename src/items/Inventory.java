@@ -70,13 +70,13 @@ public final class Inventory {
     public boolean isFull() { return items.size() >= MAX_ITEMS; }
     public int size() { return items.size(); }
 
-    public Armor getEquipedArmor() { return equipedArmor; }
-    public Weapon getEquipedWeapon() { return equipedWeapon; }
+    public Armor getEquippedArmor() { return equipedArmor; }
+    public Weapon getEquippedWeapon() { return equipedWeapon; }
 
-    public void setEquipedArmor(Armor equipedArmor) {
+    public void setEquippedArmor(Armor equipedArmor) {
         this.equipedArmor = equipedArmor;
     }
-    public void setEquipedWeapon(Weapon equipedWeapon) {
+    public void setEquippedWeapon(Weapon equipedWeapon) {
         this.equipedWeapon = equipedWeapon;
     }
 }

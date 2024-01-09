@@ -6,6 +6,7 @@ import exceptions.NumberOverflowException;
 import exceptions.UnknownTypeException;
 import items.Inventory;
 import items.consumable.Consumable;
+import utils.Randomic;
 
 public final class Player extends Entity {
     // Warrior: 1000HP, 200MP, 50DEF, 85DMG, 0.8ACC
@@ -26,31 +27,40 @@ public final class Player extends Entity {
     private int expToLevel = 0;
     private final Inventory inventory;
     private final ClassType classType;
-    private int temporaryDamageBoost;
+    //private int temporaryDamageBoost;
 
-    public Player(String name, ClassType classType) throws UnknownTypeException {
+    public Player(String name, ClassType classType) throws UnknownTypeException, NumberOverflowException {
         super(name);
 
         level = 1;
         exp = 0;
         expToLevel = calcExpToLevel(level);
-        temporaryDamageBoost = 0;
+        //temporaryDamageBoost = 0;
         inventory = new Inventory();
 
         this.classType = ClassTypeUtil.setClassType(classType);
 
         setMaxHP( ClassTypeUtil.getHP() );
+        setCurrHP( ClassTypeUtil.getHP() );
         setMaxMP( ClassTypeUtil.getMP() );
+        setCurrMP( ClassTypeUtil.getMP() );
         
         setBaseDamage( ClassTypeUtil.getDamage() );
+        setCurrDamage( ClassTypeUtil.getDamage() );
         setBaseDefense( ClassTypeUtil.getDefense() );
+        setCurrDefense( ClassTypeUtil.getDefense() );
 
         setBaseCritChance( ClassTypeUtil.getCritChance() );
+        setCurrCritChance( ClassTypeUtil.getCritChance() );
         setBaseCritMultiplier( ClassTypeUtil.getCritMultiplier() );
+        setCurrCritMultiplier( ClassTypeUtil.getCritMultiplier() );
         setBaseAccuracy( ClassTypeUtil.getAccuracy() );
+        setCurrAccuracy( ClassTypeUtil.getAccuracy() );
+        setBaseDefenseMultiplier(1.0f);
+        setCurrDefenseMultiplier(1.0f);
         
-        inventory.setEquipedArmor( ClassTypeUtil.getInitialArmor() );
-        inventory.setEquipedWeapon( ClassTypeUtil.getInitialWeapon() );
+        inventory.setEquippedArmor( ClassTypeUtil.getInitialArmor() );
+        inventory.setEquippedWeapon( ClassTypeUtil.getInitialWeapon() );
     }
 
     public int receiveExp(int gainedExp) throws NumberOverflowException {
@@ -95,20 +105,72 @@ public final class Player extends Entity {
         if (_consumable != null) {
             healHP(_consumable.getBoostHP());
             recoverMP(_consumable.getBoostMP());
-            temporaryDamageBoost = _consumable.getBoostDamage();
+            //temporaryDamageBoost = _consumable.getBoostDamage();
         }
         return _consumable;
     }
 
-    public int attack(Boss enemy) {
-        setCurrDamage( getCurrDamage() + temporaryDamageBoost );
-        int _damageDone = super.attack(enemy);
+    protected int calcDamage(Boss boss) {
+        boolean _hasCrit = getTotalCritChance() >= Randomic.between(0.0, MAX_BASE_CRIT);
 
-        setCurrDamage( getCurrDamage() - temporaryDamageBoost );
-        temporaryDamageBoost = 0;
+        int _damage = 0;
 
-        return _damageDone;
+        if (_hasCrit) { 
+            _damage = (int)((double) getTotalDamage() * getTotalCritMultiplier());
+        } else {
+            _damage = getTotalDamage();
+        }
+
+        int dmgReduction = (int) ((double) boss.getCurrDefense() * boss.getCurrDefenseMultiplier());
+        if (_damage - dmgReduction < _damage * MIN_DAMAGE_POST_REDUCTION){ // Defence damage reduction caps at 80%
+            System.out.println("path 1 ");
+            return (int) ((double)_damage * MIN_DAMAGE_POST_REDUCTION);
+        } else {
+            System.out.println("path 2 ");
+            return _damage - dmgReduction;
+        }
     }
+
+    public int attack(Boss boss) {
+        boolean _haveHit = getTotalAccuracy() >= Randomic.between(0.0, MAX_BASE_ACCUR);
+
+        if(!_haveHit) return ATTACK_MISSED;
+
+        int _damage = calcDamage(boss);
+        boss.takeDamage(_damage);
+
+        return _damage;
+    }
+
+    public int attackSuper(Boss boss) throws NumberOverflowException {
+        // TODO: Make super have special effects other than extra damage and never missing, give custom cost
+        int _damage = calcDamage(boss);
+        setCurrMP(getCurrMP() / 2);
+        boss.takeDamage((int)(_damage * 1.5));
+        return _damage;
+    }
+    
+    public int getTotalDamage(){
+        return getCurrDamage() + this.inventory.getEquippedWeapon().getBoostDamage();
+    }
+
+    public int getTotalDefense(){
+        return (int) ((getCurrDefense() + this.inventory.getEquippedArmor().getBoostDefense() + this.inventory.getEquippedWeapon().getBoostDefense()) * getCurrDefenseMultiplier());
+    }
+
+    public double getTotalCritChance(){
+        return getCurrCritChance() + inventory.getEquippedWeapon().getBoostCritChance();
+    }
+
+    public double getTotalCritMultiplier(){
+        return getCurrCritMultiplier() + inventory.getEquippedWeapon().getBoostCritMultiplier();
+    }
+
+    public double getTotalAccuracy(){
+        return getCurrAccuracy() + inventory.getEquippedWeapon().getBoostAccuracy();
+    }
+    
+    
     
     // ------------ GETTERS AND SETTERS ------------ //
     

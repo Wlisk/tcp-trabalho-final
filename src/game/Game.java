@@ -61,7 +61,8 @@ public class Game {
         Jaylib.SetWindowTitle( _titleString );
     }
 
-    public void gameLoop() throws UnknownTypeException {
+    public void gameLoop() throws UnknownTypeException, NumberOverflowException {
+        
         while (!Jaylib.WindowShouldClose() && gameState != GameState.GAME_END) {
             scene.drawWindow(gameState, player, currBoss);
             setWindowTitle(gameState);
@@ -94,7 +95,7 @@ public class Game {
             gameState = GameState.GAME_END;
     }
 
-    public void selectingClass() throws UnknownTypeException {
+    public void selectingClass() throws UnknownTypeException, NumberOverflowException {
         if (Buttons.getClassButton(ClassType.MAGE).isMousePressed()) {
             newGame(ClassType.MAGE);
             battleStartTimer = BATTLE_START_DELAY * FPS; 
@@ -120,13 +121,12 @@ public class Game {
     }
 
     public void turnStart(){
-        
     }
 
 
-    public void newGame(ClassType playerClass) throws UnknownTypeException {
+    public void newGame(ClassType playerClass) throws UnknownTypeException, NumberOverflowException {
         player = new Player(playerName, playerClass);
-        Statboxes.PLAYER_STATBOX.setPlayer(player); // Link UI elements to new player
+        Statboxes.PLAYER_STATBOX.setEntity(player); // Link UI elements to new player
         Bars.PLAYER_HEALTHBAR.setEntity(player);
         Bars.PLAYER_MANABAR.setEntity(player);
         InventorySlotInst.INVENTORY_SLOTS.setInventory(player.getInventory());
@@ -134,7 +134,7 @@ public class Game {
 
         Bosses.resetBossNextCounter();
         currBoss = Bosses.getNextBoss();
-        Statboxes.BOSS_STATBOX.setBoss(currBoss); // Link UI elements to current boss
+        Statboxes.BOSS_STATBOX.setEntity(currBoss); // Link UI elements to current boss
         Bars.BOSS_HEALTHBAR.setEntity(currBoss);
         Bars.BOSS_MANABAR.setEntity(currBoss);
         score = 0;

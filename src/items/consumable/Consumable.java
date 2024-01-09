@@ -9,14 +9,14 @@ public final class Consumable extends Item {
 
     public Consumable(
         ConsumableType consumableType, String name, 
-        int boostHP, int boostMP, int boostDamage, String description
+        int boostHP, int boostMP, /*int boostDamage,*/ String description
     ) {
         super(ItemType.CONSUMABLE, name, description);
         this.consumableType = consumableType;
 
         this.boostHP = boostHP;
         this.boostMP = boostMP;
-        this.boostDamage = boostDamage;
+        //this.boostDamage = boostDamage;
     }
 
     public ConsumableType getConsumableType() { return consumableType; }
