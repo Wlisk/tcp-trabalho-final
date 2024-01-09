@@ -145,32 +145,23 @@ Tarefas concluídas e ainda a serem feitas no projeto.
 
 **Descricao**: maquina de estados do boss (IA)
 
-- [ ] criar e implementar logica de estados (FSM) para o Boss
-  - [ ] estados podem trocar a cada turno
-  - [x] IDLE (Richard)
-  - [x] ATTACK (Richard)
-  - [ ] DEFEND
-    - [ ] aumenta defesa do Boss
-    - [ ] nao pode mais atacar
-  - [ ] ATTACK_SUPER
-  - [ ] BERSERK
-    - [ ] aumenta dano do Boss
-    - [ ] aumenta defesa do Boss
-    - [ ] proximo turno estado vai para WEAK
-  - [ ] WEAK
-    - [ ] nao pode mais se defender
-    - [ ] nao pode mais ir para estado BERSERK
-    - [ ] nivel/porcentagem de 'fraqueza' setavel dependendo do Boss
+- [x] criar e implementar logica de estados (FSM) para o Boss
+  - [x] estados podem trocar a cada turno
+  - [x] BASE (Richard)
+  - [x] BERSERK
+    - [x] aumenta dano do Boss
+    - [x] após dois turnos estado vai para WEAK
+  - [x] WEAK
+    - [x] diminui defesa em 50%
+    - [x] diminui dano em 50%
   - criar/implementar verificadores de estados para checagem de atingimento de estados
     - [x] reachedStateBerserk() (Richard)
     - [x] reachedStateDefend() (Richard)
     - [ ] reachedStateAttackSuper()
-  - [ ] criar/implementar setadores para os estados atingidos
-    - [ ] setStateAttack()
-    - [ ] setStateDefend()
-    - [ ] setStateBerserk()
-    - [ ] setStateWeak()
-    - [ ] setStateAttackSuper()
+  - [x] criar/implementar setadores para os estados atingidos
+    - [x] setBase()
+    - [x] setBerserk()
+    - [x] seteWeak()
 
 ---
 
