@@ -1,13 +1,15 @@
 package entities;
 
 import static com.raylib.Jaylib.Vector2;
-
+import static com.raylib.Jaylib.Texture;
 import com.raylib.Jaylib.Vector2;
+import com.raylib.Jaylib;
 
 import utils.Text;
 import exceptions.EmptyStringException;
 import exceptions.MaxStringSizeException;
 import exceptions.NumberOverflowException;
+import exceptions.TextureNotLoadedException;
 
 // TODO: setters must be completed with guard statements
 // - 'if' must be put to guard against values below 0 or 0.0
@@ -54,8 +56,22 @@ public class Entity {
     // Sprite sprite;
     // Vector2D position; 
     // Super[] supers = new Super[MAX_SUPERS];
+
+    // drawing related variables
     private Vector2 position;
-  
+    private String textureSrc;
+    private Texture texture;
+    private float imageScale;
+
+    public Entity(String name, String textureSrc) {
+        resetToZero();
+        this.name = name;
+        this.position = new Vector2(0.0f, 0.0f);
+        this.textureSrc = textureSrc;
+        this.texture = texture;
+        this.imageScale = 1.0f;
+        ++countEntities;
+    }
 
     protected void resetToZero() {
         maxHP = maxMP = 0;
@@ -82,13 +98,6 @@ public class Entity {
         currRecRateMP = baseRecRateMP;
         currDefenseMultiplier = baseDefenseMultiplier;
         resetBooleans();
-    }
-
-    public Entity(String name) {
-        resetToZero();
-        this.name = name;
-        this.position = new Vector2(0.0f, 0.0f);
-        ++countEntities;
     }
 
     public void takeDamage(int damage) {
@@ -143,6 +152,30 @@ public class Entity {
         return currMP;
     }
 
+    // OUTROS
+
+    /** Loads the Entity texture to memory */
+    public Texture loadTexture() {
+        Jaylib.LoadTexture(texture);
+        return texture;
+    }
+
+    /** Unloads the Entity texture from memory */
+    public void unloadTexture() {
+        Jaylib.UnloadTexture(texture);
+    }
+
+    /**
+     * Gets the Entity texture
+     * @return the texture
+     * @throws extureNotLoadedException if the texture is null or not found in memory
+     */
+    public Texture getTexture() throws TextureNotLoadedException {
+        if(texture == null) throw new TextureNotLoadedException("Texture not loaded or found in memory");
+
+        return texture;
+    }
+
     // --------------------------- GETTERS --------------------------- //
     public String getName() { return name; }
     public boolean getIsDead() { return isDead; }
@@ -173,6 +206,9 @@ public class Entity {
     public float posX() { return position.x(); }
     public float posY() { return position.y(); }
     public Vector2 pos() { return position; }
+
+    public float setImageScale(float scale) { this.imageScale = scale; return this.imageScale; }
+    public float getImageScale() { return this.imageScale; }
     
 
     // --------------------------- SETTERS --------------------------- //

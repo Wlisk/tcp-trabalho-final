@@ -13,6 +13,7 @@ public final class Player extends Entity {
     // Ranger: 750HP, 300MP, 30DEF, 70DMG, 0.9ACC
     // Mage: 500HP, 500MP, 10DEF, 100DMG, 0.8ACC
     private final static int STARTING_EXP_TO_LEVEL = 100;
+    private final static float BASE_SPRITE_SCALE = 3.0f;
 
     private final static double 
         LUP_MULT_EXP_TO_LEVEL = 0.5, 
@@ -30,7 +31,7 @@ public final class Player extends Entity {
     //private int temporaryDamageBoost;
 
     public Player(String name, ClassType classType) throws UnknownTypeException, NumberOverflowException {
-        super(name);
+        super(name, classType.imageSrc);
 
         level = 1;
         exp = 0;
@@ -61,6 +62,8 @@ public final class Player extends Entity {
         
         inventory.setEquippedArmor( ClassTypeUtil.getInitialArmor() );
         inventory.setEquippedWeapon( ClassTypeUtil.getInitialWeapon() );
+
+        setImageScale(BASE_SPRITE_SCALE);
     }
 
     public int receiveExp(int gainedExp) throws NumberOverflowException {

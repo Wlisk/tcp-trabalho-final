@@ -46,13 +46,12 @@ public final class Boss extends Entity {
         double berserkThreshold,
         double baseSpecialChance,
         double baseDefendChance,
-        float imageScale,
         String imageSrc,
         String description
     )
     throws NumberOverflowException
     {
-        super(name);
+        super(name, imageSrc);
 
         Number.limitTo(Number.MIN_PERCENTAGE, Number.MAX_PERCENTAGE, berserkThreshold);
         System.out.println("a");
@@ -81,7 +80,7 @@ public final class Boss extends Entity {
         this.baseSpecialChance = baseSpecialChance;
         this.baseDefendChance = baseDefendChance;
         this.imageScale = imageScale;
-        this.imageSrc = imageSrc;
+        this.textureSrc = imageSrc;
         this.description = description;
     }
     

@@ -230,8 +230,8 @@ public class Scene {
         final Player _player = new Player("Test", ClassType.MAGE);
         final Boss _boss = Bosses.getNextBoss();
 
-        final Texture _textureBoss = LoadTexture(_boss.getImageSrc());
-        final Texture _texturePlayer = LoadTexture(_player.getClassType().getImageSrc());
+        final Texture _texturePlayer = _player.loadTexture();
+        final Texture _textureBoss = _boss.loadTexture();
 
         final float _baselineY = Game.WINDOW_HEIGHT * 0.75f;
 
@@ -244,8 +244,7 @@ public class Scene {
         final float _bossPosX = Game.WINDOW_WIDTH - (_borderDistanceX + _bossWidthScaled);
         final float _bossPosY = _baselineY - _bossHeightScaled;
 
-        final float _playerScale = 3.0f;
-        final float _playerHeightScaled = _texturePlayer.height() *  _playerScale;
+        final float _playerHeightScaled = _texturePlayer.height() *  _player.getScale();
         final float _playerPosY = _baselineY - _playerHeightScaled;
 
         _player.pos(_borderDistanceX, _playerPosY);
@@ -262,8 +261,9 @@ public class Scene {
             Jaylib.EndDrawing();
         }
 
-        Jaylib.UnloadTexture(_textureBoss);
-        Jaylib.UnloadTexture(_texturePlayer);
+        _player.unloadTexture();
+        _boss.unloadTexture();
+
         Jaylib.CloseWindow();
     }
 }

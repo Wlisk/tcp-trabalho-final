@@ -41,3 +41,7 @@ git checkout <branch-name>
 git fetch origin
 git merge origin/main
 ```
+
+## Links
+
+- [Hot to discard all changes maded to a branch](https://stackoverflow.com/questions/4830056/how-to-discard-all-changes-made-to-a-branch)
