@@ -5,6 +5,7 @@ import items.armor.Armor;
 import items.armor.Armors;
 import items.weapon.Weapon;
 import items.weapon.Weapons;
+import scene.TextureId;
 
 public final class ClassTypeUtil {
     private static final int 
@@ -117,6 +118,16 @@ public final class ClassTypeUtil {
             case WARRIOR: return Weapons.getWeaponWarrior(Weapons.INDEX_INITIAL_WEAPON);
             case ARCHER: return Weapons.getWeaponArcher(Weapons.INDEX_INITIAL_WEAPON);
             default: 
+                throw new UnknownTypeException(ERR_TYPE_MESSAGE);
+        }
+    }
+
+    public static TextureId getTextureId() throws UnknownTypeException {
+        switch($classType) {
+            case MAGE: return TextureId.CLASS_1;
+            case WARRIOR: return TextureId.CLASS_2;
+            case ARCHER: return TextureId.CLASS_3;
+            default:
                 throw new UnknownTypeException(ERR_TYPE_MESSAGE);
         }
     }

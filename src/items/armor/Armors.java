@@ -1,12 +1,15 @@
 package items.armor;
 
+import scene.TextureId;
+
 public final class Armors {
     public static final int INDEX_INITIAL_ARMOR = 0;
 
     private static final Armor[] ARMORS_MAGE = {
         new Armor(
             ArmorType.ROBE, 
-            "Tattered Robe" , 
+            TextureId.ARMOR_LIGHT_1,
+            "Tattered Robe", 
             20, 
             //20, 
             //100, 
@@ -17,6 +20,7 @@ public final class Armors {
     private static final Armor[] ARMORS_WARRIOR = {
         new Armor(
             ArmorType.PLATE, 
+            TextureId.ARMOR_HEAVY_1,
             "Rusty Plate Armor", 
             50, 
             //100, 
@@ -28,6 +32,7 @@ public final class Armors {
     private static final Armor[] ARMORS_ARCHER = {
         new Armor(
             ArmorType.LEATHER, 
+            TextureId.ARMOR_MEDIUM_1,
             "Old Leather Armor", 
             35, 
             //60, 

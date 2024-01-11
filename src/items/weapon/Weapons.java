@@ -1,77 +1,85 @@
 package items.weapon;
 
+import scene.TextureId;
+
 public final class Weapons {
     public static final int INDEX_INITIAL_WEAPON = 0;
 
     private static final Weapon[] WEAPONS_MAGE = {
         new Weapon(
             WeaponType.STAFF, 
+            TextureId.WEAPON_STAFF_1,
             "Rotting Staff", 
             50, 
             0, 
             0.05, 
             0.05, 
             0.1,
-            "Made from a rotting magical tree, sometimes it backfires"
+            "Made from a rotting magical tree, sometimes it backfires."
         ), 
 
         new Weapon(
             WeaponType.STAFF, 
+            TextureId.WEAPON_STAFF_2,
             "Eldritch Staff", 
             200, 
             30, 
             0.15, 
             0.2, 
             1.5, 
-            "Made from a branch droped by the olsdest tree in the realm"
+            "Made from a branch of the oldest tree in the realm."
         )
     };
 
     private static final Weapon[] WEAPONS_WARRIOR = {
         new Weapon(
             WeaponType.SWORD, 
+            TextureId.WEAPON_SWORD_1,
             "Rusty Sword", 
             40, 
             30,  
             0.05, 
             0.05, 
             0.1,
-            "Its rustiness is a double edge sword, for you and for your enemies"
+            "Its rustiness is a double edged sword."
         ),
 
         new Weapon(
             WeaponType.SWORD, 
+            TextureId.WEAPON_SWORD_2,
             "Hero of Salvation Sword", 
             180, 
             100,  
             0.15, 
             0.3, 
             1.0, 
-            "Made to protect the realm against the invasion"
+            "Made to protect the realm against the invaders."
         )
     };
 
     private static final Weapon[] WEAPONS_ARCHER = {
         new Weapon(
             WeaponType.BOW, 
+            TextureId.WEAPON_BOW_1,
             "Old Bow", 
             45, 
             0, 
             0.05, 
             0.05, 
             0.1, 
-            "An archer is made by their habilities not the weapon, but this one.. well.. be carefull"
+            "This one is... well... be careful."
         ),
 
         new Weapon(
             WeaponType.BOW, 
+            TextureId.WEAPON_BOW_2,
             "Chaos Bow", 
             190, 
             50, 
             0.45, 
             0.3, 
             1.2, 
-            "No enemy shall enter the realm, cause its unpredictable shots shall shot them all"
+            "None shall pass."
         )
     };
 

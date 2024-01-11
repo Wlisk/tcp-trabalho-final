@@ -1,11 +1,11 @@
 package entities.boss;
 
 import exceptions.NumberOverflowException;
+import scene.TextureId;
 
 public final class Bosses {
     private static int bossNextCounter = 0;
     private static NumberOverflowException err = null;
-    private static final float BASE_SCALE = 1.0f;
 
     private static Boss[] createBosses() {
         Boss[] _bosses = null;
@@ -14,6 +14,7 @@ public final class Bosses {
             final Boss[] _tempBosses = {
                 new Boss( 
                     "Aragdhar", 
+                    TextureId.BOSS_1,
                     500,
                     600,
                     200,
@@ -27,11 +28,11 @@ public final class Bosses {
                     0.5,
                     0.2,
                     0.2,
-                    0.45f, "resources/sprites/bosses/boss1.png",
                     "Born at the Hell of Valathur, its protruding fangs drips venon that poison its enemies to death. Is a nightmare that no one wants to confronte."
                 ),
                 new Boss(
                     "Irmitz", 
+                    TextureId.BOSS_2,
                     1000,
                     1000,
                     250,
@@ -45,11 +46,11 @@ public final class Bosses {
                     0.6,
                     0.3,
                     0.2,
-                    BASE_SCALE, "",
                     "The fire itself, burns anyone who gets close. Be caitous, cause his temperament is fiery."
                 ),
                 new Boss(
                     "Bolrvots", 
+                    TextureId.BOSS_3,
                     1500,
                     1400,
                     300,
@@ -63,11 +64,11 @@ public final class Bosses {
                     0.7,
                     0.4,
                     0.2,
-                    BASE_SCALE, "",
                     "An dark elven that has fallen to the dark side. It has betrayed its people and so was condened to eternity."
                 ),
                 new Boss(
                     "", 
+                    TextureId.BOSS_4,
                     2000,
                     2000,
                     500,
@@ -81,11 +82,11 @@ public final class Bosses {
                     0.8,
                     0.45,
                     0.2,
-                    BASE_SCALE, "",
                     ""
                 ),
                 new Boss(
                     "", 
+                    TextureId.BOSS_5,
                     2500,
                     2500,
                     1000,
@@ -99,7 +100,6 @@ public final class Bosses {
                     0.45,
                     0.5,
                     0.2, 
-                    BASE_SCALE, "",
                     ""
                 )
             };

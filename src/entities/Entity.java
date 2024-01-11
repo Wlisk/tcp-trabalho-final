@@ -1,13 +1,12 @@
 package entities;
 
-import static com.raylib.Jaylib.Vector2;
-
 import com.raylib.Jaylib.Vector2;
 
 import utils.Text;
 import exceptions.EmptyStringException;
 import exceptions.MaxStringSizeException;
 import exceptions.NumberOverflowException;
+import scene.TextureId;
 
 // TODO: setters must be completed with guard statements
 // - 'if' must be put to guard against values below 0 or 0.0
@@ -49,6 +48,8 @@ public class Entity {
     private double currDefenseMultiplier;
 
     private int defendDuration;
+
+    private TextureId textureId;
     
     // TODO: variables yet to create and impement
     // Sprite sprite;
@@ -173,6 +174,8 @@ public class Entity {
     public float posX() { return position.x(); }
     public float posY() { return position.y(); }
     public Vector2 pos() { return position; }
+
+    public TextureId getTextureId() {return textureId;}
     
 
     // --------------------------- SETTERS --------------------------- //
@@ -289,6 +292,10 @@ public class Entity {
 
     public void setCurrDefenseMultiplier(double currDefenseMultiplier) {
         this.currDefenseMultiplier = currDefenseMultiplier;
+    }
+
+    public void setTextureId(TextureId textureId){
+        this.textureId = textureId;
     }
 
     public float posX(float x) { return position.x(x).x(); }

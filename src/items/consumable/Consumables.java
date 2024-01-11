@@ -1,17 +1,19 @@
 package items.consumable;
 
+import scene.TextureId;
+
 public final class Consumables {
     private static final Consumable[] FOODS = {
         new Consumable(
-            ConsumableType.FOOD, "Piece of Bread", 
+            ConsumableType.FOOD, TextureId.CONSUMABLE_BREAD, "Piece of Bread", 
             50, 0, /*0,*/
-            "Better than nothing"
+            "Better than nothing."
         ), 
 
         new Consumable(
-            ConsumableType.FOOD, "Apple\'s Pie", 
+            ConsumableType.FOOD, TextureId.CONSUMABLE_CHEESE, "Cheese", 
             50, 50, /*0,*/
-            "A pie from a strange ol\'lady"
+            "Just a regular ol\' piece of cheese."
         )
     };
 
@@ -19,16 +21,16 @@ public final class Consumables {
     public static final int INDEX_POTION_MP = 1;
     private static final Consumable[] POTIONS = {
         new Consumable(
-            ConsumableType.POTION, "Vial of Healing", 
+            ConsumableType.POTION, TextureId.CONSUMABLE_RED_SMALL, "Small Vial of Healing", 
             100, 0, 
             /*0,*/
-            "Can save you from dire straits"
+            "Can save you from dire straits."
         ),
 
         new Consumable(
-            ConsumableType.POTION, "Vial of Mana", 
+            ConsumableType.POTION, TextureId.CONSUMABLE_BLUE_SMALL, "Small Vial of Mana", 
             0, 100, /*0,*/
-            "The power in liquid form"
+            "Power in liquid form."
         )
     };
 

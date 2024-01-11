@@ -5,6 +5,7 @@ import entities.Entity;
 import exceptions.NumberOverflowException;
 import utils.Number;
 import utils.Randomic;
+import scene.TextureId;
 
 public final class Boss extends Entity {
     public static final int DEFENDED = -1;
@@ -26,13 +27,12 @@ public final class Boss extends Entity {
     private double baseSpecialChance;
     private double baseDefendChance;
     private final String description;
-    private final String imageSrc;
-    private final float imageScale;
     private int stateDuration;
 
 
     public Boss(
         String name, 
+        TextureId textureId,
         int expReward,
         int maxHP, 
         int maxMP,
@@ -46,8 +46,6 @@ public final class Boss extends Entity {
         double berserkThreshold,
         double baseSpecialChance,
         double baseDefendChance,
-        float imageScale,
-        String imageSrc,
         String description
     )
     throws NumberOverflowException
@@ -55,8 +53,8 @@ public final class Boss extends Entity {
         super(name);
 
         Number.limitTo(Number.MIN_PERCENTAGE, Number.MAX_PERCENTAGE, berserkThreshold);
-        System.out.println("a");
         currState = StateType.BASE;
+        this.setTextureId(textureId);
         this.expReward = expReward;
 
         setMaxHP(maxHP);
@@ -80,8 +78,6 @@ public final class Boss extends Entity {
         this.berserkThreshold = berserkThreshold;
         this.baseSpecialChance = baseSpecialChance;
         this.baseDefendChance = baseDefendChance;
-        this.imageScale = imageScale;
-        this.imageSrc = imageSrc;
         this.description = description;
     }
     
@@ -219,8 +215,6 @@ public final class Boss extends Entity {
     public double getPercentageBerserk() { return berserkThreshold; }
     public String getDescription() { return description; }
     public int getExpReward() { return this.expReward; }
-    public String getImageSrc() { return this.imageSrc; }
-    public float getImageScale() { return this.imageScale; }
 
     private boolean reachedBerserkThreshold() {
         double healthPercent = (double)this.getCurrHP() / (double)this.getMaxHP();

@@ -1,10 +1,16 @@
 package scene.inventory;
 
+import java.util.HashMap;
+
 import com.raylib.Jaylib;
 import com.raylib.Raylib;
 
 import items.Inventory;
+import scene.TextureId;
 import scene.statbox.MouseOverInventoryBox;
+import items.armor.Armor;
+import items.weapon.Weapon;
+import items.Item;
 
 public class InventorySlots {
     private Inventory inventory;
@@ -24,11 +30,21 @@ public class InventorySlots {
         }
     }
 
-    public void draw(){
-        this.slots[0].draw(inventory.getEquippedWeapon());
-        this.slots[1].draw(inventory.getEquippedArmor());
+    public void draw(HashMap<TextureId, Jaylib.Texture> textures){
+        Armor armor = inventory.getEquippedArmor();
+        Weapon weapon = inventory.getEquippedWeapon();
+
+        this.slots[0].draw(textures.get(armor.getTextureId()));
+        this.slots[1].draw(textures.get(weapon.getTextureId()));
         for (int i = 2; i < Inventory.MAX_ITEMS + 2; i++){
-            this.slots[i].draw(inventory.getItem(i));
+            Item item = inventory.getItem(i - 2);
+
+            if (item != null){ // Making sure inventory slot isn't empty
+                this.slots[i].draw(textures.get(item.getTextureId()));
+            } else {
+                this.slots[i].draw();
+            }
+            
         }
 
         drawMouseOver();

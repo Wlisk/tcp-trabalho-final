@@ -1,9 +1,12 @@
 package items;
 
+import scene.TextureId;
+
 public class Item {
     private String name;
     private ItemType itemType;
     private String description;
+    private TextureId textureId;
 
     protected int 
         boostHP,
@@ -16,10 +19,11 @@ public class Item {
         boostCritChance,
         boostCritMultiplier;
 
-    public Item(ItemType itemType, String name, String description) {
+    public Item(ItemType itemType, TextureId textureId, String name, String description) {
         this.itemType = itemType;
         this.name = name;
         this.description = description;
+        this.textureId = textureId;
 
         boostHP = boostMP = 0;
         boostDamage = boostDefense = 0;
@@ -29,6 +33,7 @@ public class Item {
     public String getName() { return this.name; }
     public ItemType getItemType(){  return this.itemType; }
     public String getDescription() { return this.description; }
+    public TextureId getTextureId() { return this.textureId; }
 
     public int getBoostHP() { return boostHP; }
     public int getBoostMP() { return boostMP; }

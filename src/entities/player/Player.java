@@ -58,6 +58,8 @@ public final class Player extends Entity {
         setCurrAccuracy( ClassTypeUtil.getAccuracy() );
         setBaseDefenseMultiplier(1.0f);
         setCurrDefenseMultiplier(1.0f);
+
+        setTextureId(ClassTypeUtil.getTextureId());
         
         inventory.setEquippedArmor( ClassTypeUtil.getInitialArmor() );
         inventory.setEquippedWeapon( ClassTypeUtil.getInitialWeapon() );

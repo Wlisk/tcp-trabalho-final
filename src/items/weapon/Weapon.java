@@ -2,17 +2,18 @@ package items.weapon;
 
 import items.Item;
 import items.ItemType;
+import scene.TextureId;
 
 public final class Weapon extends Item {
     private WeaponType weaponType;
 
     public Weapon(
-        WeaponType weaponType, String name, 
+        WeaponType weaponType, TextureId textureId, String name, 
         int boostDamage, int boostDefense,
         double boostAccuracy, double boostCritChance, double boostCritMultiplier, String description
     ) 
     {
-        super(ItemType.WEAPON, name, description);
+        super(ItemType.WEAPON, textureId, name, description);
         this.weaponType = weaponType;
 
         this.boostDamage = boostDamage;
