@@ -12,7 +12,7 @@ Tarefas concluídas e ainda a serem feitas no projeto.
   - [x] MAIN_MENU (Francisco)
   - [x] SELECTING_CLASS (Francisco)
   - [x] BATTLE_START (Francisco)
-  - [ ] TURN_START (Richard)
+  - [x] TURN_START (Richard)
   - [ ] TURN_PLAYER_CHOOSE
   - [ ] TURN_PLAYER_CHOSEN
   - [ ] TURN_ENEMY_CHOOSE
@@ -100,10 +100,10 @@ Tarefas concluídas e ainda a serem feitas no projeto.
 
 (Francisco)
 
-- [ ] parte grafica da class Inventory
+- [x] parte grafica da class Inventory
   - [x] desenhar informações dos items
-  - [ ] desenhar equipamentos equipados
-  - [ ] desenhar itens no inventario
+  - [x] desenhar equipamentos equipados
+  - [x] desenhar itens no inventario
   
 ---
 
