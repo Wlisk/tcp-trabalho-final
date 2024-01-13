@@ -3,25 +3,19 @@ package utils;
 import java.util.Random;
 
 /**
- * Class with static properties and methods to get random numbers
+ * Classe com propriedades e métodos estáticos para pegar numeros randômicos
  * @see java.util.Random
  */
 public final class Randomic {
-    /** 
-     * Store an instance of the Random class so it does not need to 
-     * be instantiated every single calling
-     */
     private static final Random generator = new Random();
-    /** Caches the last randomic (int)number generated */
     private static int lastRandomInt = 0;
-    /** Caches the last randomic (double)number generated */
     private static double lastRandomDouble = 0.0;
 
     /**
-     * Gets a random (double)number between min and max (inclusive)
-     * @param min minimum (double)value to get
-     * @param max maximum (double)value to get
-     * @return the generated (double)number
+     * Retorna um número (double) entre min e max (inclusívo)
+     * @param min mínimo valor (double) à se retornar
+     * @param max máximo valor (double) à se retornar
+     * @return (double) o valor randômico gerado
      */
     public static double between(double min, double max) {
         lastRandomDouble = min + (max - min) * generator.nextDouble();
@@ -29,13 +23,25 @@ public final class Randomic {
     }
 
     /**
-     * Gets a random (int)number between min and max (inclusive)
-     * @param min minimum (int)value to get
-     * @param max maximum (int)value to get
-     * @return the generated (int)number
+     * Retorna um número (int) entre min e max (inclusívo)
+     * @param min mínimo valor (int) à se retornar
+     * @param max máximo valor (int) à se retornar
+     * @return (int) o valor randômico gerado
      */
     public static int between(int min, int max) {
         lastRandomInt = generator.nextInt(max - min + 1) + min;
         return lastRandomInt;
     }
+
+    /**
+     * Retorna o último valor (double) gerado anteriormente (se aplicável)
+     * @return (double) 
+     */
+    public static double getLastRandomDouble() { return lastRandomDouble; }
+
+    /**
+     * Retorna o último valor (int) gerado anteriormente (se aplicável)
+     * @return (int)
+     */
+    public static int getLastRandomInt() { return lastRandomInt; }
 }

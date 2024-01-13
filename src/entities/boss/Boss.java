@@ -52,7 +52,7 @@ public final class Boss extends Entity {
     {
         super(name);
 
-        Number.limitTo(Number.MIN_PERCENTAGE, Number.MAX_PERCENTAGE, berserkThreshold);
+        Number.limitTo(Number.MIN_DPERCENTAGE, Number.MAX_DPERCENTAGE, berserkThreshold);
         currState = StateType.BASE;
         this.setTextureId(textureId);
         this.expReward = expReward;

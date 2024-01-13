@@ -1,8 +1,8 @@
 /**
- * Provides useful functions that can work across 
- * all classes.
+ * Fornece funções úteis que podem ser usadas em todas
+ * as classes do projeto.
  * <p>
- * All functions are static and are grouped by their
- * context.
+ * Todas as funções, além de seus atributos, são estáticas
+ * e são agrupadas por seu contexto.
  */
 package utils;
