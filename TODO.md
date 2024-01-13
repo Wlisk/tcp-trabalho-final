@@ -57,7 +57,7 @@ Tarefas concluídas e ainda a serem feitas no projeto.
   - [x] Player morre, fim de jogo
   - [x] Boss morre, proxima cena/Boss
   - [x] implementar logica de defesa nas batalhas
-  - [ ] implementar uso de items e gerenciamento de inventário
+  - [x] implementar uso de items e gerenciamento de inventário
 
 ---
 
@@ -128,11 +128,11 @@ Tarefas concluídas e ainda a serem feitas no projeto.
 
 **Descricao**: criacao de itens, colocar seus valores, storytelling e descricoes
 
-- [ ] criar e implementar detalhes para que itens tenham dados 'corretos'
-  - [ ] detalhes de bosses
-  - [ ] detalhes de armas
-  - [ ] detalhes de armaduras
-  - [ ] detalhes de consumiveis
+- [x] criar e implementar detalhes para que itens tenham dados 'corretos'
+  - [x] detalhes de bosses
+  - [x] detalhes de armas
+  - [x] detalhes de armaduras
+  - [x] detalhes de consumiveis
 
 ---
 
