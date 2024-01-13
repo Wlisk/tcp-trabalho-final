@@ -8,17 +8,20 @@ import utils.Randomic;
 import scene.TextureId;
 import scene.bars.Bars;
 
+/** Define propriedades e métodos para o chefão (Boss) do jogo.  */
 public final class Boss extends Entity {
     public static final int DEFENDED = -1;
-    private static final double BERSERK_DAMAGE_MULTIPLIER  = 1.5, // Multiplier will multiply damage by 1.5
-                                BERSERK_CRITCHANCE_ADD = 0.2,  // While this will increase crit chance by 20% (additive)
-                                BERSERK_CRITMULT_ADD = 0.2,
-                                BERSERK_ACCURACY_ADD = -0.1;
-                                
-
-    private static final double WEAK_DAMAGE_MULTIPLIER = 0.5, 
-                                WEAK_CRITCHANCE_ADD = -0.1, 
-                                WEAK_CRITMULT_ADD = -0.2;
+    // constants to change the boss BERSERK state statistics
+    private static final double 
+        BERSERK_DAMAGE_MULTIPLIER  = 1.5, 
+        BERSERK_CRITCHANCE_ADD = 0.2,  
+        BERSERK_CRITMULT_ADD = 0.2,
+        BERSERK_ACCURACY_ADD = -0.1; 
+    // constants to change the boss WEAK state statistics
+    private static final double 
+        WEAK_DAMAGE_MULTIPLIER = 0.5, 
+        WEAK_CRITCHANCE_ADD = -0.1, 
+        WEAK_CRITMULT_ADD = -0.2;
 
     private final int expReward;
     private StateType currState;
@@ -211,6 +214,10 @@ public final class Boss extends Entity {
     public String getDescription() { return description; }
     public int getExpReward() { return this.expReward; }
 
+    /**
+     * Checa se o Boss atingiu o ponto de estado BERSERK (o ponto de troca para o estado)
+     * @return (boolean) se o Boss pode atingir o estado ou não
+     */
     private boolean reachedBerserkThreshold() {
         double healthPercent = (double)this.getCurrHP() / (double)this.getMaxHP();
         return healthPercent < berserkThreshold;

@@ -2,6 +2,7 @@ package items;
 
 import scene.TextureId;
 
+
 public class Item {
     private String name;
     private ItemType itemType;

@@ -23,9 +23,9 @@ public class InventorySlots {
                           Raylib.Color backgroundColor, 
                           Raylib.Color borderColor){
         this.inventory = inventory;
-        this.slots = new InventorySlot[Inventory.MAX_ITEMS + 2];
+        this.slots = new InventorySlot[inventory.size() + 2];
         
-        for (int i = 0; i < Inventory.MAX_ITEMS + 2; i++){
+        for (int i = 0; i < inventory.size() + 2; i++){
             Jaylib.Rectangle curRec = new Jaylib.Rectangle(rectangle.x() + rectangle.width() * i, rectangle.y(), rectangle.width(), rectangle.height());
             this.slots[i] = new InventorySlot(curRec, borderSize, backgroundColor, borderColor);
         }
@@ -39,7 +39,7 @@ public class InventorySlots {
 
         this.slots[0].draw(textures.get(armor.getTextureId()));
         this.slots[1].draw(textures.get(weapon.getTextureId()));
-        for (int i = 2; i < Inventory.MAX_ITEMS + 2; i++){
+        for (int i = 2; i < inventory.size() + 2; i++){
             Item item = inventory.getItem(i - 2);
 
             if (item != null){ // Making sure inventory slot isn't empty
@@ -54,7 +54,7 @@ public class InventorySlots {
     }
 
     public void drawMouseOver(){
-        for (int i = 0; i < Inventory.MAX_ITEMS + 2; i++){
+        for (int i = 0; i < inventory.size() + 2; i++){
             if (slots[i].isMouseOver()){
                 switch (i){
                     case 0:
@@ -76,7 +76,7 @@ public class InventorySlots {
 
     public int checkClickedIndex(){
         // Returns the index of a slot being clicked by the mouse. -1 if none are being clicked.
-        for (int i = 0; i < Inventory.MAX_ITEMS + 2; i++){
+        for (int i = 0; i < inventory.size() + 2; i++){
             if (slots[i].isMousePressed()){
                 System.out.println(i);
                 return i;

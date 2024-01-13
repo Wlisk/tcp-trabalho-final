@@ -1,8 +1,9 @@
 /**
- * Provides classes to manage and use all types of 
- * items in the game (wepaons, armors, consumables, etc).
+ * Fornece classes para gerenciar e usar todos os tipos 
+ * de itens no jogo (armas, armaduras, consumíveis, etc.)
  * <p>
- * Also provides the Inventory for the Player as well
- * as all items that can and will be used in the gameplay.
+ * Além disso, fornece a classe Inventory para a classe Player
+ * e também fornece todos os itens que podem e serão utilizados
+ * durante o jogo.
  */
 package items;
