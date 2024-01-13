@@ -204,11 +204,11 @@ Tarefas concluídas e ainda a serem feitas no projeto.
 
 **Descricao**: forma do jogador obter os itens apos a derrota de um boss
 
-- [ ] criar logica para drop de items
-  - [ ] criar novos items
-  - [ ] selecionar de uma lista de items um item randomicamente
-  - [ ] adicionar item ao Inventory do Player
-    - [ ] mostrar novo item no Inventory
+- [x] criar logica para drop de items
+  - [x] criar novos items
+  - [x] selecionar de uma lista de items um item randomicamente
+  - [x] adicionar item ao Inventory do Player
+    - [x] mostrar novo item no Inventory
 
 ---
 
@@ -249,8 +249,8 @@ Tarefas concluídas e ainda a serem feitas no projeto.
 
 **Descricao**: certos acontecimentos devem ocorrer a cada turno, um deles é a regeneracao de mana, assim entities podem recuperar mana para poder continuar usando ataques especiais depois de um tempo
 
-- [ ] implementar logica de turnos
-  - [ ] logica de regeneracao de mana ao longo dos turnos
+- [x] implementar logica de turnos
+  - [x] logica de regeneracao de mana ao longo dos turnos
   
 ---
 
