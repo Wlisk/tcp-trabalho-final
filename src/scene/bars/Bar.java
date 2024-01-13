@@ -15,6 +15,7 @@ public class Bar {
     
 
     public Bar(Entity entity, Rectangle rectangle, Color filledColor, Color emptyColor, int textSize, Color textColor){
+        this.entity = entity;
         this.rectangle = rectangle;
         this.filledColor = filledColor;
         this.emptyColor = emptyColor;

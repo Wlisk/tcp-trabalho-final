@@ -1,12 +1,11 @@
 package entities;
 
-import com.raylib.Jaylib.Vector2;
-
 import utils.Text;
 import exceptions.EmptyStringException;
 import exceptions.MaxStringSizeException;
 import exceptions.NumberOverflowException;
 import scene.TextureId;
+import scene.bars.Bar;
 
 // TODO: setters must be completed with guard statements
 // - 'if' must be put to guard against values below 0 or 0.0
@@ -50,13 +49,7 @@ public class Entity {
     private int defendDuration;
 
     private TextureId textureId;
-    
-    // TODO: variables yet to create and impement
-    // Sprite sprite;
-    // Vector2D position; 
-    // Super[] supers = new Super[MAX_SUPERS];
-    private Vector2 position;
-  
+    private Bar healthBar, manaBar;
 
     protected void resetToZero() {
         maxHP = maxMP = 0;
@@ -88,7 +81,6 @@ public class Entity {
     public Entity(String name) {
         resetToZero();
         this.name = name;
-        this.position = new Vector2(0.0f, 0.0f);
         ++countEntities;
     }
 
@@ -144,6 +136,10 @@ public class Entity {
         return currMP;
     }
 
+    public boolean canSuper(){
+        return getCurrMP() >= getMaxMP()/ 2;
+    }
+
     // --------------------------- GETTERS --------------------------- //
     public String getName() { return name; }
     public boolean getIsDead() { return isDead; }
@@ -171,11 +167,9 @@ public class Entity {
     public double getBaseDefenseMultiplier() { return baseDefenseMultiplier; }
     public double getCurrDefenseMultiplier() { return currDefenseMultiplier; }
 
-    public float posX() { return position.x(); }
-    public float posY() { return position.y(); }
-    public Vector2 pos() { return position; }
-
     public TextureId getTextureId() {return textureId;}
+    public Bar getHealthBar() {return healthBar;}
+    public Bar getManaBar() {return manaBar;}
     
 
     // --------------------------- SETTERS --------------------------- //
@@ -298,14 +292,13 @@ public class Entity {
         this.textureId = textureId;
     }
 
-    public float posX(float x) { return position.x(x).x(); }
-    public float posY(float y) { return position.y(y).y(); }
-    public Vector2 pos(float x, float y) { 
-        position.x(x);
-        position.y(y);
-        return position;
+    public void setHealthBar(Bar healthBar) {
+        this.healthBar = healthBar;
     }
 
+    public void setManaBar(Bar manaBar) {
+        this.manaBar = manaBar;
+    }
 
     // --------------------------- STATIC RELATED --------------------------- //
     public static int getCountEntities() { return countEntities; }

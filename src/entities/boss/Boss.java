@@ -6,6 +6,7 @@ import exceptions.NumberOverflowException;
 import utils.Number;
 import utils.Randomic;
 import scene.TextureId;
+import scene.bars.Bars;
 
 public final class Boss extends Entity {
     public static final int DEFENDED = -1;
@@ -17,8 +18,7 @@ public final class Boss extends Entity {
 
     private static final double WEAK_DAMAGE_MULTIPLIER = 0.5, 
                                 WEAK_CRITCHANCE_ADD = -0.1, 
-                                WEAK_CRITMULT_ADD = -0.2,
-                                WEAK_DEFENSEMULT_ADD = -0.5;
+                                WEAK_CRITMULT_ADD = -0.2;
 
     private final int expReward;
     private StateType currState;
@@ -79,6 +79,9 @@ public final class Boss extends Entity {
         this.baseSpecialChance = baseSpecialChance;
         this.baseDefendChance = baseDefendChance;
         this.description = description;
+
+        setHealthBar(Bars.newBossHealthBar(this));
+        setManaBar(Bars.newBossManaBar(this));
     }
     
     @Override
@@ -94,27 +97,24 @@ public final class Boss extends Entity {
         this.setCurrCritChance(this.getBaseCritChance());
         this.setCurrCritMultiplier(this.getBaseCritMultiplier());
         this.setCurrAccuracy(this.getBaseAccuracy());
-        this.setCurrDefenseMultiplier(this.getBaseDefenseMultiplier());
     }
 
-    private void setBerserk(){
+    private void setBerserk(){ // When berserk, boss does extra damage and has higher crit chance, but lower accuracy
         currState = StateType.BERSERK;
         stateDuration = 2;
         this.setCurrDamage((int) (this.getBaseDamage() * BERSERK_DAMAGE_MULTIPLIER));
         this.setCurrCritChance(this.getBaseCritChance() + BERSERK_CRITCHANCE_ADD);
         this.setCurrCritMultiplier(this.getBaseCritMultiplier() + BERSERK_CRITMULT_ADD);
         this.setCurrAccuracy(this.getBaseAccuracy() + BERSERK_ACCURACY_ADD);
-        this.setCurrDefenseMultiplier(this.getBaseDefenseMultiplier());
     }
 
-    private void setWeak(){
+    private void setWeak(){ // When weak, boss does less damage and has less accuracy
         currState = StateType.WEAK;
         stateDuration = 2;
         this.setCurrDamage((int) (this.getBaseDamage() * WEAK_DAMAGE_MULTIPLIER));
         this.setCurrCritChance(this.getBaseCritChance() + WEAK_CRITCHANCE_ADD);
         this.setCurrCritMultiplier(this.getBaseCritMultiplier() + WEAK_CRITMULT_ADD);
         this.setCurrAccuracy(this.getBaseAccuracy());
-        this.setCurrDefenseMultiplier(this.getBaseDefenseMultiplier() + WEAK_DEFENSEMULT_ADD);
     }
     
     public StateType updateState() {
@@ -196,13 +196,8 @@ public final class Boss extends Entity {
 
         return _damage;
     }
-
-    public boolean canSuper(){
-        return getCurrMP() > getMaxMP()/ 2;
-    }
     
     public int attackSuper(Player player) throws NumberOverflowException {
-        // TODO: Make super have special effects other than extra damage and never missing
         int _damage = calcDamage(player);
         setCurrMP(getCurrMP() / 2);
 

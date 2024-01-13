@@ -11,8 +11,8 @@ public final class ClassTypeUtil {
     private static final int 
         BASE_HP = 1000,
         BASE_MP = 100,
-        BASE_DAMAGE = 100,
-        BASE_DEFENSE = 100;
+        BASE_DAMAGE = 200,
+        BASE_DEFENSE = 80;
 
     private static final double 
         BASE_CRIT_C = 1.0,

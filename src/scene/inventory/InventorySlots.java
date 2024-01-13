@@ -15,6 +15,7 @@ import items.Item;
 public class InventorySlots {
     private Inventory inventory;
     private InventorySlot slots[];
+    private MouseOverInventoryBox mouseOverBox;
 
     public InventorySlots(Inventory inventory, 
                           Jaylib.Rectangle rectangle, 
@@ -28,6 +29,8 @@ public class InventorySlots {
             Jaylib.Rectangle curRec = new Jaylib.Rectangle(rectangle.x() + rectangle.width() * i, rectangle.y(), rectangle.width(), rectangle.height());
             this.slots[i] = new InventorySlot(curRec, borderSize, backgroundColor, borderColor);
         }
+
+        mouseOverBox = new MouseOverInventoryBox();
     }
 
     public void draw(HashMap<TextureId, Jaylib.Texture> textures){
@@ -55,13 +58,13 @@ public class InventorySlots {
             if (slots[i].isMouseOver()){
                 switch (i){
                     case 0:
-                        MouseOverInventoryBox.drawMouseOver(inventory.getEquippedWeapon());
+                        mouseOverBox.drawMouseOver(inventory.getEquippedWeapon());
                         break;
                     case 1:
-                        MouseOverInventoryBox.drawMouseOver(inventory.getEquippedArmor());
+                        mouseOverBox.drawMouseOver(inventory.getEquippedArmor());
                         break;
                     default:
-                        MouseOverInventoryBox.drawMouseOver(inventory.getItem(i - 2));
+                        mouseOverBox.drawMouseOver(inventory.getItem(i - 2));
                 }
             }
         }

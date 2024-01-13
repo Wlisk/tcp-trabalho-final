@@ -20,9 +20,9 @@ public class MouseOverInventoryBox {
         BOX_HEIGHT = WINDOW_HEIGHT / 3;
 
     private static final Raylib.Color
-        BORDER_COLOR = Jaylib.WHITE,
-        BACKGROUND_COLOR = Jaylib.BLACK,
-        TEXT_COLOR = Jaylib.WHITE;
+        COLOR_BACKGROUND = Jaylib.GetColor(-1772078593),
+        COLOR_BORDER = Jaylib.GetColor(1631265023),
+        COLOR_TEXT = Jaylib.WHITE;
 
     private static final int
         FONT_SIZE = WINDOW_HEIGHT / 26,
@@ -38,7 +38,7 @@ public class MouseOverInventoryBox {
         HP_TEXT = "HP: ",
         MP_TEXT = "MP: ";
 
-    private static Jaylib.Rectangle getOuterRectangle(){
+    private Jaylib.Rectangle getOuterRectangle(){
         Raylib.Vector2 mousePos = Jaylib.GetMousePosition();
         Jaylib.Rectangle outerRec;
         if (mousePos.x() <= WINDOW_WIDTH - BOX_WIDTH){
@@ -56,19 +56,19 @@ public class MouseOverInventoryBox {
         return outerRec;
     }
 
-    private static Jaylib.Rectangle getInnerRectangle(Jaylib.Rectangle outerRec){
+    private Jaylib.Rectangle getInnerRectangle(Jaylib.Rectangle outerRec){
         return new Jaylib.Rectangle(outerRec.x() + BORDER_SIZE, outerRec.y() + BORDER_SIZE, BOX_WIDTH - BORDER_SIZE * 2, BOX_HEIGHT - BORDER_SIZE * 2);
     }
 
-    private static void drawBox(){
+    private void drawBox(){
         Jaylib.Rectangle outerRec = getOuterRectangle();
         Jaylib.Rectangle innerRec = getInnerRectangle(outerRec);
 
-        Jaylib.DrawRectangleRec(outerRec, BORDER_COLOR);
-        Jaylib.DrawRectangleRec(innerRec, BACKGROUND_COLOR);
+        Jaylib.DrawRectangleRec(outerRec, COLOR_BORDER);
+        Jaylib.DrawRectangleRec(innerRec, COLOR_BACKGROUND);
     }
 
-    public static void drawMouseOver(Item item){
+    public void drawMouseOver(Item item){
         if (item == null){
             return;
         }
@@ -85,9 +85,9 @@ public class MouseOverInventoryBox {
                 drawMouseOver((Consumable) item);
                 break;
         }
-        
     }
-    private static void drawMouseOver(Weapon weapon){
+
+    private void drawMouseOver(Weapon weapon){
         drawBox();
         Jaylib.Rectangle innerRec = getInnerRectangle(getOuterRectangle());
         String textArr[] = {weapon.getName(),
@@ -98,7 +98,7 @@ public class MouseOverInventoryBox {
             ACC_TEXT + Integer.toString((int)weapon.getBoostAccuracy() * 100) + "%",
             DEF_TEXT + Integer.toString(weapon.getBoostDefense()),
             weapon.getDescription()
-            };
+        };
 
         int spacing = (int)Jaylib.MeasureTextEx(Jaylib.GetFontDefault(), "!", (float)FONT_SIZE, 0f).y();
 
@@ -107,11 +107,11 @@ public class MouseOverInventoryBox {
                             (int)(innerRec.x() + MARGIN),
                             (int)(innerRec.y() + MARGIN + spacing * i),
                             FONT_SIZE,
-                            TEXT_COLOR);
+                            COLOR_TEXT);
         }
     }
 
-    private static void drawMouseOver(Armor armor){
+    private void drawMouseOver(Armor armor){
         drawBox();
         Jaylib.Rectangle innerRec = getInnerRectangle(getOuterRectangle());
         String textArr[] = {armor.getName(),
@@ -120,7 +120,7 @@ public class MouseOverInventoryBox {
             HP_TEXT + Integer.toString(armor.getBoostHP()),
             MP_TEXT + Integer.toString(armor.getBoostMP()),
             armor.getDescription()
-            };
+        };
 
         int spacing = (int)Jaylib.MeasureTextEx(Jaylib.GetFontDefault(), "!", (float)FONT_SIZE, 0f).y();
 
@@ -129,11 +129,11 @@ public class MouseOverInventoryBox {
                             (int)(innerRec.x() + MARGIN),
                             (int)(innerRec.y() + MARGIN + spacing * i),
                             FONT_SIZE,
-                            TEXT_COLOR);
+                            COLOR_TEXT);
         }
     }
 
-    private static void drawMouseOver(Consumable consumable){
+    private void drawMouseOver(Consumable consumable){
         drawBox();
         Jaylib.Rectangle innerRec = getInnerRectangle(getOuterRectangle());
         String textArr[] = {consumable.getName(),
@@ -142,7 +142,7 @@ public class MouseOverInventoryBox {
             MP_TEXT + Integer.toString(consumable.getBoostMP()),
             DMG_TEXT + Integer.toString(consumable.getBoostDamage()),
             consumable.getDescription()
-            };
+        };
 
         int spacing = (int)Jaylib.MeasureTextEx(Jaylib.GetFontDefault(), "!", (float)FONT_SIZE, 0f).y();
 
@@ -151,7 +151,7 @@ public class MouseOverInventoryBox {
                             (int)(innerRec.x() + MARGIN),
                             (int)(innerRec.y() + MARGIN + spacing * i),
                             FONT_SIZE,
-                            TEXT_COLOR);
+                            COLOR_TEXT);
         }
     }
 }

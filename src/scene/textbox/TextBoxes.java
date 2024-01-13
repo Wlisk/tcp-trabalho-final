@@ -1,7 +1,7 @@
 package scene.textbox;
 
 import com.raylib.Jaylib;
-import com.raylib.Jaylib.Rectangle;
+import com.raylib.Raylib;
 
 import game.Game;
 
@@ -22,17 +22,24 @@ public class TextBoxes {
         BOX_POS_X = WINDOW_WIDTH / 2 - BOX_WIDTH / 2,
         BOX_POS_Y = WINDOW_HEIGHT / 2 - BOX_HEIGHT / 2;
 
-    private static final Rectangle
-        ALERT_TEXTBOX_REC = new Rectangle(BOX_POS_X, BOX_POS_Y, BOX_WIDTH, BOX_HEIGHT);
+    private static final Raylib.Color
+        COLOR_BACKGROUND = Jaylib.GetColor(-1772078593),
+        COLOR_BORDER = Jaylib.GetColor(1631265023),
+        COLOR_TEXT = Jaylib.WHITE;
+
+
+    private static final Jaylib.Rectangle
+        ALERT_TEXTBOX_REC = new Jaylib.Rectangle(BOX_POS_X, BOX_POS_Y, BOX_WIDTH, BOX_HEIGHT);
 
     
     public static final TextBox
-        ALERT_TEXTBOX = new TextBox(ALERT_TEXTBOX_REC, FONT_SIZE, BORDER_SIZE, Jaylib.WHITE, Jaylib.BLACK, Jaylib.WHITE);
+        ALERT_TEXTBOX = new TextBox(ALERT_TEXTBOX_REC, FONT_SIZE, BORDER_SIZE, COLOR_TEXT, COLOR_BACKGROUND, COLOR_BORDER);
 
     public static final String
         BATTLE_START = "FIGHT!",
-        PLAYER_HIT = "ENEMY HIT FOR ",
-        BOSS_HIT = "YOU WERE HIT FOR ";
+        ATTACK_MISSED = "MISS!",
+        GAME_OVER_LOSS = "YOU DIED!",
+        GAME_OVER_WIN = "YOU WIN!";
 
     
 

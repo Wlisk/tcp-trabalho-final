@@ -1,6 +1,7 @@
 package scene.inventory;
 
 import com.raylib.Jaylib;
+import com.raylib.Raylib;
 
 import game.Game;
 
@@ -15,9 +16,13 @@ public class InventorySlotInst {
         SLOT_POS_Y = WINDOW_HEIGHT - SLOT_SIDE; // Bottom of screen
     
     private static final int
-        BORDER_SIZE = 2;
+        BORDER_SIZE = 4;
+
+    private static final Raylib.Color
+        COLOR_BACKGROUND = Jaylib.GetColor(-1772078593),
+        COLOR_BORDER = Jaylib.GetColor(1631265023);
 
     private static Jaylib.Rectangle REC = new Jaylib.Rectangle(SLOT_POS_X, SLOT_POS_Y, SLOT_SIDE, SLOT_SIDE);
 
-    public static final InventorySlots INVENTORY_SLOTS = new InventorySlots(null, REC, BORDER_SIZE, Jaylib.BLACK, Jaylib.WHITE);
+    public static final InventorySlots INVENTORY_SLOTS = new InventorySlots(null, REC, BORDER_SIZE, COLOR_BACKGROUND, COLOR_BORDER);
 }

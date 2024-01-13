@@ -61,7 +61,7 @@ implements IDrawable, IMouseOverable, IClickable
         Jaylib.DrawRectangleRec(rectangle, _currColor);
 
         Raylib.Vector2 _windowTextSize = Jaylib.MeasureTextEx(
-            Jaylib.GetFontDefault(), text, textSize, 0
+            Jaylib.GetFontDefault(), text, textSize, 1
         );
 
         float _middleXPos = (rectangle.width() / 2 ) - (_windowTextSize.x() / 2);

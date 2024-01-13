@@ -13,9 +13,6 @@ import game.GameState;
 import entities.boss.Boss;
 import entities.player.Player;
 import game.Game;
-import scene.bars.Bars;
-import entities.boss.Boss;
-import entities.boss.Bosses;
 import entities.player.ClassType;
 import scene.button.Button;
 import scene.button.Buttons;
@@ -23,7 +20,7 @@ import scene.textbox.TextBoxes;
 import scene.statbox.Statboxes;
 import scene.inventory.InventorySlotInst;
 import java.util.HashMap;
-import scene.TextureId;
+import entities.boss.StateType;
 
 public class Scene {
     private static final int 
@@ -50,6 +47,9 @@ public class Scene {
     private static final float SPRITES_START_DISTANCEX = 0.1f;
     private static final float SPRITES_BETWEEN_DISTANCEX = 0.3f;
 
+    public static final Raylib.Color 
+        COLOR_BACKGROUND = Jaylib.GetColor(-1768515841); // unsigned hexadecilmal for RGB value #969696
+        
     private static final Vector2[] SPRITE_POS = getSpritesPos();
     private HashMap<TextureId, Texture> textures;
 
@@ -83,24 +83,38 @@ public class Scene {
 
     public void drawWindow(GameState gameState, Player player, Boss currBoss) {
         Jaylib.BeginDrawing();
-        Jaylib.ClearBackground(Jaylib.BLACK);
+        Jaylib.ClearBackground(COLOR_BACKGROUND);
 
         switch (gameState) {
             case MAIN_MENU:
                 drawMainMenu();
                 break;
+
             case SELECTING_CLASS:
                 drawClassSelections();
                 break;
+
             case BATTLE_START:
-                drawBattleStart();
-                break;
             case TURN_START:
-                drawTurnStart(player, currBoss);
+                drawBattle();
+                break;
+            case TURN_PLAYER_CHOOSE:
+                drawBattleButtons();
+                drawBattle();
+                break;
+            case TURN_PLAYER_CHOSEN:
+            case TURN_ENEMY_CHOOSE:
+            case TURN_ENEMY_CHOSEN:
+            case TURN_END:
+            case BATTLE_END:
                 drawBattle();
                 break;
 
-            default: break;
+            case GAME_END:
+                break;
+
+            default: 
+                break;
         }
 
         TextBoxes.ALERT_TEXTBOX.draw();
@@ -158,25 +172,21 @@ public class Scene {
         }
     }
 
-    private void drawBattleStart() {
-
-    }
-
-    private void drawTurnStart(Player player, Boss currBoss) {
-        Statboxes.PLAYER_STATBOX.draw();
-        Statboxes.BOSS_STATBOX.draw();
-        drawBars(player, currBoss);
-        
+    private void drawBattle() {
         drawPlayer();
         drawBoss();
+
+        Statboxes.PLAYER_STATBOX.draw();
+        Statboxes.BOSS_STATBOX.draw();
+        drawBars();
         InventorySlotInst.INVENTORY_SLOTS.draw(textures);
     }
 
-    private void drawBars(Player player, Boss currBoss) {
-        Bars.PLAYER_HEALTHBAR.drawHP();
-        Bars.PLAYER_MANABAR.drawMP();
-        Bars.BOSS_HEALTHBAR.drawHP();
-        Bars.BOSS_MANABAR.drawMP();
+    private void drawBars() {
+        game.getPlayer().getHealthBar().drawHP();
+        game.getPlayer().getManaBar().drawMP();
+        game.getCurrBoss().getHealthBar().drawHP();
+        game.getCurrBoss().getManaBar().drawMP();
     }
 
     private static Vector2[] getSpritesPos() {
@@ -208,7 +218,7 @@ public class Scene {
 
         final Jaylib.Vector2 origin = new Vector2(0f, 0f);
 
-        Jaylib.DrawTexturePro(tx, sourceRec, destRec, origin, 0f, Jaylib.WHITE);
+        Jaylib.DrawTexturePro(tx, sourceRec, destRec, origin, 0f, getPlayerColor());
     }
 
     private void drawBoss(){
@@ -225,21 +235,32 @@ public class Scene {
 
         final Jaylib.Vector2 origin = new Vector2(0f, 0f);
 
-        Jaylib.DrawTexturePro(tx, sourceRec, destRec, origin, 0f, getBossColor(boss));
+        Jaylib.DrawTexturePro(tx, sourceRec, destRec, origin, 0f, getBossColor());
     }
 
-    private Raylib.Color getBossColor(Boss boss){
-        switch (boss.getCurrState()){
-            case BERSERK: return Jaylib.RED;
-            case WEAK: return Jaylib.GREEN;
-            default: return Jaylib.WHITE;
+    private Raylib.Color getBossColor(){
+        if (game.getCurrBoss().getCurrState() == StateType.BERSERK){
+            return Jaylib.RED;
+        } else if (game.getCurrBoss().getCurrState() == StateType.WEAK){
+            return Jaylib.GREEN;
+        } else if (game.getCurrBoss().getDefendDuration() > 0){
+            return Jaylib.BLUE;
+        } else {
+            return Jaylib.WHITE;
         }
     }
 
-    public void drawBattle() {
-        final Player _player = game.getPlayer();
-        final Boss _boss = game.getCurrBoss();
+    private Raylib.Color getPlayerColor(){
+        if (game.getPlayer().getDefendDuration() > 0){
+            return Jaylib.BLUE;
+        } else {
+            return Jaylib.WHITE;
+        }
+    }
 
-        //Jaylib.DrawTexture(null, 15, 15, Jaylib.WHITE);
-    }        
+    private void drawBattleButtons(){
+        Buttons.ATTACK_BUTTON.draw();
+        Buttons.SPECIAL_BUTTON.draw();
+        Buttons.DEFEND_BUTTON.draw();
+    }
 }

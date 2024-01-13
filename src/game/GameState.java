@@ -1,17 +1,26 @@
 package game;
 
 public enum GameState {
-    MAIN_MENU, 
-    SELECTING_CLASS, 
-    BATTLE_START, 
-    TURN_START, 
-    TURN_PLAYER_CHOOSE, 
-    TURN_PLAYER_CHOSEN, 
-    TURN_ENEMY_CHOOSE, 
-    TURN_ENEMY_CHOSEN, 
-    TURN_END, 
-    BATTLE_END, 
-    GAME_END;
+    MAIN_MENU(0), 
+    SELECTING_CLASS(0), 
+    BATTLE_START(2), 
+    TURN_START(0.5), 
+    TURN_PLAYER_CHOOSE(0), 
+    TURN_PLAYER_CHOSEN(1), 
+    TURN_ENEMY_CHOOSE(0), 
+    TURN_ENEMY_CHOSEN(1), 
+    TURN_END(0), 
+    BATTLE_END(1), 
+    GAME_END(5);
+
+    private final double transitionDelay;
+    GameState(double transitionDelay){
+        this.transitionDelay = transitionDelay;
+    }
+
+    public double getDelay(){
+        return this.transitionDelay;
+    }
 
     @Override
     public String toString() {

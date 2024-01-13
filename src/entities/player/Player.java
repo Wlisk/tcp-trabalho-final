@@ -7,6 +7,7 @@ import exceptions.UnknownTypeException;
 import items.Inventory;
 import items.consumable.Consumable;
 import utils.Randomic;
+import scene.bars.Bars;
 
 public final class Player extends Entity {
     // Warrior: 1000HP, 200MP, 50DEF, 85DMG, 0.8ACC
@@ -63,17 +64,17 @@ public final class Player extends Entity {
         
         inventory.setEquippedArmor( ClassTypeUtil.getInitialArmor() );
         inventory.setEquippedWeapon( ClassTypeUtil.getInitialWeapon() );
+
+        setHealthBar(Bars.newPlayerHealthBar(this));
+        setManaBar(Bars.newPlayerManaBar(this));
     }
 
-    public int receiveExp(int gainedExp) throws NumberOverflowException {
-        int _currExp = exp + gainedExp;
-        if (_currExp >= expToLevel) {
+    public void receiveExp(int gainedExp) throws NumberOverflowException {
+        exp += gainedExp;
+        while (exp >= expToLevel) {
+            exp -= expToLevel;
             levelUp();
-            int _overflowExp = expToLevel - _currExp;
-            exp = _overflowExp;
         } 
-        else exp = _currExp;
-        return exp;
     }
 
     private int calcExpToLevel(int level) {
@@ -85,7 +86,6 @@ public final class Player extends Entity {
 
     private int levelUp() throws NumberOverflowException {
         level += 1;
-        exp = 0;
         expToLevel = calcExpToLevel(level);
 
         setMaxHP( (int)(getMaxHP() * LUP_MULT_MAX_HP) );
@@ -95,8 +95,11 @@ public final class Player extends Entity {
         setCurrMP( getMaxMP() );
         
         setBaseDamage( (int)(getBaseDamage() * LUP_MULT_BASE_DAMAGE) );
+        setCurrDamage(getBaseDamage());
         setBaseCritChance( getBaseCritChance() * LUP_MULT_CRIT_CHANCE );
+        setCurrCritChance( getCurrCritChance() );
         setBaseAccuracy( getBaseAccuracy() * LUP_MULT_ACC );
+        setCurrAccuracy( getCurrAccuracy() );
 
         return level;
     }
@@ -125,10 +128,8 @@ public final class Player extends Entity {
 
         int dmgReduction = (int) ((double) boss.getCurrDefense() * boss.getCurrDefenseMultiplier());
         if (_damage - dmgReduction < _damage * MIN_DAMAGE_POST_REDUCTION){ // Defence damage reduction caps at 80%
-            System.out.println("path 1 ");
             return (int) ((double)_damage * MIN_DAMAGE_POST_REDUCTION);
         } else {
-            System.out.println("path 2 ");
             return _damage - dmgReduction;
         }
     }
@@ -145,9 +146,8 @@ public final class Player extends Entity {
     }
 
     public int attackSuper(Boss boss) throws NumberOverflowException {
-        // TODO: Make super have special effects other than extra damage and never missing, give custom cost
         int _damage = calcDamage(boss);
-        setCurrMP(getCurrMP() / 2);
+        setCurrMP(getCurrMP() - getMaxMP() / 2); // Super costs half of player's maximum MP
         boss.takeDamage((int)(_damage * 1.5));
         return _damage;
     }
