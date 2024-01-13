@@ -64,7 +64,6 @@ src/utils/*.java \
 src/exceptions/*.java \
 src/scene/bars/*.java \
 src/scene/textbox/*.java \
-src/scene/sprite/*.java \
 src/scene/statbox/*.java \
 src/scene/inventory/*.java;
 ```
@@ -74,25 +73,7 @@ src/scene/inventory/*.java;
 ### Win Compilation
 
 ```console
-javac -cp lib/*;. -d out -sourcepath . src/Main.java \
-src/entities/*.java \
-src/entities/player/*.java \
-src/entities/boss/*.java \
-src/game/*.java \
-src/interfaces/*.java \
-src/items/*.java \
-src/items/armor/*.java \
-src/items/consumable/*java \
-src/items/weapon/*.java \
-src/scene/*.java \
-src/scene/button/*.java \
-src/utils/*.java \
-src/exceptions/*.java \
-src/scene/bars/*.java \
-src/scene/textbox/*.java \
-src/scene/sprite/*.java \
-src/scene/statbox/*.java \
-src/scene/inventory/*.java;
+javac -cp lib/*;. -d out -sourcepath . src/Main.java src/entities/*.java src/entities/player/*.java src/entities/boss/*.java src/game/*.java src/interfaces/*.java src/items/*.java src/items/armor/*.java src/items/consumable/*.java src/items/weapon/*.java src/scene/*.java src/scene/button/*.java src/utils/*.java src/exceptions/*.java src/scene/bars/*.java src/scene/textbox/*.java src/scene/statbox/*.java src/scene/inventory/*.java
 ```
 
 ### Win Execution
