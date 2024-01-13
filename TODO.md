@@ -8,17 +8,17 @@ Tarefas concluídas e ainda a serem feitas no projeto.
 
 **Descricao**: representa a logica de renderizacao na classe Scene
 
-- [ ] criar cenas do jogo
+- [x] criar cenas do jogo
   - [x] MAIN_MENU (Francisco)
   - [x] SELECTING_CLASS (Francisco)
   - [x] BATTLE_START (Francisco)
   - [x] TURN_START (Richard)
-  - [ ] TURN_PLAYER_CHOOSE
-  - [ ] TURN_PLAYER_CHOSEN
-  - [ ] TURN_ENEMY_CHOOSE
-  - [ ] TURN_ENEMY_CHOSEN
-  - [ ] TURN_END
-  - [ ] BATTLE_END
+  - [x] TURN_PLAYER_CHOOSE
+  - [x] TURN_PLAYER_CHOSEN
+  - [x] TURN_ENEMY_CHOOSE
+  - [x] TURN_ENEMY_CHOSEN
+  - [x] TURN_END
+  - [x] BATTLE_END
 
 ---
 
@@ -26,23 +26,23 @@ Tarefas concluídas e ainda a serem feitas no projeto.
 
 **Descricao**: representa a logica do jogo na classe Game
 
-- [ ] implementar estado do jogo
+- [x] implementar estado do jogo
   - [x] MAIN_MENU (Francisco)
   - [x] SELECTING_CLASS (Francisco)
-  - [ ] BATTLE_START
+  - [x] BATTLE_START
     - [x] apresentar mensagem de inicio de batalha (Francisco)
-    - [ ] deve resetar o player para cada nova batalha (Richard)
-    - [ ] deve iniciar um novo boss (Richard)
-  - [ ] TURN_START (Richard)
-  - [ ] TURN_PLAYER_CHOOSE
-  - [ ] TURN_PLAYER_CHOSEN
-  - [ ] TURN_ENEMY_CHOOSE
-  - [ ] TURN_ENEMY_CHOSEN
-  - [ ] TURN_END
-  - [ ] BATTLE_END
-    - [ ] verificar se existem mais bosses
-      - [ ] se sim, continua para BATTLE_START
-      - [ ] se não, apresenta mensagem de sucesso e finaliza jogo
+    - [x] deve resetar o player para cada nova batalha (Richard)
+    - [x] deve iniciar um novo boss (Richard)
+  - [x] TURN_START (Richard)
+  - [x] TURN_PLAYER_CHOOSE
+  - [x] TURN_PLAYER_CHOSEN
+  - [x] TURN_ENEMY_CHOOSE
+  - [x] TURN_ENEMY_CHOSEN
+  - [x] TURN_END
+  - [x] BATTLE_END
+    - [x] verificar se existem mais bosses
+      - [x] se sim, continua para BATTLE_START
+      - [x] se não, apresenta mensagem de sucesso e finaliza jogo
   - [x] GAME_END (Francisco)
 
 ---
@@ -51,18 +51,13 @@ Tarefas concluídas e ainda a serem feitas no projeto.
 
 **Descricao**: logica da batalha e execucao de ataques/defesas
 
-- [ ] implementar batalhas Player vs Boss
-  - [ ] implementar jogada de turnos (Richard)
-    - [ ] quando Player ataca Boss nao pode atacar
-    - [ ] quando Player ataca Boss talvez possa se defender
-    - [ ] quando Boss ataca Player nao pode atacar
-    - [ ] quando Boss ataca Player talvez possa se defender
-  - [ ] Player e Boss podem causar dano um ao outro
-  - [ ] Player morre, fim de jogo
-  - [ ] Boss morre, proxima cena/Boss
-  - [ ] implementar logica de defesa nas batalhas
-    - [ ] se Player estiver defendendo nao pode atacar
-    - [ ] se Boss estiver defendendo nao pode atacar
+- [x] implementar batalhas Player vs Boss
+  - [x] implementar jogada de turnos (Richard)
+  - [x] Player e Boss podem causar dano um ao outro
+  - [x] Player morre, fim de jogo
+  - [x] Boss morre, proxima cena/Boss
+  - [x] implementar logica de defesa nas batalhas
+  - [ ] implementar uso de items e gerenciamento de inventário
 
 ---
 
