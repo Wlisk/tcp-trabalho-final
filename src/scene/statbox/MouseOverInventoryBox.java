@@ -74,14 +74,14 @@ public class MouseOverInventoryBox {
         }
 
         switch (item.getItemType()){
-            case ItemType.WEAPON:
+            case WEAPON:
                 drawMouseOver((Weapon) item);
                 break;
-            case ItemType.ARMOR:
+            case ARMOR:
                 drawMouseOver((Armor) item);
                 break;
 
-            case ItemType.CONSUMABLE:
+            case CONSUMABLE:
                 drawMouseOver((Consumable) item);
                 break;
         }
