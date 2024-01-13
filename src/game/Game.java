@@ -16,14 +16,6 @@ import scene.inventory.InventorySlotInst;
 
 public class Game {
     public static final String WINDOW_TITLE = "BOSSFIGHTER";
-    public static final double DELAY_BATTLE_START = 2,
-                               DELAY_TURN_START = 0.5,
-                               DELAY_AFTER_PLAYER_ACTION = 0.5,
-                               DELAY_AFTER_BOSS_ACTION = 0.5,
-                               DELAY_TURN_END = 0.5,
-                               DELAY_BATTLE_END = 1,
-                               DELAY_GAME_OVER = 5;
-
 
     public static final int 
         WINDOW_WIDTH = 600, 

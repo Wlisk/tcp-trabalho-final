@@ -13,7 +13,8 @@ public enum GameState {
     BATTLE_END(1), 
     GAME_END(5);
 
-    private final double transitionDelay;
+    private final double transitionDelay; // Transition delay is the minimum delay before the logic will progress after entering a state.
+
     GameState(double transitionDelay){
         this.transitionDelay = transitionDelay;
     }
