@@ -2,12 +2,6 @@ package scene;
 
 import com.raylib.Jaylib;
 import com.raylib.Raylib;
-import com.raylib.Jaylib.Vector2;
-import com.raylib.Raylib.Texture;
-import static com.raylib.Raylib.DrawText;
-import static com.raylib.Raylib.DrawTextureEx;
-import static com.raylib.Raylib.MeasureText;
-
 
 import game.GameState;
 import entities.boss.Boss;
@@ -15,10 +9,6 @@ import entities.player.Player;
 import game.Game;
 import entities.player.ClassType;
 import scene.button.Button;
-import scene.button.Buttons;
-import scene.textbox.TextBoxes;
-import scene.statbox.Statboxes;
-import scene.inventory.InventorySlotInst;
 import java.util.HashMap;
 import entities.boss.StateType;
 
@@ -50,8 +40,8 @@ public class Scene {
     public static final Raylib.Color 
         COLOR_BACKGROUND = Jaylib.GetColor(-1768515841); // unsigned hexadecilmal for RGB value #969696
         
-    private static final Vector2[] SPRITE_POS = getSpritesPos();
-    private HashMap<TextureId, Texture> textures;
+    private static final Jaylib.Vector2[] SPRITE_POS = getSpritesPos();
+    private HashMap<TextureId, Jaylib.Texture> textures;
 
     private String gameTitle;
     private final Game game;
@@ -59,7 +49,7 @@ public class Scene {
     public Scene(Game game) {
         gameTitle = null;
         this.game = game;
-        textures = new HashMap<TextureId, Texture>();
+        textures = new HashMap<TextureId, Jaylib.Texture>();
     }
 
     public void initializeWindow(String gameTitle) {
@@ -76,7 +66,7 @@ public class Scene {
     }
 
     public void unloadTextures() {
-        for(final HashMap.Entry<TextureId, Texture> entry : textures.entrySet()){
+        for(final HashMap.Entry<TextureId, Jaylib.Texture> entry : textures.entrySet()){
             Jaylib.UnloadTexture(entry.getValue());
         }
     }
@@ -117,16 +107,16 @@ public class Scene {
                 break;
         }
 
-        TextBoxes.ALERT_TEXTBOX.draw();
+        game.getAlertTextBox().draw();
 
         Jaylib.EndDrawing();
     }
 
     private void drawMainMenu() {
         final int _textCenterPosX = 
-            (WINDOW_WIDTH / 2) - (MeasureText(gameTitle, FONT_SIZE_TITLE) / 2); 
+            (WINDOW_WIDTH / 2) - (Jaylib.MeasureText(gameTitle, FONT_SIZE_TITLE) / 2); 
 
-        DrawText(
+        Jaylib.DrawText(
             gameTitle, 
             _textCenterPosX, 
             TITLE_TEXT_POS_Y, 
@@ -134,40 +124,40 @@ public class Scene {
             Jaylib.RED
         );
 
-        Buttons.PLAY_BUTTON.draw();
-        Buttons.EXIT_BUTTON.draw();
+        game.getPlayButton().draw();
+        game.getExitButton().draw();
     }
 
     private void drawClassSelections() {
         final int _textCenterPosX = 
-            (WINDOW_WIDTH / 2) - (MeasureText(SELECTION_TEXT, FONT_SIZE_SELECTION) / 2); 
+            (WINDOW_WIDTH / 2) - (Jaylib.MeasureText(SELECTION_TEXT, FONT_SIZE_SELECTION) / 2); 
         
-        DrawText(SELECTION_TEXT, 
-                 _textCenterPosX, 
-                 TITLE_TEXT_POS_Y, 
-                 FONT_SIZE_SELECTION, 
-                 Jaylib.RED);
+        Jaylib.DrawText(SELECTION_TEXT, 
+            _textCenterPosX, 
+            TITLE_TEXT_POS_Y, 
+            FONT_SIZE_SELECTION, 
+            Jaylib.RED);
 
         
-        DrawTextureEx(textures.get(TextureId.CLASS_1),
+        Jaylib.DrawTextureEx(textures.get(TextureId.CLASS_1),
                       SPRITE_POS[0], 
                       0f, 
                       (PLAYER_SELECT_SPRITE_SIZE / textures.get(TextureId.CLASS_1).height()),
                       Jaylib.WHITE);
         
-        DrawTextureEx(textures.get(TextureId.CLASS_2),
+        Jaylib.DrawTextureEx(textures.get(TextureId.CLASS_2),
                       SPRITE_POS[1], 
                       0f, 
                       (PLAYER_SELECT_SPRITE_SIZE / textures.get(TextureId.CLASS_2).height()),
                       Jaylib.WHITE);
 
-        DrawTextureEx(textures.get(TextureId.CLASS_3),
+        Jaylib.DrawTextureEx(textures.get(TextureId.CLASS_3),
                       SPRITE_POS[2], 
                       0f, 
                       (PLAYER_SELECT_SPRITE_SIZE / textures.get(TextureId.CLASS_3).height()),
                       Jaylib.WHITE);
 
-        for(final Button _button: Buttons.CLASS_BUTTONS) {
+        for(final Button _button: game.getClassButtons().values()) {
             _button.draw();
         }
     }
@@ -176,10 +166,12 @@ public class Scene {
         drawPlayer();
         drawBoss();
 
-        Statboxes.PLAYER_STATBOX.draw();
-        Statboxes.BOSS_STATBOX.draw();
+        game.getPlayer().getStatbox().draw();
+        game.getCurrBoss().getStatbox().draw();
+
         drawBars();
-        InventorySlotInst.INVENTORY_SLOTS.draw(textures);
+
+        game.getPlayer().getInventory().getInventoryUI().draw(textures);
     }
 
     private void drawBars() {
@@ -189,12 +181,12 @@ public class Scene {
         game.getCurrBoss().getManaBar().drawMP();
     }
 
-    private static Vector2[] getSpritesPos() {
+    private static Jaylib.Vector2[] getSpritesPos() {
         float _distanceX = SPRITES_START_DISTANCEX;
-        final Vector2[] _spritesPos = new Vector2[ClassType.size()];
+        final Jaylib.Vector2[] _spritesPos = new Jaylib.Vector2[ClassType.size()];
 
         for(final ClassType _classType: ClassType.values()) {
-            _spritesPos[_classType.getIndex()] = new Vector2(
+            _spritesPos[_classType.getIndex()] = new Jaylib.Vector2(
                 WINDOW_WIDTH * _distanceX, 
                 SELECT_CLASS_POS_Y
             );
@@ -216,7 +208,7 @@ public class Scene {
                                                         PLAYER_BATTLE_SPRITE_SIZE,
                                                         PLAYER_BATTLE_SPRITE_SIZE * aspectRatio);
 
-        final Jaylib.Vector2 origin = new Vector2(0f, 0f);
+        final Jaylib.Vector2 origin = new Jaylib.Vector2(0f, 0f);
 
         Jaylib.DrawTexturePro(tx, sourceRec, destRec, origin, 0f, getPlayerColor());
     }
@@ -233,7 +225,7 @@ public class Scene {
                                                         BOSS_BATTLE_SPRITE_SIZE,
                                                         BOSS_BATTLE_SPRITE_SIZE * aspectRatio);
 
-        final Jaylib.Vector2 origin = new Vector2(0f, 0f);
+        final Jaylib.Vector2 origin = new Jaylib.Vector2(0f, 0f);
 
         Jaylib.DrawTexturePro(tx, sourceRec, destRec, origin, 0f, getBossColor());
     }
@@ -259,8 +251,8 @@ public class Scene {
     }
 
     private void drawBattleButtons(){
-        Buttons.ATTACK_BUTTON.draw();
-        Buttons.SPECIAL_BUTTON.draw();
-        Buttons.DEFEND_BUTTON.draw();
+        game.getAttackButton().draw();
+        game.getSpecialButton().draw();
+        game.getDefendButton().draw();
     }
 }

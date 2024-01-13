@@ -32,8 +32,7 @@ public class TextBoxes {
         ALERT_TEXTBOX_REC = new Jaylib.Rectangle(BOX_POS_X, BOX_POS_Y, BOX_WIDTH, BOX_HEIGHT);
 
     
-    public static final TextBox
-        ALERT_TEXTBOX = new TextBox(ALERT_TEXTBOX_REC, FONT_SIZE, BORDER_SIZE, COLOR_TEXT, COLOR_BACKGROUND, COLOR_BORDER);
+    public static final TextBox newAlertTextBox() { return new TextBox(ALERT_TEXTBOX_REC, FONT_SIZE, BORDER_SIZE, COLOR_TEXT, COLOR_BACKGROUND, COLOR_BORDER); }
 
     public static final String
         BATTLE_START = "FIGHT!",

@@ -5,7 +5,7 @@ public enum GameState {
     SELECTING_CLASS(0), 
     BATTLE_START(2), 
     TURN_START(0.5), 
-    TURN_PLAYER_CHOOSE(0), 
+    TURN_PLAYER_CHOOSE(0.2), 
     TURN_PLAYER_CHOSEN(1), 
     TURN_ENEMY_CHOOSE(0), 
     TURN_ENEMY_CHOSEN(1), 

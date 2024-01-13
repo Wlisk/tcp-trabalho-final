@@ -1,12 +1,18 @@
 package entities.boss;
 
 import entities.player.Player;
+import entities.player.ClassType;
 import entities.Entity;
 import exceptions.NumberOverflowException;
 import utils.Number;
 import utils.Randomic;
 import scene.TextureId;
 import scene.bars.Bars;
+import scene.statbox.Statboxes;
+import items.Item;
+import items.weapon.Weapons;
+import items.armor.Armors;
+import items.consumable.Consumables;
 
 public final class Boss extends Entity {
     public static final int DEFENDED = -1;
@@ -82,6 +88,7 @@ public final class Boss extends Entity {
 
         setHealthBar(Bars.newBossHealthBar(this));
         setManaBar(Bars.newBossManaBar(this));
+        setStatbox(Statboxes.newBossStatbox(this));
     }
     
     @Override
@@ -205,14 +212,26 @@ public final class Boss extends Entity {
         return _damage;
     }
     
+    private boolean reachedBerserkThreshold() {
+        double healthPercent = (double)this.getCurrHP() / (double)this.getMaxHP();
+        return healthPercent < berserkThreshold;
+    }
+
+    public Item[] getDroppedItems(ClassType classType){
+        Item items[] = {
+            (Item)Consumables.getRandomFood(), 
+            (Item) Consumables.getRandomPotion(),
+            (Item) Armors.getRandomArmor(classType),
+            (Item) Weapons.getRandomWeapon(classType) };
+
+        return items;
+    }
+    
 
     public StateType getCurrState() { return currState; }
     public double getPercentageBerserk() { return berserkThreshold; }
     public String getDescription() { return description; }
     public int getExpReward() { return this.expReward; }
 
-    private boolean reachedBerserkThreshold() {
-        double healthPercent = (double)this.getCurrHP() / (double)this.getMaxHP();
-        return healthPercent < berserkThreshold;
-    }
+    
 }

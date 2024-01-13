@@ -8,6 +8,8 @@ import items.Inventory;
 import items.consumable.Consumable;
 import utils.Randomic;
 import scene.bars.Bars;
+import scene.statbox.Statboxes;
+import items.Item;
 
 public final class Player extends Entity {
     // Warrior: 1000HP, 200MP, 50DEF, 85DMG, 0.8ACC
@@ -67,6 +69,7 @@ public final class Player extends Entity {
 
         setHealthBar(Bars.newPlayerHealthBar(this));
         setManaBar(Bars.newPlayerManaBar(this));
+        setStatbox(Statboxes.newPlayerStatbox(this));
     }
 
     public void receiveExp(int gainedExp) throws NumberOverflowException {
@@ -104,17 +107,6 @@ public final class Player extends Entity {
         return level;
     }
 
-    public Consumable useConsumable(int index) {
-        Consumable _consumable = inventory.use(index);
-
-        if (_consumable != null) {
-            healHP(_consumable.getBoostHP());
-            recoverMP(_consumable.getBoostMP());
-            //temporaryDamageBoost = _consumable.getBoostDamage();
-        }
-        return _consumable;
-    }
-
     protected int calcDamage(Boss boss) {
         boolean _hasCrit = getTotalCritChance() >= Randomic.between(0.0, MAX_BASE_CRIT);
 
@@ -150,6 +142,45 @@ public final class Player extends Entity {
         setCurrMP(getCurrMP() - getMaxMP() / 2); // Super costs half of player's maximum MP
         boss.takeDamage((int)(_damage * 1.5));
         return _damage;
+    }
+    
+    public void addItemInventory(Item item){
+        this.inventory.add(item);
+    }
+
+    public Item getItemInventory(int index){
+        return this.inventory.getItem(index);
+    }
+
+    public void addItemsInventory(Item[] items){
+        for (final Item item: items){
+            if (!inventory.isFull()){
+                this.inventory.add(item);
+            }
+        }
+    }
+
+    public Consumable useConsumable(int index) {
+        Consumable _consumable = inventory.use(index);
+
+        if (_consumable != null) {
+            healHP(_consumable.getBoostHP());
+            recoverMP(_consumable.getBoostMP());
+        }
+
+        return _consumable;
+    }
+
+    public void useInventory(int index){
+        Consumable consumable = inventory.use(index);
+        if (consumable != null){
+            healHP(consumable.getBoostHP());
+            recoverMP(consumable.getBoostMP());
+        }
+    }
+
+    public void equipInventory(int index) {
+        this.inventory.equip(index);
     }
     
     public int getTotalDamage(){

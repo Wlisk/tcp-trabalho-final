@@ -6,6 +6,7 @@ import exceptions.MaxStringSizeException;
 import exceptions.NumberOverflowException;
 import scene.TextureId;
 import scene.bars.Bar;
+import scene.statbox.Statbox;
 
 // TODO: setters must be completed with guard statements
 // - 'if' must be put to guard against values below 0 or 0.0
@@ -50,6 +51,7 @@ public class Entity {
 
     private TextureId textureId;
     private Bar healthBar, manaBar;
+    private Statbox statbox;
 
     protected void resetToZero() {
         maxHP = maxMP = 0;
@@ -167,9 +169,10 @@ public class Entity {
     public double getBaseDefenseMultiplier() { return baseDefenseMultiplier; }
     public double getCurrDefenseMultiplier() { return currDefenseMultiplier; }
 
-    public TextureId getTextureId() {return textureId;}
-    public Bar getHealthBar() {return healthBar;}
-    public Bar getManaBar() {return manaBar;}
+    public TextureId getTextureId() { return textureId; }
+    public Bar getHealthBar() { return healthBar; }
+    public Bar getManaBar() { return manaBar; }
+    public Statbox getStatbox() { return statbox; }
     
 
     // --------------------------- SETTERS --------------------------- //
@@ -298,6 +301,10 @@ public class Entity {
 
     public void setManaBar(Bar manaBar) {
         this.manaBar = manaBar;
+    }
+
+    public void setStatbox(Statbox statbox) {
+        this.statbox = statbox;
     }
 
     // --------------------------- STATIC RELATED --------------------------- //
