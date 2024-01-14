@@ -4,6 +4,7 @@ import entities.player.Player;
 import entities.player.ClassType;
 import entities.Entity;
 import exceptions.NumberOverflowException;
+import exceptions.UnknownTypeException;
 import utils.Number;
 import utils.Randomic;
 import scene.TextureId;
@@ -14,17 +15,20 @@ import items.weapon.Weapons;
 import items.armor.Armors;
 import items.consumable.Consumables;
 
+/** Define propriedades e métodos para o chefão (Boss) do jogo.  */
 public final class Boss extends Entity {
     public static final int DEFENDED = -1;
-    private static final double BERSERK_DAMAGE_MULTIPLIER  = 1.5, // Multiplier will multiply damage by 1.5
-                                BERSERK_CRITCHANCE_ADD = 0.2,  // While this will increase crit chance by 20% (additive)
-                                BERSERK_CRITMULT_ADD = 0.2,
-                                BERSERK_ACCURACY_ADD = -0.1;
-                                
-
-    private static final double WEAK_DAMAGE_MULTIPLIER = 0.5, 
-                                WEAK_CRITCHANCE_ADD = -0.1, 
-                                WEAK_CRITMULT_ADD = -0.2;
+    // constants to change the boss BERSERK state statistics
+    private static final double 
+        BERSERK_DAMAGE_MULTIPLIER  = 1.5, 
+        BERSERK_CRITCHANCE_ADD = 0.2,  
+        BERSERK_CRITMULT_ADD = 0.2,
+        BERSERK_ACCURACY_ADD = -0.1; 
+    // constants to change the boss WEAK state statistics
+    private static final double 
+        WEAK_DAMAGE_MULTIPLIER = 0.5, 
+        WEAK_CRITCHANCE_ADD = -0.1, 
+        WEAK_CRITMULT_ADD = -0.2;
 
     private final int expReward;
     private StateType currState;
@@ -211,20 +215,33 @@ public final class Boss extends Entity {
         player.takeDamage((int)(_damage * 1.5));
         return _damage;
     }
-    
-    private boolean reachedBerserkThreshold() {
-        double healthPercent = (double)this.getCurrHP() / (double)this.getMaxHP();
-        return healthPercent < berserkThreshold;
+
+    private Item[] getRandomItemsList(ClassType classType) throws UnknownTypeException {
+        final Item[] _items = {
+            Consumables.getRandom(),  
+            Armors.getRandomByClass(classType), 
+            Consumables.getRandom(),
+            Weapons.getRandomByClass(classType),
+            Consumables.getRandom()
+        };
+
+        return _items;
     }
 
-    public Item[] getDroppedItems(ClassType classType){
-        Item items[] = {
-            (Item)Consumables.getRandomFood(), 
-            (Item) Consumables.getRandomPotion(),
-            (Item) Armors.getRandomArmor(classType),
-            (Item) Weapons.getRandomWeapon(classType) };
+    private Item getRandomItem(ClassType classType) throws UnknownTypeException {
+        final Item[] _items = getRandomItemsList(classType);
+        final int _randomIndex = Randomic.between(0, _items.length - 1);
 
-        return items;
+        return _items[_randomIndex];
+    }
+
+    public Item[] getDroppedItems(ClassType classType) throws UnknownTypeException {
+        final Item[] _items = {
+            getRandomItem(classType),
+            getRandomItem(classType)
+        };
+
+        return _items;
     }
     
 
@@ -233,5 +250,12 @@ public final class Boss extends Entity {
     public String getDescription() { return description; }
     public int getExpReward() { return this.expReward; }
 
-    
+    /**
+     * Checa se o Boss atingiu o ponto de estado BERSERK (o ponto de troca para o estado)
+     * @return (boolean) se o Boss pode atingir o estado ou não
+     */
+    private boolean reachedBerserkThreshold() {
+        double healthPercent = (double)this.getCurrHP() / (double)this.getMaxHP();
+        return healthPercent < berserkThreshold;
+    }
 }

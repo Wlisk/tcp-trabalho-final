@@ -1,29 +1,50 @@
 package items.weapon;
 
 import entities.player.ClassType;
+import entities.player.ClassTypeUtil;
+import exceptions.NumberOverflowException;
+import exceptions.UnknownTypeException;
 import scene.TextureId;
 import utils.Randomic;
 
+/**
+ * Classe com propriedades e métodos estáticos para 
+ * criação e armazenamento das armas do jogo.
+ * @see items.weapon.Weapon
+ * @see exceptions.NumberOverflowException
+ * @see scene.TextureId
+ */
 public final class Weapons {
+    /** Índice inicial das armas base do jogador */
     public static final int INDEX_INITIAL_WEAPON = 0;
+    // variable used to get the exception from the static methods
+    private static NumberOverflowException err = null;
 
-    private static final Weapon[] WEAPONS_MAGE = {
-        new Weapon(
-            WeaponType.STAFF, 
-            TextureId.WEAPON_STAFF_1,
-            "Rotting Staff", 
-            50, 
-            0, 
-            0.05, 
-            0.05, 
-            0.1,
-            "Made from a branch from a magical tree."
-        ), 
+    /**
+     * Tenta criar e instanciar todas as armas da classe mago
+     * @return (Weapon[]) armas para a classe mago
+     */
+    private static Weapon[] createWeaponsMage() {
+        Weapon[] _weapons = null;
 
-        new Weapon(
-            WeaponType.STAFF, 
-            TextureId.WEAPON_STAFF_2,
-            "Apprentice's Staff", 
+        try {
+            final Weapon[] _tempWeapons = {
+                new Weapon(
+                    WeaponType.STAFF, 
+                    TextureId.WEAPON_STAFF_1,
+                    "Rotting Staff", 
+                    50, 
+                    0, 
+                    0.05, 
+                    0.05, 
+                    0.1,
+                    "Made from a branch from a magical tree."
+                ), 
+        
+                new Weapon(
+                    WeaponType.STAFF, 
+                    TextureId.WEAPON_STAFF_2,
+                    "Apprentice's Staff", 
             100, 
             30, 
             0.1, 
@@ -36,11 +57,11 @@ public final class Weapons {
             WeaponType.STAFF, 
             TextureId.WEAPON_STAFF_3,
             "Necromancer's Staff", 
-            200, 
-            50, 
+                    200, 
+                    50, 
+                    0.15, 
             0.15, 
-            0.15, 
-            1.0, 
+                    1.0, 
             "Belonged to a master of the dark arts."
         ),
 
@@ -52,28 +73,44 @@ public final class Weapons {
             80, 
             0.2, 
             0.2, 
-            1.5, 
-            "Inbued with the power of a star."
-        )
-    };
+                    1.5, 
+                    "Inbued with the power of a star."
+                )
+            };
 
-    private static final Weapon[] WEAPONS_WARRIOR = {
-        new Weapon(
-            WeaponType.SWORD, 
-            TextureId.WEAPON_SWORD_1,
-            "Rusty Sword", 
-            40, 
-            30,  
-            0.05, 
-            0.05, 
-            0.1,
-            "Its rustiness is a double edged sword."
-        ),
+            _weapons = _tempWeapons;
+        } catch (NumberOverflowException e) {
+            err = e;
+        }
 
-        new Weapon(
-            WeaponType.SWORD, 
-            TextureId.WEAPON_SWORD_2,
-            "Claymore", 
+        return _weapons;
+    }
+
+    /**
+     * Tenta criar e instanciar todas as armas da classe guerreiro
+     * @return (Weapon[]) armas para a classe guerreiro
+     */
+    private static Weapon[] createWeaponsWarrior() {
+        Weapon[] _weapons = null;
+
+        try {
+            final Weapon[] _tempWeapons = {
+                new Weapon(
+                    WeaponType.SWORD, 
+                    TextureId.WEAPON_SWORD_1,
+                    "Rusty Sword", 
+                    40, 
+                    30,  
+                    0.05, 
+                    0.05, 
+                    0.1,
+                    "Its rustiness is a double edged sword."
+                ),
+        
+                new Weapon(
+                    WeaponType.SWORD, 
+                    TextureId.WEAPON_SWORD_2,
+                    "Claymore", 
             80, 
             45,  
             0.15, 
@@ -98,32 +135,48 @@ public final class Weapons {
             WeaponType.SWORD, 
             TextureId.WEAPON_SWORD_4,
             "Hero of Salvation Sword", 
-            250, 
-            100,  
-            0.10, 
-            0.3, 
-            1.0, 
-            "It has slain more foes than one can imagine."
-        )
-    };
+                    250, 
+                    100,  
+                    0.10, 
+                    0.3, 
+                    1.0, 
+                    "It has slain more foes than one can imagine."
+                )
+            };
 
-    private static final Weapon[] WEAPONS_ARCHER = {
-        new Weapon(
-            WeaponType.BOW, 
-            TextureId.WEAPON_BOW_1,
-            "Old Bow", 
-            45, 
-            0, 
-            0.05, 
-            0.05, 
-            0.1, 
-            "A bow fit for a beginner archer."
-        ),
+            _weapons = _tempWeapons;
+        } catch (NumberOverflowException e) {
+            err = e;
+        }
 
-        new Weapon(
-            WeaponType.BOW, 
-            TextureId.WEAPON_BOW_2,
-            "Reinforced Bow", 
+        return _weapons;
+    }
+
+    /**
+     * Tenta criar e instanciar todas as armas da classe arqueiro
+     * @return (Weapon[]) armas para a classe arqueiro
+     */
+    private static Weapon[] createWeaponsArcher() {
+        Weapon[] _weapons = null;
+
+        try {
+            final Weapon[] _tempWeapons = {
+                new Weapon(
+                    WeaponType.BOW, 
+                    TextureId.WEAPON_BOW_1,
+                    "Old Bow", 
+                    45, 
+                    0, 
+                    0.05, 
+                    0.05, 
+                    0.1, 
+                    "A bow fit for a beginner archer."
+                ),
+        
+                new Weapon(
+                    WeaponType.BOW, 
+                    TextureId.WEAPON_BOW_2,
+                    "Reinforced Bow", 
             90, 
             20, 
             0.15, 
@@ -136,9 +189,9 @@ public final class Weapons {
             WeaponType.BOW, 
             TextureId.WEAPON_BOW_3,
             "Curved Bow", 
-            150, 
-            40, 
-            0.30, 
+                    150, 
+                    40, 
+                    0.30, 
             0.15, 
             0.1, 
             "Its curved design is quite striking."
@@ -151,41 +204,90 @@ public final class Weapons {
             240, 
             60, 
             0.5, 
-            0.3, 
-            1.3, 
-            "Not a soul shall remain alive."
-        )
-    };
+                    0.3, 
+                    1.3, 
+                    "Not a soul shall remain alive."
+                )
+            };
 
+            _weapons = _tempWeapons;
+        } catch (NumberOverflowException e) {
+            err = e;
+        }
+
+        return _weapons;
+    }
+
+    // weapons bank
+    private static final Weapon[] WEAPONS_MAGE = createWeaponsMage();
+    private static final Weapon[] WEAPONS_WARRIOR = createWeaponsWarrior();
+    private static final Weapon[] WEAPONS_ARCHER = createWeaponsArcher();
+
+    /**
+     * Retorna a arma da classe mago, dado a posição da arma na lista de armas do mago
+     * @param index posição (int) da arma do mago na lista
+     * @return (Weapon) a arma encontrada, ou null caso contrário
+     */
     public static Weapon getWeaponMage(int index) {
         if(index < 0 || index >= WEAPONS_MAGE.length) return null;
         return WEAPONS_MAGE[index];
     }
 
+    /**
+     * Retorna a arma da classe guerreiro, dado a posição da arma na lista de armas do guerreiro
+     * @param index posição (int) da arma do guerreiro na lista
+     * @return (Weapon) a arma encontrada, ou null caso contrário
+     */
     public static Weapon getWeaponWarrior(int index) {
         if(index < 0 || index >= WEAPONS_WARRIOR.length) return null;
         return WEAPONS_WARRIOR[index];
     }
 
+    /**
+     * Retorna a arma da classe arqueiro, dado a posição da arma na lista de armas do arqueiro
+     * @param index posição (int) da arma do arqueiro na lista
+     * @return (Weapon) a arma encontrada, ou null caso contrário
+     */
     public static Weapon getWeaponArcher(int index) {
         if(index < 0 || index >= WEAPONS_ARCHER.length) return null;
         return WEAPONS_ARCHER[index];
     }
 
-    private static final Weapon getRandomWeaponMage(){ return WEAPONS_MAGE[Randomic.between(0, WEAPONS_MAGE.length - 1)]; }
-    private static final Weapon getRandomWeaponWarrior(){ return WEAPONS_WARRIOR[Randomic.between(0, WEAPONS_WARRIOR.length - 1)]; }
-    private static final Weapon getRandomWeaponArcher(){ return WEAPONS_ARCHER[Randomic.between(0, WEAPONS_ARCHER.length - 1)]; }
+    /**
+     * Retorna a exceção gerada dentro dos métodos estáticos
+     * @return (NumberOverflowException) a excessão gerada
+     * @see exceptions.NumberOverflowException
+     */
+    public static NumberOverflowException getException() { return err; }
 
-    public static final Weapon getRandomWeapon(ClassType classType) {
-        switch (classType) {
-            case MAGE:
-                return getRandomWeaponMage();
-            case WARRIOR:
-                return getRandomWeaponWarrior();
-            case ARCHER:
-                return getRandomWeaponArcher();
+    /**
+     * Retorna uma arma randomicamente baseado na classe do jogador passada
+     * @param classType a classe ao qual se deseja a arma
+     * @return (Weapon) a arma da classe randomicamente escolhida
+     * @throws UnknownTypeException tipo de classe passado desconhecido
+     * @see entities.player.ClassType
+     * @see exceptions.UnknownTypeException
+     * @see entities.player.ClassTypeUtil#ERR_TYPE_MESSAGE
+     */
+    public static Weapon getRandomByClass(ClassType classType) throws UnknownTypeException {
+        switch(classType) {
+            case MAGE: {
+                final int _i = Randomic.between(0, WEAPONS_MAGE.length - 1);
+                return WEAPONS_MAGE[_i];
+            }    
+
+            case WARRIOR: {
+                final int _i = Randomic.between(0, WEAPONS_WARRIOR.length - 1);
+                return WEAPONS_WARRIOR[_i];
+            }
+
+            case ARCHER: {
+                final int _i = Randomic.between(0, WEAPONS_ARCHER.length - 1);
+                return WEAPONS_ARCHER[_i];
+            }
+
             default:
-                return null;
+                throw new UnknownTypeException(ClassTypeUtil.ERR_TYPE_MESSAGE);
         }
     }
 }

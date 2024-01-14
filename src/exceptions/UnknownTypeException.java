@@ -1,7 +1,11 @@
 package exceptions;
 
+/** Erro em caso um tipo desconhecido de enum seja passado/verificado. */
 public final class UnknownTypeException extends Exception {
-    public UnknownTypeException(String errorMesage) {
-        super(errorMesage);
+    /**
+     * @param errorMessage a mensagem de erro a ser propagada
+     */
+    public UnknownTypeException(String errorMessage) {
+        super(errorMessage);
     }
 }

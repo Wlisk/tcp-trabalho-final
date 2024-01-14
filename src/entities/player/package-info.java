@@ -1,5 +1,5 @@
 /**
- * Provides all classes needed to give contextual
- * meaning to a Player an its aplications.  
+ * Fornece todas as classes necessárias para dar contexto e
+ * significado ao Player e suas aplicações.
  */
 package entities.player;

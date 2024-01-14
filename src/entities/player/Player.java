@@ -64,8 +64,8 @@ public final class Player extends Entity {
 
         setTextureId(ClassTypeUtil.getTextureId());
         
-        inventory.setEquippedArmor( ClassTypeUtil.getInitialArmor() );
-        inventory.setEquippedWeapon( ClassTypeUtil.getInitialWeapon() );
+        inventory.equipArmor( ClassTypeUtil.getInitialArmor() );
+        inventory.equipWeapon( ClassTypeUtil.getInitialWeapon() );
 
         setHealthBar(Bars.newPlayerHealthBar(this));
         setManaBar(Bars.newPlayerManaBar(this));

@@ -1,5 +1,5 @@
 /**
- * Provides all classes needed to give contextual
- * meaning to Bosses an its aplications.  
+ * Fornece todas as classes necessárias para dar contexto e
+ * significado ao Boss e suas aplicações. 
  */
 package entities.boss;

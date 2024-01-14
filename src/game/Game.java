@@ -8,6 +8,7 @@ import entities.player.ClassType;
 import entities.player.Player;
 import exceptions.NumberOverflowException;
 import exceptions.UnknownTypeException;
+import items.weapon.Weapons;
 import scene.Scene;
 import scene.button.*;
 import scene.textbox.*;
@@ -48,6 +49,8 @@ public class Game {
 
         if(Bosses.getException() != null)
             throw Bosses.getException();
+        if(Weapons.getException() != null)
+            throw Weapons.getException();
 
         playButton = Buttons.newPlayButton();
         exitButton = Buttons.newExitButton();
@@ -196,7 +199,7 @@ public class Game {
         transitionState(GameState.TURN_START);
     }
 
-    public void battleEnd() throws NumberOverflowException {
+    public void battleEnd() throws NumberOverflowException, UnknownTypeException {
         if (player.getIsDead()){ // If player dead, display game over message and return to main menu
             transitionState(GameState.GAME_END);
             alertTextBox.newMessage(TextBoxes.GAME_OVER_LOSS, delayTimer);
