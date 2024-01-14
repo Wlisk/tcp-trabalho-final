@@ -1,6 +1,9 @@
 package items;
 
-/** Enum para os tipos de itens existentes no jogo. */
+/** 
+ * Enum para todos os tipos de itens existentes no jogo. 
+ * @see java.lang.Enum
+ */
 public enum ItemType {
     /** itens do tipo armas */
     WEAPON("Weapon"), 
@@ -22,7 +25,7 @@ public enum ItemType {
 
     /**
      * Retorna a string para o tipo de item corrente/utilizado
-     * @see java.lang.Enum
+     * @see java.lang.Enum#toString()
      */
     @Override
     public String toString() { return this.itemTypeName; }

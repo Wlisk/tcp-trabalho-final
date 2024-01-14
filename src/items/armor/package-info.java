@@ -1,7 +1,7 @@
 /**
- * Provides classes to create and manage all armors.
+ * Fornece classes para criar e gerenciar armaduras ou vestíveis.
  * <p>
- * Also provides all armors that can and will be used 
- * in the gameplay.
+ * Além disso, fornece todas as armaduras/vestíveis que podem
+ * e serão usados durante o jogo.
  */
 package items.armor;

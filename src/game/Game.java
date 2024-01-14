@@ -8,6 +8,7 @@ import entities.player.ClassType;
 import entities.player.Player;
 import exceptions.NumberOverflowException;
 import exceptions.UnknownTypeException;
+import items.weapon.Weapons;
 import scene.Scene;
 import scene.button.Buttons;
 import scene.textbox.TextBoxes;
@@ -44,6 +45,8 @@ public class Game {
 
         if(Bosses.getException() != null)
             throw Bosses.getException();
+        if(Weapons.getException() != null)
+            throw Weapons.getException();
     }
 
     private static GameState gameStateCache = null;

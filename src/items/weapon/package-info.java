@@ -1,7 +1,7 @@
 /**
- * Provides classes to create and manage all weapons.
+ * Fornece classes para criar e gerenciar as armas.
  * <p>
- * Also provides all weapons that can and will be used 
- * in the gameplay.
+ * Além disso, fornece todas as armas que podem
+ * e serão usados durante o jogo.
  */
 package items.weapon;

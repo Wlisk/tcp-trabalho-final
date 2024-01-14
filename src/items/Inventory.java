@@ -26,7 +26,7 @@ public final class Inventory {
 
     /**
      * Adiciona items ao inventário (ou tenta)
-     * @item o item a ser adicionado
+     * @param item o item a ser adicionado
      * @return (Item) o item que foi adicionado ou null em caso de inventário cheio
      */
     public Item add(Item item) {

@@ -10,5 +10,9 @@ items.armor
 items.consumable
 items.weapon
 scene
+scene.bars
 scene.button
+scene.inventory
+scene.statbox
+scene.textbox
 utils
