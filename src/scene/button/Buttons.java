@@ -5,8 +5,7 @@ import com.raylib.Jaylib.Rectangle;
 import com.raylib.Raylib;
 
 import entities.player.ClassType;
-import entities.player.ClassTypeUtil;
-import exceptions.UnknownTypeException;
+import java.util.HashMap;
 import game.Game;
 
 public class Buttons {
@@ -39,14 +38,7 @@ public class Buttons {
         (float)MENU_BUTTON_WIDTH, 
         (float)MENU_BUTTON_HEIGHT
     );
-    public static final Button PLAY_BUTTON = new Button(
-        buttonPlayRectangle, 
-        COLOR_BUTTON, 
-        COLOR_MOUSEOVER, 
-        "PLAY", 
-        MENU_BUTTON_FONT_SIZE, 
-        COLOR_TEXT
-    );
+    public static final Button newPlayButton() { return new Button(buttonPlayRectangle, COLOR_BUTTON, COLOR_MOUSEOVER, "PLAY", MENU_BUTTON_FONT_SIZE, COLOR_TEXT); }
 
     //*************************** EXIT BUTTON ***************************//
     private static final Rectangle buttonExitRectangle = new Rectangle(
@@ -55,25 +47,18 @@ public class Buttons {
         (float)MENU_BUTTON_WIDTH, 
         (float)MENU_BUTTON_HEIGHT
     );
-    public static final Button EXIT_BUTTON = new Button(
-        buttonExitRectangle, 
-        COLOR_BUTTON, 
-        COLOR_MOUSEOVER,  
-        "EXIT", 
-        MENU_BUTTON_FONT_SIZE, 
-        COLOR_TEXT
-    );
+    public static final Button newExitButton() { return new Button(buttonExitRectangle, COLOR_BUTTON, COLOR_MOUSEOVER,  "EXIT", MENU_BUTTON_FONT_SIZE, COLOR_TEXT); }
 
     //*************************** PLAYER CLASS BUTTONS ***************************//
     private static final float BUTTONS_START_DISTANCEX = 0.1f;
     private static final float BUTTONS_BETWEEN_DISTANCEX = 0.3f;
 
-    private static Button[] createClassButtons() {
-        final Button[] _buttons = new Button[ClassType.size()];
+
+    public static final HashMap<ClassType, Button> newClassButtons() {
+        final HashMap<ClassType, Button> _buttons = new HashMap<ClassType, Button>();
         float _distanceX = BUTTONS_START_DISTANCEX;
 
-        int i = 0;
-        for(String _buttonText: ClassType.getStrings()) {
+        for(ClassType ct: ClassType.values()) {
             final Rectangle _buttonClassSelRectangle = new Rectangle(
                 WINDOW_WIDTH * _distanceX, 
                 BUTTON_CLASS_SEL_POS_Y, 
@@ -81,31 +66,12 @@ public class Buttons {
                 (float)MENU_BUTTON_HEIGHT
             );
 
-            _buttons[i++] = new Button(
-                _buttonClassSelRectangle, 
-                COLOR_BUTTON,
-                COLOR_MOUSEOVER, 
-                _buttonText, 
-                MENU_BUTTON_FONT_SIZE, 
-                COLOR_TEXT
-            );
+            _buttons.put(ct, new Button(_buttonClassSelRectangle, COLOR_BUTTON,COLOR_MOUSEOVER, ct.getTypeName(), MENU_BUTTON_FONT_SIZE, COLOR_TEXT));
 
             _distanceX += BUTTONS_BETWEEN_DISTANCEX;
         }
 
         return _buttons;
-    }
-
-    public static final Button[] CLASS_BUTTONS = createClassButtons();
-
-    public static Button getClassButton(ClassType classType) throws UnknownTypeException {
-        switch(classType) {
-            case MAGE: return CLASS_BUTTONS[ClassType.MAGE.getIndex()];
-            case WARRIOR: return CLASS_BUTTONS[ClassType.WARRIOR.getIndex()];
-            case ARCHER: return CLASS_BUTTONS[ClassType.ARCHER.getIndex()];
-            default: 
-                throw new UnknownTypeException(ClassTypeUtil.ERR_TYPE_MESSAGE);
-        }
     }
 
     //*************************** FIGHT BUTTONS ***************************//
@@ -136,26 +102,7 @@ public class Buttons {
             (float)ACTION_BUTTON_WIDTH, 
             (float)ACTION_BUTTON_HEIGHT);
 
-    public static final Button 
-        ATTACK_BUTTON = new Button(
-            ATTACK_BUTTON_REC, 
-            COLOR_BUTTON, 
-            COLOR_MOUSEOVER,  
-            "ATTACK", 
-            ACTION_BUTTON_FONT_SIZE, 
-            COLOR_TEXT),
-        SPECIAL_BUTTON = new Button(
-            SPECIAL_BUTTON_REC, 
-            COLOR_BUTTON, 
-            COLOR_MOUSEOVER, 
-            "SPECIAL", 
-            ACTION_BUTTON_FONT_SIZE, 
-            COLOR_TEXT),
-        DEFEND_BUTTON = new Button(
-            DEFEND_BUTTON_REC, 
-            COLOR_BUTTON, 
-            COLOR_MOUSEOVER, 
-            "DEFEND", 
-            ACTION_BUTTON_FONT_SIZE, 
-            COLOR_TEXT);
+    public static final Button newAttackButton(){ return new Button(ATTACK_BUTTON_REC, COLOR_BUTTON, COLOR_MOUSEOVER,  "ATTACK", ACTION_BUTTON_FONT_SIZE, COLOR_TEXT); }
+    public static final Button newSpecialButton(){ return new Button(SPECIAL_BUTTON_REC, COLOR_BUTTON, COLOR_MOUSEOVER, "SPECIAL", ACTION_BUTTON_FONT_SIZE, COLOR_TEXT); }
+    public static final Button newDefendButton(){ return new Button(DEFEND_BUTTON_REC, COLOR_BUTTON, COLOR_MOUSEOVER, "DEFEND", ACTION_BUTTON_FONT_SIZE, COLOR_TEXT); }
 }

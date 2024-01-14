@@ -4,8 +4,9 @@ import com.raylib.Jaylib;
 import com.raylib.Raylib;
 
 import game.Game;
+import items.Inventory;
 
-public class InventorySlotInst {
+public class InventoryUIInst {
     private static final int 
         WINDOW_HEIGHT = Game.WINDOW_HEIGHT,
         WINDOW_WIDTH = Game.WINDOW_WIDTH;
@@ -24,5 +25,5 @@ public class InventorySlotInst {
 
     private static Jaylib.Rectangle REC = new Jaylib.Rectangle(SLOT_POS_X, SLOT_POS_Y, SLOT_SIDE, SLOT_SIDE);
 
-    public static final InventorySlots INVENTORY_SLOTS = new InventorySlots(null, REC, BORDER_SIZE, COLOR_BACKGROUND, COLOR_BORDER);
+    public static final InventoryUI newInventoryUI(Inventory inventory) { return new InventoryUI(inventory, REC, BORDER_SIZE, COLOR_BACKGROUND, COLOR_BORDER);}
 }

@@ -3,6 +3,7 @@ package scene.statbox;
 import game.Game;
 import com.raylib.Jaylib;
 import com.raylib.Raylib;
+import entities.Entity;
 
 public class Statboxes {
     private static final int 
@@ -32,6 +33,6 @@ public class Statboxes {
         PLAYER_STATBOX_REC = new Jaylib.Rectangle(PLAYER_BOX_POS_X, PLAYER_BOX_POS_Y, BOX_WIDTH, BOX_HEIGHT),
         BOSS_STATBOX_REC = new Jaylib.Rectangle(BOSS_BOX_POS_X, BOSS_BOX_POS_Y, BOX_WIDTH, BOX_HEIGHT);
 
-    public static final Statbox PLAYER_STATBOX = new Statbox(PLAYER_STATBOX_REC, FONT_SIZE, MARGIN, BORDER_SIZE, COLOR_TEXT, COLOR_BACKGROUND, COLOR_BORDER, null),
-                                BOSS_STATBOX = new Statbox(BOSS_STATBOX_REC, FONT_SIZE, MARGIN, BORDER_SIZE, COLOR_TEXT, COLOR_BACKGROUND, COLOR_BORDER, null);
+    public static final Statbox newPlayerStatbox(Entity player) { return new Statbox(PLAYER_STATBOX_REC, FONT_SIZE, MARGIN, BORDER_SIZE, COLOR_TEXT, COLOR_BACKGROUND, COLOR_BORDER, player); }
+    public static final Statbox newBossStatbox(Entity boss) {return new Statbox(BOSS_STATBOX_REC, FONT_SIZE, MARGIN, BORDER_SIZE, COLOR_TEXT, COLOR_BACKGROUND, COLOR_BORDER, boss); } 
 }

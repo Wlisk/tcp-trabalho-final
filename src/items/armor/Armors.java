@@ -20,12 +20,28 @@ public final class Armors {
         new Armor(
             ArmorType.ROBE, 
             TextureId.ARMOR_LIGHT_1,
-            "Tattered Robe", 
+            "Apprentice's Robe", 
             20, 
-            //20, 
-            //100, 
-            "It has seen better days"
+            "It has seen better days."
+        ),
+
+        new Armor(
+            ArmorType.ROBE, 
+            TextureId.ARMOR_LIGHT_2,
+            "Disciple's Robe", 
+            40, 
+            "An item fit for a young scholar."
+        ),
+
+        new Armor(
+            ArmorType.ROBE, 
+            TextureId.ARMOR_LIGHT_3,
+            "Master's Robe", 
+            70, 
+            "An ancient robe in excellent condition."
+                        
         )
+
     };
 
     private static final Armor[] ARMORS_WARRIOR = {
@@ -34,9 +50,23 @@ public final class Armors {
             TextureId.ARMOR_HEAVY_1,
             "Rusty Plate Armor", 
             50, 
-            //100, 
-            //20,
-            "Be aware that any punch can scraps it"
+            "Be aware that any punch can scrap it."
+        ), 
+
+        new Armor(
+            ArmorType.PLATE, 
+            TextureId.ARMOR_HEAVY_2,
+            "Dwarvish Armor", 
+            100, 
+            "Typical dwarvish armor. Quite sturdy."
+        ),
+
+        new Armor(
+            ArmorType.PLATE, 
+            TextureId.ARMOR_HEAVY_3,
+            "Dragonscale Armor", 
+            150, 
+            "Made from an ice dragon's scales."
         )
     };
 
@@ -44,11 +74,25 @@ public final class Armors {
         new Armor(
             ArmorType.LEATHER, 
             TextureId.ARMOR_MEDIUM_1,
-            "Old Leather Armor", 
+            "Old Chainmail Armor", 
             35, 
-            //60, 
-            //60,
-            "Sew with rats leather"
+            "Quite old and rusty.."
+        ),
+
+        new Armor(
+            ArmorType.LEATHER, 
+            TextureId.ARMOR_MEDIUM_2,
+            "Kusari", 
+            70, 
+            
+            "Traditional armor in excellent condition."
+        ),
+        new Armor(
+            ArmorType.LEATHER, 
+            TextureId.ARMOR_MEDIUM_3,
+            "Enchanted Chainmail", 
+            120, 
+            "Created by a master of the dark arts."
         )
     };
 

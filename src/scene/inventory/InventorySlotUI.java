@@ -3,14 +3,13 @@ package scene.inventory;
 import com.raylib.Jaylib;
 import com.raylib.Raylib;
 
-import interfaces.IClickable;
 import interfaces.IMouseOverable;
 
-public class InventorySlot implements IClickable, IMouseOverable {
+public class InventorySlotUI implements IMouseOverable {
     private Jaylib.Rectangle rectangle, innerRec;
     private Raylib.Color backgroundColor, borderColor;
 
-    public InventorySlot(Jaylib.Rectangle rectangle, 
+    public InventorySlotUI(Jaylib.Rectangle rectangle, 
                          int borderSize, 
                          Raylib.Color backgroundColor, 
                          Raylib.Color borderColor){
@@ -37,8 +36,12 @@ public class InventorySlot implements IClickable, IMouseOverable {
         return Jaylib.CheckCollisionPointRec(mousePos, rectangle);
     }
 
-    public boolean isMousePressed() {
+    public boolean isMouseLeftPressed() {
         return isMouseOver() && Jaylib.IsMouseButtonDown(Jaylib.MOUSE_BUTTON_LEFT);
+    }
+
+    public boolean isMouseRightPressed() {
+        return isMouseOver() && Jaylib.IsMouseButtonDown(Jaylib.MOUSE_BUTTON_RIGHT);
     }
 
     public Jaylib.Rectangle getRec(){

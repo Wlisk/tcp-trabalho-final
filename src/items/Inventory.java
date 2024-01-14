@@ -6,22 +6,27 @@ import items.armor.Armor;
 import items.consumable.Consumable;
 import items.consumable.Consumables;
 import items.weapon.Weapon;
+import scene.inventory.InventoryUI;
+import scene.inventory.InventoryUIInst;
+
 
 /** Gerencia o inventário do jogador, podendo-se adicinar, remover e usar itens do inventário. */
 public final class Inventory {
     /** Número máximo de items permitidos no inventário */
     public static final int MAX_ITEMS = 5;
 
-    private Weapon equipedWeapon;
-    private Armor equipedArmor;
+    private Weapon equippedWeapon;
+    private Armor equippedArmor;
+    private InventoryUI inventoryUI;
     private final ArrayList<Item> items = new ArrayList<Item>(MAX_ITEMS);
 
     /** Inicializa o inventário com 2 consumíveis, uma poção de MP e outra de HP */
     public Inventory() { 
-        equipedArmor = null;
-        equipedWeapon = null;
+        equippedArmor = null;
+        equippedWeapon = null;
         items.add( (Item)Consumables.getConsumablePotion(Consumables.INDEX_POTION_HP) );
         items.add( (Item)Consumables.getConsumablePotion(Consumables.INDEX_POTION_MP) );
+        this.inventoryUI = InventoryUIInst.newInventoryUI(this);
     }
 
     /**
@@ -57,15 +62,15 @@ public final class Inventory {
 
         if(_itemType == ItemType.ARMOR) {
             remove(index); // remove from inventory the selected armor
-            add(equipedArmor);
-            equipedArmor = (Armor)_selectedItem;
+            add(equippedArmor);
+            equippedArmor = (Armor)_selectedItem;
             
         }
 
         else if(_itemType == ItemType.WEAPON) {
             remove(index); // remove from inventory the selected weapon
-            add(equipedWeapon);
-            equipedWeapon = (Weapon)_selectedItem;
+            add(equippedWeapon);
+            equippedWeapon = (Weapon)_selectedItem;
         }
 
         else return null;
@@ -98,6 +103,10 @@ public final class Inventory {
         return items.get(index);
     }
 
+    public int checkLeftClickedIndex(){ return inventoryUI.checkLeftClickedIndex(); } 
+    public int checkRightClickedIndex(){ return inventoryUI.checkRightClickedIndex(); } 
+
+
     /**
      * Verifica se o inventário está cheio
      * @return (boolean) se o inventário está cheio ou não
@@ -111,20 +120,20 @@ public final class Inventory {
      * Retorna a armadura equipada 
      * @return (Armor) a armadura ou null se nenhuma equipada
      */
-    public Armor getEquippedArmor() { return equipedArmor; }
+    public Armor getEquippedArmor() { return equippedArmor; }
 
     /** 
      * Retorna a arma equipada
      * @return (Weapon) a arma ou null se nenhuma equipada
      */
-    public Weapon getEquippedWeapon() { return equipedWeapon; }
+    public Weapon getEquippedWeapon() { return equippedWeapon; }
 
     /**
      * Equipa uma armadura
      * @param armor a armadura a ser equipada, pode ser null
      */
     public void equipArmor(Armor armor) {
-        this.equipedArmor = armor;
+        this.equippedArmor = armor;
     }
 
     /**
@@ -132,6 +141,8 @@ public final class Inventory {
      * @param weapon a arma a ser equipada, pode ser null
      */
     public void equipWeapon(Weapon weapon) {
-        this.equipedWeapon = weapon;
+        this.equippedWeapon = weapon;
     }
+
+    public InventoryUI getInventoryUI() { return inventoryUI; }
 }

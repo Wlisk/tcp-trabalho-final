@@ -1,4 +1,4 @@
-package entities.player;
+    package entities.player;
 
 public enum ClassType {
     MAGE(

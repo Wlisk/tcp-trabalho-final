@@ -39,6 +39,7 @@ public class Statbox {
         this.backgroundColor = backgroundColor;
         this.borderColor = borderColor;
         this.innerRec = new Jaylib.Rectangle(rectangle.x() + borderSize, rectangle.y() + borderSize, rectangle.width() - borderSize * 2, rectangle.height() - borderSize * 2);
+        this.entity = entity;
     }
     
     private String[] getStrings(Entity entity){

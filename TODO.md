@@ -57,7 +57,7 @@ Tarefas concluídas e ainda a serem feitas no projeto.
   - [x] Player morre, fim de jogo
   - [x] Boss morre, proxima cena/Boss
   - [x] implementar logica de defesa nas batalhas
-  - [ ] implementar uso de items e gerenciamento de inventário
+  - [x] implementar uso de items e gerenciamento de inventário
 
 ---
 
@@ -128,11 +128,11 @@ Tarefas concluídas e ainda a serem feitas no projeto.
 
 **Descricao**: criacao de itens, colocar seus valores, storytelling e descricoes
 
-- [ ] criar e implementar detalhes para que itens tenham dados 'corretos'
-  - [ ] detalhes de bosses
-  - [ ] detalhes de armas
-  - [ ] detalhes de armaduras
-  - [ ] detalhes de consumiveis
+- [x] criar e implementar detalhes para que itens tenham dados 'corretos'
+  - [x] detalhes de bosses
+  - [x] detalhes de armas
+  - [x] detalhes de armaduras
+  - [x] detalhes de consumiveis
 
 ---
 
@@ -204,11 +204,11 @@ Tarefas concluídas e ainda a serem feitas no projeto.
 
 **Descricao**: forma do jogador obter os itens apos a derrota de um boss
 
-- [ ] criar logica para drop de items
-  - [ ] criar novos items
-  - [ ] selecionar de uma lista de items um item randomicamente
-  - [ ] adicionar item ao Inventory do Player
-    - [ ] mostrar novo item no Inventory
+- [x] criar logica para drop de items
+  - [x] criar novos items
+  - [x] selecionar de uma lista de items um item randomicamente
+  - [x] adicionar item ao Inventory do Player
+    - [x] mostrar novo item no Inventory
 
 ---
 
@@ -249,8 +249,8 @@ Tarefas concluídas e ainda a serem feitas no projeto.
 
 **Descricao**: certos acontecimentos devem ocorrer a cada turno, um deles é a regeneracao de mana, assim entities podem recuperar mana para poder continuar usando ataques especiais depois de um tempo
 
-- [ ] implementar logica de turnos
-  - [ ] logica de regeneracao de mana ao longo dos turnos
+- [x] implementar logica de turnos
+  - [x] logica de regeneracao de mana ao longo dos turnos
   
 ---
 

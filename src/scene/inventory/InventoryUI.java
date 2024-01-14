@@ -12,22 +12,22 @@ import items.armor.Armor;
 import items.weapon.Weapon;
 import items.Item;
 
-public class InventorySlots {
+public class InventoryUI {
     private Inventory inventory;
-    private InventorySlot slots[];
+    private InventorySlotUI slots[];
     private MouseOverInventoryBox mouseOverBox;
 
-    public InventorySlots(Inventory inventory, 
+    public InventoryUI(Inventory inventory, 
                           Jaylib.Rectangle rectangle, 
                           int borderSize, 
                           Raylib.Color backgroundColor, 
                           Raylib.Color borderColor){
         this.inventory = inventory;
-        this.slots = new InventorySlot[Inventory.MAX_ITEMS + 2];
+        this.slots = new InventorySlotUI[Inventory.MAX_ITEMS + 2];
         
         for (int i = 0; i < Inventory.MAX_ITEMS + 2; i++){
             Jaylib.Rectangle curRec = new Jaylib.Rectangle(rectangle.x() + rectangle.width() * i, rectangle.y(), rectangle.width(), rectangle.height());
-            this.slots[i] = new InventorySlot(curRec, borderSize, backgroundColor, borderColor);
+            this.slots[i] = new InventorySlotUI(curRec, borderSize, backgroundColor, borderColor);
         }
 
         mouseOverBox = new MouseOverInventoryBox();
@@ -58,10 +58,10 @@ public class InventorySlots {
             if (slots[i].isMouseOver()){
                 switch (i){
                     case 0:
-                        mouseOverBox.drawMouseOver(inventory.getEquippedWeapon());
+                        mouseOverBox.drawMouseOver(inventory.getEquippedArmor());
                         break;
                     case 1:
-                        mouseOverBox.drawMouseOver(inventory.getEquippedArmor());
+                        mouseOverBox.drawMouseOver(inventory.getEquippedWeapon());
                         break;
                     default:
                         mouseOverBox.drawMouseOver(inventory.getItem(i - 2));
@@ -74,15 +74,23 @@ public class InventorySlots {
         this.inventory = inventory;
     }
 
-    public int checkClickedIndex(){
+    public int checkLeftClickedIndex(){
         // Returns the index of a slot being clicked by the mouse. -1 if none are being clicked.
         for (int i = 0; i < Inventory.MAX_ITEMS + 2; i++){
-            if (slots[i].isMousePressed()){
-                System.out.println(i);
+            if (slots[i].isMouseLeftPressed()){
                 return i;
             }
         }
+        return -1;
+    }
 
+    public int checkRightClickedIndex(){
+        // Returns the index of a slot being clicked by the mouse. -1 if none are being clicked.
+        for (int i = 0; i < Inventory.MAX_ITEMS + 2; i++){
+            if (slots[i].isMouseRightPressed()){
+                return i;
+            }
+        }
         return -1;
     }
 }

@@ -8,7 +8,6 @@ import items.Item;
 
 import com.raylib.Jaylib;
 import com.raylib.Raylib;
-import items.ItemType;
 
 public class MouseOverInventoryBox {
     private static final int 
@@ -93,9 +92,9 @@ public class MouseOverInventoryBox {
         String textArr[] = {weapon.getName(),
             weapon.getWeaponType().toString(),
             DMG_TEXT + Integer.toString(weapon.getBoostDamage()),
-            CRITCHANCE_TEXT + Integer.toString((int)weapon.getBoostCritChance() * 100) + "%",
-            CRITMULT_TEXT + Integer.toString((int)weapon.getBoostCritMultiplier() * 100) + "%",
-            ACC_TEXT + Integer.toString((int)weapon.getBoostAccuracy() * 100) + "%",
+            CRITCHANCE_TEXT + Integer.toString((int)(weapon.getBoostCritChance() * 100)) + "%",
+            CRITMULT_TEXT + Integer.toString((int)(weapon.getBoostCritMultiplier() * 100)) + "%",
+            ACC_TEXT + Integer.toString((int)(weapon.getBoostAccuracy() * 100)) + "%",
             DEF_TEXT + Integer.toString(weapon.getBoostDefense()),
             weapon.getDescription()
         };
@@ -117,8 +116,8 @@ public class MouseOverInventoryBox {
         String textArr[] = {armor.getName(),
             armor.getArmorType().toString(),
             DEF_TEXT + Integer.toString(armor.getBoostDefense()),
-            HP_TEXT + Integer.toString(armor.getBoostHP()),
-            MP_TEXT + Integer.toString(armor.getBoostMP()),
+            //HP_TEXT + Integer.toString(armor.getBoostHP()),
+            //MP_TEXT + Integer.toString(armor.getBoostMP()),
             armor.getDescription()
         };
 
@@ -140,7 +139,6 @@ public class MouseOverInventoryBox {
             consumable.getConsumableType().toString(),
             HP_TEXT + Integer.toString(consumable.getBoostHP()),
             MP_TEXT + Integer.toString(consumable.getBoostMP()),
-            DMG_TEXT + Integer.toString(consumable.getBoostDamage()),
             consumable.getDescription()
         };
 

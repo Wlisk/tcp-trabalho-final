@@ -1,12 +1,19 @@
 package entities.boss;
 
 import entities.player.Player;
+import entities.player.ClassType;
 import entities.Entity;
 import exceptions.NumberOverflowException;
+import exceptions.UnknownTypeException;
 import utils.Number;
 import utils.Randomic;
 import scene.TextureId;
 import scene.bars.Bars;
+import scene.statbox.Statboxes;
+import items.Item;
+import items.weapon.Weapons;
+import items.armor.Armors;
+import items.consumable.Consumables;
 
 /** Define propriedades e métodos para o chefão (Boss) do jogo.  */
 public final class Boss extends Entity {
@@ -85,6 +92,7 @@ public final class Boss extends Entity {
 
         setHealthBar(Bars.newBossHealthBar(this));
         setManaBar(Bars.newBossManaBar(this));
+        setStatbox(Statboxes.newBossStatbox(this));
     }
     
     @Override
@@ -206,6 +214,34 @@ public final class Boss extends Entity {
 
         player.takeDamage((int)(_damage * 1.5));
         return _damage;
+    }
+
+    private Item[] getRandomItemsList(ClassType classType) throws UnknownTypeException {
+        final Item[] _items = {
+            Consumables.getRandom(),  
+            Armors.getRandomByClass(classType), 
+            Consumables.getRandom(),
+            Weapons.getRandomByClass(classType),
+            Consumables.getRandom()
+        };
+
+        return _items;
+    }
+
+    private Item getRandomItem(ClassType classType) throws UnknownTypeException {
+        final Item[] _items = getRandomItemsList(classType);
+        final int _randomIndex = Randomic.between(0, _items.length - 1);
+
+        return _items[_randomIndex];
+    }
+
+    public Item[] getDroppedItems(ClassType classType) throws UnknownTypeException {
+        final Item[] _items = {
+            getRandomItem(classType),
+            getRandomItem(classType)
+        };
+
+        return _items;
     }
     
 
