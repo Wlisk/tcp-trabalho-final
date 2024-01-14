@@ -60,7 +60,7 @@ public final class Boss extends Entity {
     )
     throws NumberOverflowException
     {
-        super(name);
+        super(name, textureId.getPath());
 
         Number.limitTo(Number.MIN_DPERCENTAGE, Number.MAX_DPERCENTAGE, berserkThreshold);
         currState = StateType.BASE;

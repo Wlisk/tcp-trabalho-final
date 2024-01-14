@@ -5,6 +5,7 @@ import utils.Text;
 import exceptions.EmptyStringException;
 import exceptions.MaxStringSizeException;
 import exceptions.NumberOverflowException;
+import scene.Sprite;
 import scene.TextureId;
 import scene.bars.Bar;
 import scene.statbox.Statbox;
@@ -72,17 +73,23 @@ public abstract class Entity {
     private TextureId textureId;
     private Bar healthBar, manaBar;
     private Statbox statbox;
+    /** 
+     * Sprite do item para desenho na tela
+     * @see scene.Sprite
+     */
+    public final Sprite sprite;
 
     /**
      * Construtor da entidade base (Player e Boss)
      * @param name (String) o nome da entidade 
      */
-    public Entity(String name) {
+    public Entity(String name, String imageSrc) {
         resetToZero();
         this.name = name;
         baseRecRateHP = HEAL_DPercentage;
         baseRecRateMP = RCVR_DPercentage;
         ++countEntities;
+        sprite = new Sprite(imageSrc);
     }
 
     /**

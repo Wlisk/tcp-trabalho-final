@@ -1,7 +1,6 @@
 package items.weapon;
 
 import entities.player.ClassType;
-import entities.player.ClassTypeUtil;
 import exceptions.NumberOverflowException;
 import exceptions.UnknownTypeException;
 import scene.TextureId;
@@ -287,7 +286,7 @@ public final class Weapons {
             }
 
             default:
-                throw new UnknownTypeException(ClassTypeUtil.ERR_TYPE_MESSAGE);
+                throw new UnknownTypeException("The class type specified is unknown");
         }
     }
 }
