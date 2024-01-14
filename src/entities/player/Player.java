@@ -1,12 +1,10 @@
 package entities.player;
 
 import entities.Entity;
-import entities.boss.Boss;
 import exceptions.NumberOverflowException;
 import exceptions.UnknownTypeException;
 import items.Inventory;
 import items.consumable.Consumable;
-import utils.Randomic;
 import scene.bars.Bars;
 import scene.statbox.Statboxes;
 import items.Item;
@@ -86,6 +84,9 @@ public final class Player extends Entity {
         level += 1;
         expToLevel = calcExpToLevel(level);
 
+        deapplyItemBuff(inventory.getEquippedArmor());
+        deapplyItemBuff(inventory.getEquippedWeapon());
+
         setMaxHP( (int)(getMaxHP() * LUP_MULT_MAX_HP) );
         setCurrHP( getMaxHP() );
 
@@ -98,6 +99,9 @@ public final class Player extends Entity {
         setCurrCritChance( getCurrCritChance() );
         setBaseAccuracy( getBaseAccuracy() * LUP_MULT_ACC );
         setCurrAccuracy( getCurrAccuracy() );
+
+        applyItemBuff(inventory.getEquippedArmor());
+        applyItemBuff(inventory.getEquippedWeapon());
 
         return level;
     }
