@@ -7,6 +7,8 @@ import items.weapon.Weapon;
 import items.weapon.Weapons;
 import scene.TextureId;
 
+import static utils.Number.dPercentage;
+
 public final class ClassTypeUtil {
     private static final int 
         BASE_HP = 1000,
@@ -17,14 +19,11 @@ public final class ClassTypeUtil {
     private static final double 
         BASE_CRIT_C = 1.0,
         BASE_CRIT_M = 1.0,
-        BASE_ACCURACY = 1.0;
+        BASE_ACCURACY = 1.0,
+        BASE_DEFENSE_M = 1.0;
 
     private static ClassType $classType = null;
     public static final String ERR_TYPE_MESSAGE = "The class type specified is unknown";
-    
-    private static double getDPercentage(double percent) {
-        return percent * 0.01;
-    }
 
     public static ClassType getClassType() { return $classType; }
     public static ClassType setClassType(ClassType classType) {
@@ -34,9 +33,9 @@ public final class ClassTypeUtil {
 
     public static int getHP() throws UnknownTypeException {
         switch($classType) {
-            case MAGE: return (int)( BASE_HP * getDPercentage(70) );
-            case WARRIOR: return (int)( BASE_HP * getDPercentage(100) );
-            case ARCHER: return (int)( BASE_HP * getDPercentage(85) );
+            case MAGE: return (int)( BASE_HP * dPercentage(70) );
+            case WARRIOR: return (int)( BASE_HP * dPercentage(100) );
+            case ARCHER: return (int)( BASE_HP * dPercentage(85) );
             default: 
                 throw new UnknownTypeException(ERR_TYPE_MESSAGE);
         }
@@ -44,9 +43,9 @@ public final class ClassTypeUtil {
 
     public static int getMP() throws UnknownTypeException {
         switch($classType) {
-            case MAGE: return (int)( BASE_MP * getDPercentage(100) );
-            case WARRIOR: return (int)( BASE_MP * getDPercentage(70) );
-            case ARCHER: return (int)( BASE_MP * getDPercentage(85) );
+            case MAGE: return (int)( BASE_MP * dPercentage(100) );
+            case WARRIOR: return (int)( BASE_MP * dPercentage(70) );
+            case ARCHER: return (int)( BASE_MP * dPercentage(85) );
             default: 
                 throw new UnknownTypeException(ERR_TYPE_MESSAGE);
         }
@@ -54,9 +53,9 @@ public final class ClassTypeUtil {
 
     public static int getDamage() throws UnknownTypeException {
         switch($classType) {
-            case MAGE: return (int)( BASE_DAMAGE * getDPercentage(90) );
-            case WARRIOR: return (int)( BASE_DAMAGE * getDPercentage(80) );
-            case ARCHER: return (int)( BASE_DAMAGE * getDPercentage(70) );
+            case MAGE: return (int)( BASE_DAMAGE * dPercentage(90) );
+            case WARRIOR: return (int)( BASE_DAMAGE * dPercentage(80) );
+            case ARCHER: return (int)( BASE_DAMAGE * dPercentage(70) );
             default: 
                 throw new UnknownTypeException(ERR_TYPE_MESSAGE);
         }
@@ -64,9 +63,9 @@ public final class ClassTypeUtil {
 
     public static int getDefense() throws UnknownTypeException {
         switch($classType) {
-            case MAGE: return (int)( BASE_DEFENSE * getDPercentage(70) );
-            case WARRIOR: return (int)( BASE_DEFENSE * getDPercentage(90) );
-            case ARCHER: return (int)( BASE_DEFENSE * getDPercentage(80) );
+            case MAGE: return (int)( BASE_DEFENSE * dPercentage(70) );
+            case WARRIOR: return (int)( BASE_DEFENSE * dPercentage(90) );
+            case ARCHER: return (int)( BASE_DEFENSE * dPercentage(80) );
             default: 
                 throw new UnknownTypeException(ERR_TYPE_MESSAGE);
         }
@@ -74,9 +73,9 @@ public final class ClassTypeUtil {
 
     public static double getCritChance() throws UnknownTypeException {
         switch($classType) {
-            case MAGE: return BASE_CRIT_C * getDPercentage(20);
-            case WARRIOR: return BASE_CRIT_C * getDPercentage(20);
-            case ARCHER: return BASE_CRIT_C * getDPercentage(20);
+            case MAGE: return BASE_CRIT_C * dPercentage(20);
+            case WARRIOR: return BASE_CRIT_C * dPercentage(20);
+            case ARCHER: return BASE_CRIT_C * dPercentage(20);
             default: 
                 throw new UnknownTypeException(ERR_TYPE_MESSAGE);
         }
@@ -84,9 +83,9 @@ public final class ClassTypeUtil {
 
     public static double getCritMultiplier() throws UnknownTypeException {
         switch($classType) {
-            case MAGE: return BASE_CRIT_M * getDPercentage(115);
-            case WARRIOR: return BASE_CRIT_M * getDPercentage(110);
-            case ARCHER: return BASE_CRIT_M * getDPercentage(115);
+            case MAGE: return BASE_CRIT_M * dPercentage(115);
+            case WARRIOR: return BASE_CRIT_M * dPercentage(110);
+            case ARCHER: return BASE_CRIT_M * dPercentage(115);
             default: 
                 throw new UnknownTypeException(ERR_TYPE_MESSAGE);
         }
@@ -94,9 +93,19 @@ public final class ClassTypeUtil {
 
     public static double getAccuracy() throws UnknownTypeException {
         switch($classType) {
-            case MAGE: return BASE_ACCURACY * getDPercentage(85);
-            case WARRIOR: return BASE_ACCURACY * getDPercentage(80);
-            case ARCHER: return BASE_ACCURACY * getDPercentage(90);
+            case MAGE: return BASE_ACCURACY * dPercentage(85);
+            case WARRIOR: return BASE_ACCURACY * dPercentage(80);
+            case ARCHER: return BASE_ACCURACY * dPercentage(90);
+            default: 
+                throw new UnknownTypeException(ERR_TYPE_MESSAGE);
+        }
+    }
+
+    public static double getDefenseMultiplier() throws UnknownTypeException {
+        switch($classType) {
+            case MAGE: return BASE_DEFENSE_M * dPercentage(75);
+            case WARRIOR: return BASE_DEFENSE_M * dPercentage(75);
+            case ARCHER: return BASE_DEFENSE_M * dPercentage(75);
             default: 
                 throw new UnknownTypeException(ERR_TYPE_MESSAGE);
         }

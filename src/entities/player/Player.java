@@ -10,11 +10,9 @@ import utils.Randomic;
 import scene.bars.Bars;
 import scene.statbox.Statboxes;
 import items.Item;
+import items.ItemType;
 
 public final class Player extends Entity {
-    // Warrior: 1000HP, 200MP, 50DEF, 85DMG, 0.8ACC
-    // Ranger: 750HP, 300MP, 30DEF, 70DMG, 0.9ACC
-    // Mage: 500HP, 500MP, 10DEF, 100DMG, 0.8ACC
     private final static int STARTING_EXP_TO_LEVEL = 100;
 
     private final static double 
@@ -44,28 +42,25 @@ public final class Player extends Entity {
         this.classType = ClassTypeUtil.setClassType(classType);
 
         setMaxHP( ClassTypeUtil.getHP() );
-        setCurrHP( ClassTypeUtil.getHP() );
         setMaxMP( ClassTypeUtil.getMP() );
-        setCurrMP( ClassTypeUtil.getMP() );
         
         setBaseDamage( ClassTypeUtil.getDamage() );
-        setCurrDamage( ClassTypeUtil.getDamage() );
         setBaseDefense( ClassTypeUtil.getDefense() );
-        setCurrDefense( ClassTypeUtil.getDefense() );
 
         setBaseCritChance( ClassTypeUtil.getCritChance() );
-        setCurrCritChance( ClassTypeUtil.getCritChance() );
         setBaseCritMultiplier( ClassTypeUtil.getCritMultiplier() );
-        setCurrCritMultiplier( ClassTypeUtil.getCritMultiplier() );
         setBaseAccuracy( ClassTypeUtil.getAccuracy() );
-        setCurrAccuracy( ClassTypeUtil.getAccuracy() );
-        setBaseDefenseMultiplier(1.0f);
-        setCurrDefenseMultiplier(1.0f);
+        setBaseDefenseMultiplier( ClassTypeUtil.getDefenseMultiplier() );
+
+        resetToBase();
 
         setTextureId(ClassTypeUtil.getTextureId());
         
         inventory.equipArmor( ClassTypeUtil.getInitialArmor() );
         inventory.equipWeapon( ClassTypeUtil.getInitialWeapon() );
+
+        applyItemBuff(inventory.getEquippedArmor());
+        applyItemBuff(inventory.getEquippedWeapon());
 
         setHealthBar(Bars.newPlayerHealthBar(this));
         setManaBar(Bars.newPlayerManaBar(this));
@@ -106,43 +101,6 @@ public final class Player extends Entity {
 
         return level;
     }
-
-    protected int calcDamage(Boss boss) {
-        boolean _hasCrit = getTotalCritChance() >= Randomic.between(0.0, MAX_BASE_CRIT);
-
-        int _damage = 0;
-
-        if (_hasCrit) { 
-            _damage = (int)((double) getTotalDamage() * getTotalCritMultiplier());
-        } else {
-            _damage = getTotalDamage();
-        }
-
-        int dmgReduction = (int) ((double) boss.getCurrDefense() * boss.getCurrDefenseMultiplier());
-        if (_damage - dmgReduction < _damage * MIN_DAMAGE_POST_REDUCTION){ // Defence damage reduction caps at 80%
-            return (int) ((double)_damage * MIN_DAMAGE_POST_REDUCTION);
-        } else {
-            return _damage - dmgReduction;
-        }
-    }
-
-    public int attack(Boss boss) {
-        boolean _haveHit = getTotalAccuracy() >= Randomic.between(0.0, MAX_BASE_ACCUR);
-
-        if(!_haveHit) return ATTACK_MISSED;
-
-        int _damage = calcDamage(boss);
-        boss.takeDamage(_damage);
-
-        return _damage;
-    }
-
-    public int attackSuper(Boss boss) throws NumberOverflowException {
-        int _damage = calcDamage(boss);
-        setCurrMP(getCurrMP() - getMaxMP() / 2); // Super costs half of player's maximum MP
-        boss.takeDamage((int)(_damage * 1.5));
-        return _damage;
-    }
     
     public void addItemInventory(Item item){
         this.inventory.add(item);
@@ -171,39 +129,37 @@ public final class Player extends Entity {
         return _consumable;
     }
 
-    public void useInventory(int index){
-        Consumable consumable = inventory.use(index);
-        if (consumable != null){
-            healHP(consumable.getBoostHP());
-            recoverMP(consumable.getBoostMP());
-        }
-    }
-
     public void equipInventory(int index) {
-        this.inventory.equip(index);
+        Item _equipment = inventory.getItem(index);
+        if(_equipment == null) return;
+
+        if(_equipment.getItemType() == ItemType.ARMOR)
+            deapplyItemBuff( inventory.getEquippedArmor() );
+
+        else if(_equipment.getItemType() == ItemType.WEAPON)
+            deapplyItemBuff( inventory.getEquippedWeapon() );
+
+        inventory.equip(index);
+        applyItemBuff(_equipment);
     }
     
-    public int getTotalDamage(){
-        return getCurrDamage() + this.inventory.getEquippedWeapon().getBoostDamage();
+    private void applyItemBuff(Item equipment) {
+        final int _boostDefense = (int)(equipment.getBoostDefense() * getCurrDefenseMultiplier());
+        setCurrDefense( getCurrDefense() + _boostDefense);
+        setCurrDamage( getCurrDamage() + equipment.getBoostDamage() );
+        setCurrCritChance( getCurrCritChance() + equipment.getBoostCritChance() );
+        setCurrCritMultiplier( getCurrCritMultiplier() + equipment.getBoostCritMultiplier() );
+        setCurrAccuracy( getCurrAccuracy() + equipment.getBoostAccuracy() );
     }
 
-    public int getTotalDefense(){
-        return (int) ((getCurrDefense() + this.inventory.getEquippedArmor().getBoostDefense() + this.inventory.getEquippedWeapon().getBoostDefense()) * getCurrDefenseMultiplier());
+    private void deapplyItemBuff(Item equipment) {
+        final int _boostDefense = (int)(equipment.getBoostDefense() * getCurrDefenseMultiplier());
+        setCurrDefense( getCurrDefense() - _boostDefense);
+        setCurrDamage( getCurrDamage() - equipment.getBoostDamage() );
+        setCurrCritChance( getCurrCritChance() - equipment.getBoostCritChance() );
+        setCurrCritMultiplier( getCurrCritMultiplier() - equipment.getBoostCritMultiplier() );
+        setCurrAccuracy( getCurrAccuracy() - equipment.getBoostAccuracy() );
     }
-
-    public double getTotalCritChance(){
-        return getCurrCritChance() + inventory.getEquippedWeapon().getBoostCritChance();
-    }
-
-    public double getTotalCritMultiplier(){
-        return getCurrCritMultiplier() + inventory.getEquippedWeapon().getBoostCritMultiplier();
-    }
-
-    public double getTotalAccuracy(){
-        return getCurrAccuracy() + inventory.getEquippedWeapon().getBoostAccuracy();
-    }
-    
-    
     
     // ------------ GETTERS AND SETTERS ------------ //
     

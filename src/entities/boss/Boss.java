@@ -162,7 +162,7 @@ public final class Boss extends Entity {
                     if (canSuper()) return attackSuper(player); 
                     else return attack(player);
                 } else if (_rand < baseSpecialChance + baseDefendChance){
-                    return defend();
+                    setDefend();
                 } else {
                     return attack(player);
                 }
@@ -173,48 +173,11 @@ public final class Boss extends Entity {
                 if (_rand < 0.5){
                     return attack(player);
                 } else {
-                    return defend();
+                    setDefend();
                 }
         }
-    }
-
-    protected int calcDamage(Player player) {
-        boolean _hasCrit = getCurrCritChance() >= Randomic.between(0.0, MAX_BASE_CRIT);
-
-        int _damage = 0;
-
-        if (_hasCrit) { 
-            _damage = (int)((double) getCurrDamage() * getCurrCritMultiplier());
-        } else {
-            _damage = getCurrDamage(); 
-        }
-
-        int dmgReduction = (int) ((double) player.getTotalDefense() * player.getCurrDefenseMultiplier());
-        if (_damage - dmgReduction < _damage * 0.2){ // Defence damage reduction caps at 80%
-            return (int) (_damage * 0.2);
-        } else {
-            return _damage - dmgReduction;
-        }
-    }
-    
-    public int attack(Player player) {
-        boolean _haveHit = getCurrAccuracy() >= Randomic.between(0.0, MAX_BASE_ACCUR);
-
-        if(!_haveHit) return ATTACK_MISSED;
-
-        int _damage = calcDamage(player);
-        player.takeDamage(_damage);
-
-        return _damage;
-    }
-    
-    public int attackSuper(Player player) throws NumberOverflowException {
-        int _damage = calcDamage(player);
-        setCurrMP(getCurrMP() / 2);
-
-        player.takeDamage((int)(_damage * 1.5));
-        return _damage;
-    }
+        return 0;
+    }  
 
     private Item[] getRandomItemsList(ClassType classType) throws UnknownTypeException {
         final Item[] _items = {
@@ -240,7 +203,6 @@ public final class Boss extends Entity {
             getRandomItem(classType),
             getRandomItem(classType)
         };
-
         return _items;
     }
     

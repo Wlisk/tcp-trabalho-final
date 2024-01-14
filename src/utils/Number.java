@@ -3,8 +3,11 @@ package utils;
 import exceptions.NumberOverflowException;
 
 /**
- * Classe com propriedades e métodos estáticos para gerenciar limitação 
- * de números gerando erros (throw) em caso dos limites serem passados.
+ * Classe com propriedades e métodos estáticos para gerenciar números 
+ * no geral.
+ * <p>
+ * Além disso, gerencia limitação de números gerando erros (throw) 
+ * em caso dos limites impostos serem passados.
  * @see exceptions.NumberOverflowException
  */
 public final class Number {
@@ -35,5 +38,15 @@ public final class Number {
     public static void limitTo(double min, double max, double number) throws NumberOverflowException {
         if(number < min || number > max)
             throw new NumberOverflowException("Numero precisa ser entre " + min + " e " + max);
+    }
+
+    /**
+     * Retorna um valor qualquer de porcentagem em sua representação 
+     * decimal de porcentagem (double)
+     * @param percent o valor de porcentagem a ser convertido
+     * @return (double) o valor em decimal da porcentagem
+     */
+    public static double dPercentage(double percent) {
+        return percent * 0.01;
     }
 }

@@ -151,7 +151,7 @@ public class Game {
             transitionState(GameState.TURN_PLAYER_CHOSEN);
             if (damage == 0) alertTextBox.newMessage(TextBoxes.ATTACK_MISSED, delayTimer);
         }  else if (defend) { // Player chooses defend
-            player.defend();
+            player.setDefend();
             transitionState(GameState.TURN_PLAYER_CHOSEN);
         } else if (inventoryLeftClicked >= 0 && player.getItemInventory(inventoryLeftClicked) != null) { // Player left clicks item in inventory
             switch (player.getItemInventory(inventoryLeftClicked).getItemType()){

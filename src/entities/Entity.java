@@ -1,30 +1,44 @@
 package entities;
 
+import utils.Randomic;
 import utils.Text;
+import entities.player.Player;
 import exceptions.EmptyStringException;
 import exceptions.MaxStringSizeException;
 import exceptions.NumberOverflowException;
 import scene.TextureId;
 import scene.bars.Bar;
 import scene.statbox.Statbox;
+import utils.Number;
 
-// TODO: setters must be completed with guard statements
-// - 'if' must be put to guard against values below 0 or 0.0
-
-public class Entity {
+/**
+ * Classe base para Player e Boss.
+ */
+public abstract class Entity {
+    /** Número (int) máximo de carácteres para o nome */
     public static final int MAX_NAME_SIZE = 32;
+    /** Definição de dano igual a zero como ataque perdido */
     public static final int ATTACK_MISSED = 0;
-    public static final int DEFENDED = -1;
+    /** Valor (double) máximo do crítico (base) */
     public static final double MAX_BASE_CRIT = 1.0;
+    /** Valor (double) máximo da precisão (base) */
     public static final double MAX_BASE_ACCUR = 1.0;
+    /** Valor (double) máximo do multiplicador de crítico (base) */
     public static final double MAX_CRIT_MULTIPLIER = 10.0;
-    public static final double DEFEND_DEFENSEMULT_CHANGE = 0.75;
+    /** Porcentagem em dicimal (double) do multiplicador de defesa quando se defende */
+    public static final double DEFEND_MULTIPLIER = 0.75;
+    /**?  */
     public static final double MIN_DAMAGE_POST_REDUCTION = 0.2;
+
+    protected final int MAX_DEFEND_DURATION = 2;
     private static int countEntities = 0;
+    private static final double HEAL_DPercentage = Number.dPercentage(5);
+    private static final double RCVR_DPercentage = Number.dPercentage(10);
+    private static final double SATTACK_MP_REDUCTION = Number.dPercentage(50);
+    private static final double DAMAGE_MULTIPLIER_SATTACK = Number.dPercentage(150);
+    private static final double MINIMUM_DAMAGE_DPERCENTAGE = Number.dPercentage(10);
 
-    private String name;
-    private boolean isDead;
-
+    // base statistics
     private int maxHP;
     private int maxMP;
     private int baseDamage;
@@ -36,6 +50,7 @@ public class Entity {
     private double baseAccuracy;
     private double baseDefenseMultiplier;
 
+    // current statistics
     private int currHP;
     private int currMP; 
     private int currDamage;
@@ -47,99 +62,193 @@ public class Entity {
     private double currAccuracy;
     private double currDefenseMultiplier;
 
+    private String name;
+    private boolean isDead;
+    private boolean isDefending;
     private int defendDuration;
 
     private TextureId textureId;
     private Bar healthBar, manaBar;
     private Statbox statbox;
 
-    protected void resetToZero() {
-        maxHP = maxMP = 0;
-        currHP = currMP = 0;
-        baseDamage = baseDefense = 0;
-        currDefense = currDamage = 0;
-        currRecRateHP = currRecRateMP = 0;
-        baseRecRateHP = baseRecRateMP = 0;
-        baseAccuracy = baseCritMultiplier = baseCritChance = 0.0;
-        currAccuracy = currCritMultiplier = currCritChance = 0.0;
-        currDefenseMultiplier = baseDefenseMultiplier = 0.0;
-        resetBooleans();
-    }
-
-    protected void resetToBase() {
-        currHP = maxHP;
-        currMP = maxMP;
-        currDamage = baseDamage;
-        currDefense = baseDefense;
-        currCritChance = baseCritChance;
-        currCritMultiplier = baseCritMultiplier;
-        currAccuracy = baseAccuracy;
-        currRecRateHP = baseRecRateHP;
-        currRecRateMP = baseRecRateMP;
-        currDefenseMultiplier = baseDefenseMultiplier;
-        resetBooleans();
-    }
-
+    /**
+     * Construtor da entidade base (Player e Boss)
+     * @param name (String) o nome da entidade 
+     */
     public Entity(String name) {
         resetToZero();
         this.name = name;
         ++countEntities;
     }
 
-    public void takeDamage(int damage) {
-        int _hpWithLoss = currHP - damage;
-
-        if (_hpWithLoss <= 0) { 
-            currHP = 0;
-            isDead = true;
-        }else {
-            currHP = _hpWithLoss;
-        }
-    }
-
-    // Defending increases an entity's defense multiplier by 75% for 3 turns. The counter is lowered at the end of every turn
-    public int defend() {
-        if (defendDuration == 0){
-            this.currDefenseMultiplier += DEFEND_DEFENSEMULT_CHANGE;
-        }
-        this.defendDuration = 3;
-        return DEFENDED;
-    }
-
-    public void updateEndTurn(){
-        if (this.defendDuration == 1){ // If defending has run out, lower the defense multiplier
-            this.currDefenseMultiplier -= DEFEND_DEFENSEMULT_CHANGE;
-        }
-
-        if (this.defendDuration > 0){
-            this.defendDuration--;
-        }
-
-        recoverMP(maxMP / 10); // Entities recover 10% of their max mp per turn
-    }
-
+    /**
+     * Cura a entidade (Player ou Boss) dado o valor de cura
+     * @param amount a quantidade para curar o HP
+     * @return (int) o valor curado
+     */
     protected int healHP(int amount) {
         if(amount >= 0) {
-            int _hpWithHeal = currHP + amount;
+            final int _oldHP = currHP;
+            final int _hpWithHeal = currHP + amount;
 
             currHP = (_hpWithHeal > maxHP) ? maxHP : _hpWithHeal;
-        }
 
-        return currHP;
+            return (currHP - _oldHP);
+        }
+        return 0;
     }
 
+    /**
+     * Recupera o MP da entidade (Player ou Boss) dado o valor de recuperação
+     * @param amount a quantidade para recuperar o MP
+     * @return (int) o valor recuperado
+     */
     protected int recoverMP(int amount) {
         if(amount >= 0) {
-            int _mpWithRecover = currMP + amount;
+            final int _oldMP = currMP;
+            final int _mpWithRecover = currMP + amount;
 
             currMP = (_mpWithRecover > maxMP) ? maxMP : _mpWithRecover;
-        }
 
-        return currMP;
+            return (currHP - _oldMP);
+        }
+        return 0;
     }
 
-    public boolean canSuper(){
-        return getCurrMP() >= getMaxMP()/ 2;
+    /**
+     * Calcula a defesa pura do jogador com multiplicador (caso aplicável)
+     * @return (int) o valor da defesa pura
+     */
+    private int computeDefense() {
+        int _multipliedDefense = 0;
+
+        if(defendDuration > 0) 
+            _multipliedDefense = (int)((double)currDefense * currDefenseMultiplier);
+
+        return (_multipliedDefense < currDefense) ? currDefense : _multipliedDefense;
+    }
+
+    /**
+     * recebe dano, não faz nada além disso
+     * @param damage o valor (int) do dano
+     */
+    private void takeDamage(int damage) {
+        final int _hpWithLoss = currHP - damage;
+
+        if(_hpWithLoss <= 0) { 
+            currHP = 0;
+            isDead = true;
+        }
+        currHP = _hpWithLoss;
+    }
+
+    /**
+     * Defende contra um dano, podendo reduzí-lo a valores mínimos ou zero
+     * @param damage o dano a ser causado na entidade (Player ou Boss)
+     * @return (int) o dano recebido ou ATTACK_MISSED;
+     * @see #ATTACK_MISSED
+     */
+    public int defend(int damage) {
+        final int _defenseValue = computeDefense() - damage;
+        int _damageTaken = -_defenseValue;
+
+        if(_damageTaken <= 0) {
+            _damageTaken = (int)(damage * MINIMUM_DAMAGE_DPERCENTAGE);
+        }
+
+        takeDamage(_damageTaken);
+
+        return _damageTaken;
+    }
+
+    /**
+     * Calcula o valor de dano puro da entidade (Player ou Boss) com chance de crítico
+     * @return (int) o valor de dano puro
+     */
+    private int calcDamage() {
+        final boolean _hasCrit = currCritChance >= Randomic.between(0.0, MAX_BASE_CRIT);
+        int _damage = currDamage;
+
+        if(_hasCrit) { 
+            _damage = (int)(currDamage * currCritMultiplier);
+        }
+        return _damage;
+    }
+
+    /**
+     * Realiza o ataque na entidade (Player ou Boss)
+     * @param enemy a entidade a ser atacada
+     * @return (int) o dano causado na entidade ou ATTACK_MISSED
+     * @see #ATTACK_MISSED
+     */
+    public int attack(Entity enemy) {
+        final boolean _haveHit = 
+            baseAccuracy >= Randomic.between(0.0, MAX_BASE_ACCUR);
+
+        if(!_haveHit) return ATTACK_MISSED;
+
+        final int _damage = calcDamage();
+        final int _damageDone = enemy.defend(_damage);
+        return _damageDone;
+    }
+
+    /**
+     * Verifica se a entidade (Player ou Boss) pode realizar ataque especial
+     * @return (boolean) se pode realizar ataque especial
+     */
+    public boolean canSuper() {
+        return getCurrMP() >= (int)(getMaxMP() * SATTACK_MP_REDUCTION);
+    }
+
+    /**
+     * Realiza o ataque especial na entidade (Player ou Boss)
+     * <p>
+     * O dano não pose der desviado ou perdido
+     * @param enemy a entidade a ser atacada com o especial
+     * @return (int) o dano causado na entidade
+     * @throws NumberOverflowException 
+     * @see exceptions.NumberOverflowException
+     */
+    public int attackSuper(Entity enemy) throws NumberOverflowException {
+        final int _mpReduction = (int)(getMaxMP() * SATTACK_MP_REDUCTION);
+        setCurrMP(getCurrMP() - _mpReduction);
+
+        final int _damage = (int)(calcDamage() * DAMAGE_MULTIPLIER_SATTACK);
+        final int _damageDone = enemy.defend(_damage);
+        return _damageDone;
+    }
+
+    /**
+     * Se a entidade (player ou Boss) já não estiverem defendendo
+     * ativa o modo de defesa que durará MAX_DEFEND_DURATION
+     * @see entities.Entity#MAX_DEFEND_DURATION
+     * @see entities.Entity#DEFEND_MULTIPLIER
+     */
+    public void setDefend() {
+        if(isDefending == false) {
+            currDefenseMultiplier += DEFEND_MULTIPLIER;
+            isDefending = true;
+            defendDuration = MAX_DEFEND_DURATION;
+        }
+    }
+
+    /**
+     * Executa atualização de estatísticas e dados da entidade 
+     * (Player ou Boss) a cada turno
+     */
+    public void updateEndTurn() {
+        if(defendDuration > 0) {
+            --defendDuration;
+        } 
+        else {
+            if(isDefending == true) {
+                isDefending = false;
+                currDefenseMultiplier -= DEFEND_MULTIPLIER;
+            }
+        }
+
+        healHP( (int)(maxHP * HEAL_DPercentage) );
+        recoverMP( (int)(maxMP * RCVR_DPercentage) );
     }
 
     // --------------------------- GETTERS --------------------------- //
@@ -177,15 +286,15 @@ public class Entity {
 
     // --------------------------- SETTERS --------------------------- //
     protected void setName(String name) throws EmptyStringException, MaxStringSizeException { 
-        if (name.length() > MAX_NAME_SIZE) 
+        if(name.length() > MAX_NAME_SIZE) 
             throw new MaxStringSizeException("Max string size is " + MAX_NAME_SIZE);
-        else if (Text.stringIsEmpty(name))
+        else if(Text.stringIsEmpty(name))
             throw new EmptyStringException("Name cannot be null");
 
         this.name = name;
     }
 
-    protected void setIsDead(boolean isDead){
+    protected void setIsDead(boolean isDead) {
         this.isDead = isDead;
     }
 
@@ -202,7 +311,7 @@ public class Entity {
     }
 
     protected void setCurrHP(int hp) throws NumberOverflowException {
-        if (currHP < 0 || currHP > maxHP)
+        if(currHP < 0 || currHP > maxHP)
             throw new NumberOverflowException(
                 getMessageNumberOverflow("HP", maxHP)
             );
@@ -211,7 +320,7 @@ public class Entity {
     }
 
     protected void setCurrMP(int mp) throws NumberOverflowException {
-        if (currMP < 0 || currMP > maxMP)
+        if(currMP < 0 || currMP > maxMP)
             throw new NumberOverflowException(
                 getMessageNumberOverflow("MP", maxMP)
             );
@@ -291,7 +400,7 @@ public class Entity {
         this.currDefenseMultiplier = currDefenseMultiplier;
     }
 
-    public void setTextureId(TextureId textureId){
+    public void setTextureId(TextureId textureId) {
         this.textureId = textureId;
     }
 
@@ -316,7 +425,39 @@ public class Entity {
         return attribute + " cannot be greater then " + maxvalue + " or lower then 0";
     }
 
-    private void resetBooleans() {
+    /** Reseta todos os booleanos para seus valores padrões */
+    protected void resetBooleans() {
         isDead = false;
+        isDefending = false;
+    }
+
+    /** Zera todas as estatísticas */
+    protected void resetToZero() {
+        maxHP = maxMP = 0;
+        currHP = currMP = 0;
+        baseDamage = baseDefense = 0;
+        currDefense = currDamage = 0;
+        currRecRateHP = currRecRateMP = 0;
+        baseRecRateHP = baseRecRateMP = 0;
+        baseAccuracy = baseCritMultiplier = baseCritChance = 0.0;
+        currAccuracy = currCritMultiplier = currCritChance = 0.0;
+        currDefenseMultiplier = baseDefenseMultiplier = 0.0;
+        defendDuration = 0;
+        resetBooleans();
+    }
+
+    /** Reseta todas as estatísticas para seus valores base */
+    protected void resetToBase() {
+        currHP = maxHP;
+        currMP = maxMP;
+        currDamage = baseDamage;
+        currDefense = baseDefense;
+        currCritChance = baseCritChance;
+        currCritMultiplier = baseCritMultiplier;
+        currAccuracy = baseAccuracy;
+        currRecRateHP = baseRecRateHP;
+        currRecRateMP = baseRecRateMP;
+        currDefenseMultiplier = baseDefenseMultiplier;
+        resetBooleans();
     }
 }
