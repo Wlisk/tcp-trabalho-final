@@ -13,34 +13,34 @@ public final class Consumables {
     private static final Consumable[] FOODS = {
         new Consumable(
             ConsumableType.FOOD, TextureId.CONSUMABLE_BREAD, "Piece of Bread", 
-            100, 0,
+            250, 0,
             "Better than nothing."
         ), 
 
         new Consumable(
             ConsumableType.FOOD, TextureId.CONSUMABLE_CHEESE, "Cheese", 
-            150, 50,
+            200, 100,
             "Just a regular ol\' piece of cheese."
         ),
 
         new Consumable(
             ConsumableType.FOOD, TextureId.CONSUMABLE_BANANA, "Banana", 
-            75, 75, 
+            150, 150, 
             "The quintessential fruit."),
 
         new Consumable(
             ConsumableType.FOOD, TextureId.CONSUMABLE_GRAPES, "Grapes", 
-            50, 100, 
+            120, 200, 
             "A little sour."),
         
         new Consumable(
             ConsumableType.FOOD, TextureId.CONSUMABLE_PIZZA, "Pizza", 
-            250, 150, 
+            400, 250, 
             "A staple of Italian cuisine."),
         
         new Consumable(
                 ConsumableType.FOOD, TextureId.CONSUMABLE_STEAK, "Steak", 
-                500, 100, 
+                700, 100, 
                 "A perfectly cooked slab of meat.")
     };
 
@@ -54,7 +54,7 @@ public final class Consumables {
     private static final Consumable[] POTIONS = {
         new Consumable(
             ConsumableType.POTION, TextureId.CONSUMABLE_RED_VIAL, "Vial of Healing", 
-            100, 0, 
+            200, 0, 
             "A small dose of a healing tincture."
         ),
 
@@ -65,7 +65,7 @@ public final class Consumables {
         ),
         new Consumable(
             ConsumableType.POTION, TextureId.CONSUMABLE_RED_SMALL, "Small Flask of Healing", 
-            250, 0, 
+            500, 0, 
             "Can save you from dire straits."
         ),
 
@@ -77,7 +77,7 @@ public final class Consumables {
 
         new Consumable(
             ConsumableType.POTION, TextureId.CONSUMABLE_RED_BIG, "Large Flask of Healing", 
-            500, 0, 
+            1000, 0, 
             "Will save you from the brink of destruction."
         ),
 
