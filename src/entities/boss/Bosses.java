@@ -112,18 +112,21 @@ public final class Bosses {
         return _bosses;
     }
 
-    private final static Boss[] bossList = createBosses();
+    private static Boss[] bossList = createBosses();
     
     public static NumberOverflowException getException() { return err; }
     public static int quantity() { return bossList.length; }
     public static int getCurrIndex() { return bossNextCounter; }
     public static Boss[] getList() { return bossList; }
-    
+
     public static Boss getNextBoss() { 
         if(bossNextCounter >= bossList.length) return null;
 
         return bossList[bossNextCounter++];
     }
 
-    public static void resetBossNextCounter() { bossNextCounter = 0; }
+    public static void resetBossNextCounter() { 
+        bossList = createBosses();
+        bossNextCounter = 0; 
+    }
 }
