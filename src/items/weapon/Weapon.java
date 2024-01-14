@@ -25,7 +25,7 @@ public final class Weapon extends Item {
      * @param boostCritChance a quantidade de aumento de chance de crítico
      * @param boostCritMultiplier a quantidade de aumento de multiplicador de crítico
      * @param description a descrição da arma
-     * @see items.armor.WeaponType
+     * @see items.weapon.WeaponType
      * @see scene.TextureId
      */
     public Weapon(

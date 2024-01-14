@@ -6,7 +6,7 @@ import utils.Randomic;
 /**
  * Classe com propriedades e métodos estáticos para 
  * criação e armazenamento dos consumíveis do jogo.
- * @see items.weapon.Consumable
+ * @see items.consumable.Consumable
  * @see scene.TextureId
  */
 public final class Consumables {
@@ -145,7 +145,7 @@ public final class Consumables {
         final int _indexSelectedType = Randomic.between(0, _listAllConsumables.length - 1);
 
         final int _indexSelectedConsumable =
-            Randomic.between(0, _listAllConsumables[_indexSelectedType].length);
+            Randomic.between(0, _listAllConsumables[_indexSelectedType].length - 1);
 
         return _listAllConsumables[_indexSelectedType][_indexSelectedConsumable];
     }

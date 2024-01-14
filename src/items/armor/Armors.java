@@ -9,7 +9,7 @@ import utils.Randomic;
 /**
  * Classe com propriedades e métodos estáticos para 
  * criação e armazenamento das armaduras do jogo.
- * @see items.weapon.Armor
+ * @see items.armor.Armor
  * @see scene.TextureId
  */
 public final class Armors {

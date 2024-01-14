@@ -17,13 +17,13 @@ public final class Consumable extends Item {
     // * @param turnsDuration o número de turnos que o consumível dura
     /**
      * Construtor do item comsumível
-     * @param ConsumableType o tipo de consumível utilizado (poção, alimento, veneno)
+     * @param consumableType o tipo de consumível utilizado (poção, alimento, veneno)
      * @param textureId o enum para obter o src da textura do consumível
      * @param name o nome do consumível
      * @param boostHP a quantidade de aumento de HP
      * @param boostMP a quantidade de aumento de MP
      * @param description a descrição do consumível
-     * @see items.armor.ConsumableType
+     * @see items.consumable.ConsumableType
      * @see scene.TextureId
      */
     public Consumable(
@@ -46,7 +46,10 @@ public final class Consumable extends Item {
         //this.turnsDuration = turnsDuration;
     }
 
-    /** Retorna o tipo (ConsumableType) do consumível */
+    /** 
+     * Retorna o tipo (ConsumableType) do consumível 
+     * @return (ConsumableType) tipo do consúmivel
+     */
     public ConsumableType getConsumableType() { return consumableType; }
     ///* Retorna o número (int) de duração (turnos totais) do consumível */
     //public int getTurnsDuration() { return turnsDuration; }
