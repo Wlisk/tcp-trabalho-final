@@ -1,6 +1,5 @@
 /**
- * Provides the base class Entity and its inheritors
- * Player and Boss, both immportant classes to the
- * role project.
+ * Fornece a classe base Entity e seus herdeiros
+ * Player e Boss, ambas classes importantes no projeto.
  */
 package entities;
