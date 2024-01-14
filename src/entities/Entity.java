@@ -12,6 +12,8 @@ import utils.Number;
 
 /**
  * Classe base para Player e Boss.
+ * @see entities.player.Player
+ * @see entities.boss.Boss
  */
 public abstract class Entity {
     /** Número (int) máximo de carácteres para o nome */
@@ -259,17 +261,6 @@ public abstract class Entity {
      * @return (int) a quantidade de entidades
      */
     public static int getCountEntities() { return countEntities; }
-
-    /**
-     * Retorna uma mensagem de erro com formato padrão para NumberOverflowException
-     * @param attribute o attributo (das estatíticas da entidade) que ocorreu o estouro (overflow)
-     * @param maxvalue o valor máximo permitido
-     * @return (String) a mensagem de erro
-     * @see exceptions.NumberOverflowException
-     */
-    private static String getMessageNumberOverflow(String attribute, int maxvalue) {
-        return attribute + " cannot be greater then " + maxvalue + " or lower then 0";
-    }
 
     /** Reseta todos os booleanos para seus valores padrões */
     protected void resetBooleans() {

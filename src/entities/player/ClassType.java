@@ -1,18 +1,27 @@
-    package entities.player;
+package entities.player;
 
+/** 
+ * Enum para os tipos de classe do jogador.
+ * <p>
+ * Além disso, armazena o caminho das imagens de cada tipo de classe.
+ * @see java.lang.Enum
+ */
 public enum ClassType {
+    /** Classe do tipo mago */
     MAGE(
         "Mage", 
         0, 
         "resources/sprites/classes/mage.png",
         "resources/sprites/sheet/wizard-sheet.png"
     ), 
+    /** Classe do tipo guerreiro */
     WARRIOR(
         "Warrior", 
         1, 
         "resources/sprites/classes/warrior.png",
         "resources/sprites/sheet/warrior-sheet.png"
     ), 
+    /** Classe do tipo arqueiro */
     ARCHER(
         "Archer", 
         2, 
@@ -25,6 +34,11 @@ public enum ClassType {
     private final String imageSrc;
     private final String spriteSheetSrc;
 
+    /** 
+     * Construtor interno do Enum para setar valores para o tipo, 
+     * neste caso, o nome do tipo
+     * @param itemTypeName o nome (string) do tipo
+     */
     private ClassType(String classTypeName, int index, String imageSrc, String spriteSheetSrc) {
         this.classTypeName = classTypeName;
         this.index = index;
