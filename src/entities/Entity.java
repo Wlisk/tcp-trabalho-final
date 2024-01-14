@@ -2,7 +2,6 @@ package entities;
 
 import utils.Randomic;
 import utils.Text;
-import entities.player.Player;
 import exceptions.EmptyStringException;
 import exceptions.MaxStringSizeException;
 import exceptions.NumberOverflowException;
@@ -37,14 +36,15 @@ public abstract class Entity {
     private static final double SATTACK_MP_REDUCTION = Number.dPercentage(50);
     private static final double DAMAGE_MULTIPLIER_SATTACK = Number.dPercentage(150);
     private static final double MINIMUM_DAMAGE_DPERCENTAGE = Number.dPercentage(10);
+    private static final int RECOVER_DEFAULT = 0;
 
     // base statistics
     private int maxHP;
     private int maxMP;
     private int baseDamage;
     private int baseDefense;
-    private int baseRecRateHP;
-    private int baseRecRateMP;
+    private double baseRecRateHP;
+    private double baseRecRateMP;
     private double baseCritChance;
     private double baseCritMultiplier;
     private double baseAccuracy;
@@ -55,8 +55,8 @@ public abstract class Entity {
     private int currMP; 
     private int currDamage;
     private int currDefense;
-    private int currRecRateHP;
-    private int currRecRateMP;
+    private double currRecRateHP;
+    private double currRecRateMP;
     private double currCritChance;
     private double currCritMultiplier;
     private double currAccuracy;
@@ -78,18 +78,20 @@ public abstract class Entity {
     public Entity(String name) {
         resetToZero();
         this.name = name;
+        baseRecRateHP = HEAL_DPercentage;
+        baseRecRateMP = RCVR_DPercentage;
         ++countEntities;
     }
 
     /**
-     * Cura a entidade (Player ou Boss) dado o valor de cura
-     * @param amount a quantidade para curar o HP
+     * Cura a entidade (Player ou Boss) com base na sua taxa de cura
      * @return (int) o valor curado
      */
     protected int healHP(int amount) {
-        if(amount >= 0) {
+        final int _amount =  (int)(maxHP * currRecRateHP) + amount;
+        if(_amount > 0) {
             final int _oldHP = currHP;
-            final int _hpWithHeal = currHP + amount;
+            final int _hpWithHeal = currHP + _amount;
 
             currHP = (_hpWithHeal > maxHP) ? maxHP : _hpWithHeal;
 
@@ -99,14 +101,14 @@ public abstract class Entity {
     }
 
     /**
-     * Recupera o MP da entidade (Player ou Boss) dado o valor de recuperação
-     * @param amount a quantidade para recuperar o MP
+     * Recupera o MP da entidade (Player ou Boss) com base na sua taxa de recuperação
      * @return (int) o valor recuperado
      */
     protected int recoverMP(int amount) {
-        if(amount >= 0) {
+        final int _amount =  (int)(maxMP * currRecRateMP) + amount;
+        if(_amount > 0) {
             final int _oldMP = currMP;
-            final int _mpWithRecover = currMP + amount;
+            final int _mpWithRecover = currMP + _amount;
 
             currMP = (_mpWithRecover > maxMP) ? maxMP : _mpWithRecover;
 
@@ -247,180 +249,24 @@ public abstract class Entity {
             }
         }
 
-        healHP( (int)(maxHP * HEAL_DPercentage) );
-        recoverMP( (int)(maxMP * RCVR_DPercentage) );
+        healHP(RECOVER_DEFAULT);
+        recoverMP(RECOVER_DEFAULT);
     }
 
-    // --------------------------- GETTERS --------------------------- //
-    public String getName() { return name; }
-    public boolean getIsDead() { return isDead; }
-
-    public int getDefendDuration() { return defendDuration; }
-    public int getMaxHP() { return maxHP; }
-    public int getMaxMP() { return maxMP; }
-    public int getCurrHP() { return currHP; }
-    public int getCurrMP() { return currMP; }
-    public int getBaseDefense() { return baseDefense; }
-    public int getBaseDamage() { return baseDamage; }
-    public int getCurrDamage() { return currDamage; }
-    public int getCurrDefense() { return currDefense; }
-    public int getCurrRecRateHP() { return currRecRateHP; }
-    public int getBaseRecRateHP() { return baseRecRateHP; }
-    public int getCurrRecRateMP() { return currRecRateMP; }
-    public int getBaseRecRateMP() { return baseRecRateMP; }
-
-    public double getBaseCritChance() { return baseCritChance; }
-    public double getCurrCritChance() { return currCritChance; }
-    public double getBaseAccuracy() { return baseAccuracy; }
-    public double getCurrAccuracy() { return currAccuracy; }
-    public double getBaseCritMultiplier() { return baseCritMultiplier; }
-    public double getCurrCritMultiplier() { return currCritMultiplier; }
-    public double getBaseDefenseMultiplier() { return baseDefenseMultiplier; }
-    public double getCurrDefenseMultiplier() { return currDefenseMultiplier; }
-
-    public TextureId getTextureId() { return textureId; }
-    public Bar getHealthBar() { return healthBar; }
-    public Bar getManaBar() { return manaBar; }
-    public Statbox getStatbox() { return statbox; }
-    
-
-    // --------------------------- SETTERS --------------------------- //
-    protected void setName(String name) throws EmptyStringException, MaxStringSizeException { 
-        if(name.length() > MAX_NAME_SIZE) 
-            throw new MaxStringSizeException("Max string size is " + MAX_NAME_SIZE);
-        else if(Text.stringIsEmpty(name))
-            throw new EmptyStringException("Name cannot be null");
-
-        this.name = name;
-    }
-
-    protected void setIsDead(boolean isDead) {
-        this.isDead = isDead;
-    }
-
-    protected void setDefendDuration(int defendDuration) {
-        this.defendDuration = defendDuration;
-    }
-
-    protected void setMaxHP(int maxHP) { 
-        this.maxHP = maxHP; 
-    }
-
-    protected void setMaxMP(int maxMP) { 
-        this.maxMP = maxMP; 
-    }
-
-    protected void setCurrHP(int hp) throws NumberOverflowException {
-        if(currHP < 0 || currHP > maxHP)
-            throw new NumberOverflowException(
-                getMessageNumberOverflow("HP", maxHP)
-            );
-
-        currHP = hp;
-    }
-
-    protected void setCurrMP(int mp) throws NumberOverflowException {
-        if(currMP < 0 || currMP > maxMP)
-            throw new NumberOverflowException(
-                getMessageNumberOverflow("MP", maxMP)
-            );
-
-        this.currMP = mp;
-    }
-
-    protected void setBaseDefense(int baseDefense) { 
-        this.baseDefense = baseDefense; 
-    }
-
-    protected void setBaseDamage(int baseDamage) { 
-        this.baseDamage = baseDamage; 
-    }
-
-    public void setCurrDamage(int currDamage) {
-        this.currDamage = currDamage;
-    }
-
-    public void setCurrDefense(int currDefense) {
-        this.currDefense = currDefense;
-    }
-
-    protected void setBaseCritChance(double baseCritChance) {
-        if(baseCritChance > MAX_BASE_CRIT) this.baseCritChance = MAX_BASE_CRIT;
-        else if(baseCritChance < 0.0) this.baseCritChance = 0.0;
-        else this.baseCritChance = baseCritChance;
-    }
-
-    public void setCurrCritChance(double currCritChance) {
-        this.currCritChance = currCritChance;
-    }
-
-    protected void setBaseAccuracy(double baseAccuracy) {
-        if(baseAccuracy > MAX_BASE_ACCUR) this.baseAccuracy = MAX_BASE_ACCUR;
-        else if(baseAccuracy < 0.0) this.baseAccuracy = 0.0;
-        else this.baseAccuracy = baseAccuracy;
-    }
-    
-    public void setCurrAccuracy(double currAccuracy) {
-        this.currAccuracy = currAccuracy;
-    }
-
-    protected void setCurrRecRateHP(int recRate) {
-        this.currRecRateHP = recRate;
-    }
-
-    public void setBaseRecRateHP(int baseRecRateHP) {
-        this.baseRecRateHP = baseRecRateHP;
-    }
-
-    protected void setCurrRecRateMP(int recRate) {
-        this.currRecRateMP = recRate;
-    }
-
-    public void setBaseRecRateMP(int baseRecRateMP) {
-        this.baseRecRateMP = baseRecRateMP;
-    }
-
-    protected void setBaseCritMultiplier(double critValue) {
-        if(critValue > MAX_CRIT_MULTIPLIER) this.baseCritMultiplier = MAX_CRIT_MULTIPLIER;
-        else if(critValue < 0.0) this.baseCritMultiplier = 0.0;
-        else this.baseCritMultiplier = critValue;
-    }
-
-    protected void setCurrCritMultiplier(double critValue) {
-        if(critValue > MAX_CRIT_MULTIPLIER) this.currCritMultiplier = MAX_CRIT_MULTIPLIER;
-        else if(critValue < 0.0) this.currCritMultiplier = 0.0;
-        else this.currCritMultiplier = critValue;
-    }
-
-    public void setBaseDefenseMultiplier(double baseDefenseMultiplier) {
-        this.baseDefenseMultiplier = baseDefenseMultiplier;
-    }
-
-    public void setCurrDefenseMultiplier(double currDefenseMultiplier) {
-        this.currDefenseMultiplier = currDefenseMultiplier;
-    }
-
-    public void setTextureId(TextureId textureId) {
-        this.textureId = textureId;
-    }
-
-    public void setHealthBar(Bar healthBar) {
-        this.healthBar = healthBar;
-    }
-
-    public void setManaBar(Bar manaBar) {
-        this.manaBar = manaBar;
-    }
-
-    public void setStatbox(Statbox statbox) {
-        this.statbox = statbox;
-    }
-
-    // --------------------------- STATIC RELATED --------------------------- //
+    // --------------------------- OTHERS --------------------------- //
+    /**
+     * Retorna a quantidade de entidades instânciadas até o momento
+     * @return (int) a quantidade de entidades
+     */
     public static int getCountEntities() { return countEntities; }
 
-
-    // --------------------------- PRIVATE --------------------------- //
+    /**
+     * Retorna uma mensagem de erro com formato padrão para NumberOverflowException
+     * @param attribute o attributo (das estatíticas da entidade) que ocorreu o estouro (overflow)
+     * @param maxvalue o valor máximo permitido
+     * @return (String) a mensagem de erro
+     * @see exceptions.NumberOverflowException
+     */
     private static String getMessageNumberOverflow(String attribute, int maxvalue) {
         return attribute + " cannot be greater then " + maxvalue + " or lower then 0";
     }
@@ -459,5 +305,398 @@ public abstract class Entity {
         currRecRateMP = baseRecRateMP;
         currDefenseMultiplier = baseDefenseMultiplier;
         resetBooleans();
+    }
+
+    // --------------------------- GETTERS --------------------------- //
+    /**
+     * Retorna o nome da entidade
+     * @return (String) o nome
+     */
+    public String getName() { return name; }
+
+    /**
+     * Retorna se a entidade está morta ou não
+     * @return (boolean) se entidade morta
+     */
+    public boolean getIsDead() { return isDead; }
+
+    /**
+     * Retorna a duração de defesa restante
+     * @return (int) duração restante
+     */
+    public int getDefendDuration() { return defendDuration; }
+
+    /**
+     * Retorna o HP máximo da entidade
+     * @return (int) o HP máximo
+     */
+    public int getMaxHP() { return maxHP; }
+
+    /**
+     * Retorna o MP máximo da entidade
+     * @return (int) o MP máximo
+     */
+    public int getMaxMP() { return maxMP; }
+
+    /**
+     * Retorna o HP corrente/atual da entidade
+     * @return (int) o HP atual
+     */
+    public int getCurrHP() { return currHP; }
+
+    /**
+     * Retorna o MP corrente/atual da entidade
+     * @return (int) o MP atual
+     */
+    public int getCurrMP() { return currMP; }
+
+    /**
+     * Retorna a defesa base da entidade
+     * @return (int) a defesa base
+     */
+    public int getBaseDefense() { return baseDefense; }
+
+    /**
+     * Retorna o dano base da entidade
+     * @return (int) o dano base
+     */
+    public int getBaseDamage() { return baseDamage; }
+
+    /**
+     * Retorna o dano corrente/atual da entidade
+     * @return (int) o dano atual
+     */
+    public int getCurrDamage() { return currDamage; }
+
+    /**
+     * Retorna a defesa corrente/atual da entidade
+     * @return (int) a defesa atual
+     */
+    public int getCurrDefense() { return currDefense; }
+
+    /**
+     * Retorna a taxa corrente/atual de recuperação de HP da entidade
+     * @return (double) a recuperação de HP atual
+     */
+    public double getCurrRecRateHP() { return currRecRateHP; }
+
+    /**
+     * Retorna a taxa base de recuperação de HP da entidade
+     * @return (double) a recuperação de HP base
+     */
+    public double getBaseRecRateHP() { return baseRecRateHP; }
+
+    /**
+     * Retorna a taxa corrente/atual de recuperação de MP da entidade
+     * @return (double) a recuperação de MP atual
+     */
+    public double getCurrRecRateMP() { return currRecRateMP; }
+
+    /**
+     * Retorna a taxa base de recuperação de MP da entidade
+     * @return (double) a recuperação de MP base
+     */
+    public double getBaseRecRateMP() { return baseRecRateMP; }
+
+    /**
+     * Retorna a chance de crítico base da entidade
+     * @return (double) a chance de crítico base
+     */
+    public double getBaseCritChance() { return baseCritChance; }
+
+    /**
+     * Retorna a chance de crítico corrente/atual da entidade
+     * @return (double) a chance de crítico atual
+     */
+    public double getCurrCritChance() { return currCritChance; }
+
+    /**
+     * Retorna a precisão base da entidade
+     * @return (double) a precisão base
+     */
+    public double getBaseAccuracy() { return baseAccuracy; }
+
+    /**
+     * Retorna a precisão corrente/atual da entidade
+     * @return (double) a precisão atual
+     */
+    public double getCurrAccuracy() { return currAccuracy; }
+
+    /**
+     * Retorna o multiplicador de crítico base da entidade
+     * @return (double) o multiplicador de crítico base
+     */
+    public double getBaseCritMultiplier() { return baseCritMultiplier; }
+
+    /**
+     * Retorna o multiplicador de crítico corrente/atual da entidade
+     * @return (double) o multiplicador de crítico atual
+     */
+    public double getCurrCritMultiplier() { return currCritMultiplier; }
+
+    /**
+     * Retorna o mulitiplicador de defesa base da entidade
+     * @return (double) o mulitiplicador de defesa base
+     */
+    public double getBaseDefenseMultiplier() { return baseDefenseMultiplier; }
+
+    /**
+     * Retorna o mulitiplicador de defesa corrente/atual da entidade
+     * @return (double) o mulitiplicador de defesa atual
+     */
+    public double getCurrDefenseMultiplier() { return currDefenseMultiplier; }
+
+    /**
+     * Retorna o enum ID de textura da entidade
+     * @return (TextureId) o enum ID de textura
+     * @see scene.TextureId
+     */
+    public TextureId getTextureId() { return textureId; }
+
+    /**
+     * Retorna o gerenciador de desenho da barra de HP da entidade
+     * @return (Bar) a barra de HP
+     * @see scene.bars.Bar
+     */
+    public Bar getHealthBar() { return healthBar; }
+
+    /**
+     * Retorna o gerenciador de desenho da barra de MP da entidade
+     * @return (Bar) a barra de MP
+     * @see scene.bars.Bar
+     */
+    public Bar getManaBar() { return manaBar; }
+
+    /**
+     * Retorna o gerenciador de desenho das estatísticas da entidade
+     * @return (Statbox) a caixa de estatísticas
+     * @see scene.statbox.Statbox
+     */
+    public Statbox getStatbox() { return statbox; }
+    
+
+    // --------------------------- SETTERS --------------------------- //
+    /**
+     * Seta o nome da entidade (Player ou Boss)
+     * @param name o nome a ser setado
+     * @throws EmptyStringException erro em caso string vazia ou nula
+     * @throws MaxStringSizeException erro em caso ultrapassou máximo número de caracteres
+     * @see exceptions.EmptyStringException
+     * @see exceptions.MaxStringSizeException
+     */
+    public void setName(String name) throws EmptyStringException, MaxStringSizeException { 
+        if(name.length() > MAX_NAME_SIZE) 
+            throw new MaxStringSizeException("Max string size is " + MAX_NAME_SIZE);
+        else if(Text.stringIsEmpty(name))
+            throw new EmptyStringException("Name cannot be null");
+        this.name = name;
+    }
+
+    /**
+     * Seta o HP máximo da entidade
+     * @param maxHP o HP máximo a ser setado
+     */
+    protected void setMaxHP(int maxHP) { 
+        this.maxHP = maxHP; 
+    }
+
+    /**
+     * Seta o MP máximo da entidade
+     * @param maxMP o MP máximo a ser setado
+     */
+    protected void setMaxMP(int maxMP) { 
+        this.maxMP = maxMP; 
+    }
+
+    /**
+     * Seta o HP atual da entidade, limita-se ao valores mínimos e máximos de HP
+     * @param hp o HP atual a ser setado
+     */
+    protected void setCurrHP(int hp) {
+        if(hp < 0) currHP = 0;
+        else if(hp > maxHP) currHP = maxHP;
+        else currHP = hp;
+    }
+
+    /**
+     * Seta o MP atual da entidade, limita-se ao valores mínimos e máximos de MP
+     * @param mp o MP atual a ser setado
+     */
+    protected void setCurrMP(int mp) {
+        if(mp < 0) currMP = 0;
+        else if(mp > maxHP) currMP = maxMP;
+        else currMP = mp;
+    }
+
+    /**
+     * Seta a defesa base da entidade 
+     * @param baseDefense a defesa base a ser setada
+     */
+    protected void setBaseDefense(int baseDefense) { 
+        this.baseDefense = baseDefense; 
+    }
+
+    /**
+     * Seta o dano base da entidade
+     * @param baseDamage o dano base a ser setado
+     */
+    protected void setBaseDamage(int baseDamage) { 
+        this.baseDamage = baseDamage; 
+    }
+
+    /**
+     * Seta o dano corrente/atual da entidade
+     * @param currDamage o dano atual a ser setado
+     */
+    protected void setCurrDamage(int currDamage) {
+        this.currDamage = currDamage;
+    }
+
+    /**
+     * Seta a defesa corrente/atual da entidade
+     * @param currDefense a defesa atual a ser setada
+     */
+    protected void setCurrDefense(int currDefense) {
+        this.currDefense = currDefense;
+    }
+
+    /**
+     * Seta a chance de crítico base da entidade
+     * @param baseCritChance a chance de crítico base a ser setada 
+     */
+    protected void setBaseCritChance(double baseCritChance) {
+        if(baseCritChance > MAX_BASE_CRIT) this.baseCritChance = MAX_BASE_CRIT;
+        else if(baseCritChance < 0.0) this.baseCritChance = 0.0;
+        else this.baseCritChance = baseCritChance;
+    }
+
+    /**
+     * Seta a chance de crítico corrente/atual da entidade
+     * @param currCritChance a chance de crítico atual a ser setada
+     */
+    protected void setCurrCritChance(double currCritChance) {
+        this.currCritChance = currCritChance;
+    }
+
+    /**
+     * Seta a precisão base da entidade 
+     * @param baseAccuracy a precisão base a ser setada
+     */
+    protected void setBaseAccuracy(double baseAccuracy) {
+        if(baseAccuracy > MAX_BASE_ACCUR) this.baseAccuracy = MAX_BASE_ACCUR;
+        else if(baseAccuracy < 0.0) this.baseAccuracy = 0.0;
+        else this.baseAccuracy = baseAccuracy;
+    }
+    
+    /**
+     * Seta a precisão corrente/atual da entidade
+     * @param currAccuracy a precisão atual a ser setada
+     */
+    protected void setCurrAccuracy(double currAccuracy) {
+        this.currAccuracy = currAccuracy;
+    }
+
+    /**
+     * Seta a taxa de recuperação de HP corrente/atual da entidade
+     * @param recRate a taxa de recuperação atual a ser setada 
+     */
+    protected void setCurrRecRateHP(double recRate) {
+        this.currRecRateHP = recRate;
+    }
+
+    /**
+     * Seta a taxa de recuperação de MP corrente/atual da entidade
+     * @param recRate a taxa de recuperação atual a ser setada 
+     */
+    protected void setCurrRecRateMP(double recRate) {
+        this.currRecRateMP = recRate;
+    }
+
+    /**
+     * Seta a taxa de recuperação de HP base da entidade
+     * @param baseRecRate a taxa de recuperação base a ser setada 
+     */
+    protected void setBaseRecRateHP(double baseRecRate) {
+        this.baseRecRateHP = baseRecRate;
+    }
+
+    /**
+     * Seta a taxa de recuperação de MP base da entidade
+     * @param baseRecRate a taxa de recuperação base a ser setada 
+     */
+    protected void setBaseRecRateMP(double baseRecRate) {
+        this.baseRecRateMP = baseRecRate;
+    }
+
+    /**
+     * Seta o multiplicador de crítico base da entidade
+     * @param multiplier o multiplicador de crítico base a ser setado
+     */
+    protected void setBaseCritMultiplier(double multiplier) {
+        if(multiplier > MAX_CRIT_MULTIPLIER) this.baseCritMultiplier = MAX_CRIT_MULTIPLIER;
+        else if(multiplier < 0.0) this.baseCritMultiplier = 0.0;
+        else this.baseCritMultiplier = multiplier;
+    }
+
+    /**
+     * Seta o multiplicador de crítico corrente/atual da entidade
+     * @param multiplier o multiplicador de crítico atual a ser setado
+     */
+    protected void setCurrCritMultiplier(double multiplier) {
+        if(multiplier > MAX_CRIT_MULTIPLIER) this.currCritMultiplier = MAX_CRIT_MULTIPLIER;
+        else if(multiplier < 0.0) this.currCritMultiplier = 0.0;
+        else this.currCritMultiplier = multiplier;
+    }
+
+    /**
+     * Seta o multiplicador de defesa base da entidade
+     * @param multiplier o multiplicador de defesa base a ser setado
+     */
+    protected void setBaseDefenseMultiplier(double multiplier) {
+        this.baseDefenseMultiplier = multiplier;
+    }
+
+    /**
+     * Seta o multiplicador de defesa corrente/atual da entidade
+     * @param multiplier o multiplicador de defesa atual a ser setado
+     */
+    protected void setCurrDefenseMultiplier(double multiplier) {
+        this.currDefenseMultiplier = multiplier;
+    }
+
+    /**
+     * Seta o enum ID de textura da entidade
+     * @param textureId o enum ID da textura
+     * @see scene.TextureId
+     */
+    public void setTextureId(TextureId textureId) {
+        this.textureId = textureId;
+    }
+
+    /**
+     * Seta o gerenciador de desenho da barra de HP da entidade
+     * @param healthBar a barra de HP
+     * @see scene.bars.Bar
+     */
+    public void setHealthBar(Bar healthBar) {
+        this.healthBar = healthBar;
+    }
+
+    /**
+     * Seta o gerenciador de desenho da barra de MP da entidade
+     * @param manaBar a barra de HP
+     * @see scene.bars.Bar
+     */
+    public void setManaBar(Bar manaBar) {
+        this.manaBar = manaBar;
+    }
+
+    /**
+     * Retorna o gerenciador de desenho das estatísticas da entidade
+     * @return (Statbox) a caixa de estatísticas
+     * @see scene.statbox.Statbox
+     */
+    public void setStatbox(Statbox statbox) {
+        this.statbox = statbox;
     }
 }
