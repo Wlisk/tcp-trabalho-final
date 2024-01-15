@@ -4,7 +4,6 @@ import utils.Randomic;
 import utils.Text;
 import exceptions.EmptyStringException;
 import exceptions.MaxStringSizeException;
-import exceptions.NumberOverflowException;
 import scene.Sprite;
 import scene.TextureId;
 import scene.bars.Bar;

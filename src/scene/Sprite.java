@@ -9,9 +9,9 @@ public class Sprite {
     private static final float ZEROF = 0.0f;
 
     float imageScale = 1.0f;
-    Rectangle dimension = new Rectangle(ZEROF, ZEROF, ZEROF, ZEROF); 
-    Vector2 position = new Vector2(ZEROF, ZEROF);
-    String imageSrc;
+    final Rectangle dimension = new Rectangle(ZEROF, ZEROF, ZEROF, ZEROF); 
+    final Vector2 position = new Vector2(ZEROF, ZEROF);
+    final String imageSrc;
     Texture texture;
 
     public Sprite(String imageSrc) {
