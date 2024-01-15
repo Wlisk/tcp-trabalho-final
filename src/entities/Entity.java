@@ -4,7 +4,7 @@ import utils.Randomic;
 import utils.Text;
 import exceptions.EmptyStringException;
 import exceptions.MaxStringSizeException;
-import exceptions.NumberOverflowException;
+import scene.Sprite;
 import scene.TextureId;
 import scene.bars.Bar;
 import scene.statbox.Statbox;
@@ -28,13 +28,11 @@ public abstract class Entity {
     public static final double MAX_CRIT_MULTIPLIER = 10.0;
     /** Porcentagem em dicimal (double) do multiplicador de defesa quando se defende */
     public static final double DEFEND_MULTIPLIER = 0.75;
-    /** Porcentagem mínima de dano de um ataque, após subtrair a defesa da entidade atacada */
+    /**?  */
     public static final double MIN_DAMAGE_POST_REDUCTION = 0.2;
 
     protected final int MAX_DEFEND_DURATION = 2;
     private static int countEntities = 0;
-
-
     /** Percentual de HP que entidades regeneram por turno */
     private static final double HEAL_DPercentage = Number.dPercentage(5);
     /** Percentual de MP que entidades regeneram por turno */
@@ -48,7 +46,7 @@ public abstract class Entity {
     private int maxMP;
     private int baseDamage;
     private int baseDefense;
-    private double baseRecRateHP; // Taxa de recuperação de HP por turno
+    private double baseRecRateHP;
     private double baseRecRateMP;
     private double baseCritChance;
     private double baseCritMultiplier;
@@ -75,19 +73,26 @@ public abstract class Entity {
     private TextureId textureId;
     private Bar healthBar, manaBar;
     private Statbox statbox;
+    /** 
+     * Sprite do item para desenho na tela
+     * @see scene.Sprite
+     */
+    public final Sprite sprite;
 
     /**
      * Construtor da entidade base (Player e Boss)
-     * @param name (String) o nome da entidade 
+     * @param name o nome da entidade 
+     * @param imageSrc o caminho (desde a raiz do projeto) para a imagem da entidade
      */
-    public Entity(String name) {
+    public Entity(String name, String imageSrc) {
         resetToZero();
         this.name = name;
         baseRecRateHP = HEAL_DPercentage;
+        currRecRateHP = HEAL_DPercentage;
         baseRecRateMP = RCVR_DPercentage;
-        currRecRateHP = baseRecRateHP;
-        currRecRateMP = baseRecRateMP;
+        currRecRateMP = RCVR_DPercentage;
         ++countEntities;
+        sprite = new Sprite(imageSrc);
     }
 
     /**
@@ -103,6 +108,7 @@ public abstract class Entity {
         return currHP;
     }
 
+
     /**
      * Recupera o MP da entidade (Player ou Boss) por um valor passado como argumento
      * @return (int) o nobo valor de mp da entidade
@@ -115,6 +121,7 @@ public abstract class Entity {
         
         return currMP;
     }
+
 
     /**
      * Calcula a defesa pura do jogador com multiplicador (caso aplicável)
@@ -204,13 +211,11 @@ public abstract class Entity {
     /**
      * Realiza o ataque especial na entidade (Player ou Boss)
      * <p>
-     * O dano não pose der desviado ou perdido
+     * O dano não pode ser desviado ou perdido
      * @param enemy a entidade a ser atacada com o especial
      * @return (int) o dano causado na entidade
-     * @throws NumberOverflowException 
-     * @see exceptions.NumberOverflowException
      */
-    public int attackSuper(Entity enemy) throws NumberOverflowException {
+    public int attackSuper(Entity enemy) {
         final int _mpReduction = (int)(getMaxMP() * SATTACK_MP_REDUCTION);
         setCurrMP(getCurrMP() - _mpReduction);
 
@@ -284,7 +289,7 @@ public abstract class Entity {
     }
 
     /** Reseta todas as estatísticas para seus valores base */
-    protected void resetToBase() {
+    public void resetToBase() {
         currHP = maxHP;
         currMP = maxMP;
         currDamage = baseDamage;
