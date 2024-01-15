@@ -24,9 +24,9 @@ class PlayerTest {
             assertEquals(70, player.getMaxMP());
             assertEquals(70, player.getCurrMP());
             assertEquals(160, player.getBaseDamage());
-            assertEquals(160, player.getCurrDamage());
+            assertEquals(200, player.getCurrDamage());
             assertEquals(72, player.getBaseDefense());
-            assertEquals(72, player.getCurrDefense());
+            assertEquals(131, player.getCurrDefense());
             assertNotNull(player.getInventory());
             assertNotNull(player.getClassType());
         } catch (UnknownTypeException | NumberOverflowException e) {

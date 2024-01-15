@@ -107,9 +107,9 @@ Tarefas concluídas e ainda a serem feitas no projeto.
 **Descricao**: criacao de testes e verificacao de erros, melhor estrategia seria TDD
 
 - [ ] criar testes para todas as classes
-  - [ ] testar classes em entities/
+  - [x] testar classes em entities/
     - [x] em entities/player
-    - [ ] em entities/boss
+    - [x] em entities/boss
   - [ ] testar classes em game/
   - [ ] testar classes em items/
     - [ ] em items/armor
