@@ -85,6 +85,8 @@ public abstract class Entity {
         this.name = name;
         baseRecRateHP = HEAL_DPercentage;
         baseRecRateMP = RCVR_DPercentage;
+        currRecRateHP = baseRecRateHP;
+        currRecRateMP = baseRecRateMP;
         ++countEntities;
     }
 
