@@ -1,0 +1,40 @@
+A Raylib é uma biblioteca open-source para programação de jogos, possuindo várias ferramentas para desenvolvimento de interfaces e jogos 2D ou 3D.
+Tem uma documentação detalhada em https://www.raylib.com/
+No projeto, utilizamos a Raylib no pacote Scene, para desenhar a interface do jogo e responder à inputs do usuário (clicks do mouse.)
+
+///// As estruturas de dados utilizadas foram: /////
+
+Texture2D:
+Textura carregada na memória de vídeo. Pode ser renderizada graficamente por funções. Possui atributos como width e height, entre outros.
+
+Rectangle:
+Representa um retângulo no plano. Possui quatro atributos float: x e y sendo sua posição no plano, e width e height sendo sua largura e altura, respectivamente. Pode ser desenhado por algumas funções, sendo o que utilizamos para desenhar botões e menus.
+Construtor utilizado: new Jaylib.Rectangle(float x, float y, float width, float height);
+
+Vector2D:
+Vetor bidimensional simples. Possui does atributos float: x e y.
+Construtor utilizado: new Jaylib.Rectangle(float x, float y);
+
+Color:
+Valor 32 bits unsigned representando uma cor, no formato #RRGGBBAA
+Construtor utilizado: new Jaylib.Rectangle(int color); // Cuidado pois o valor é lido como unsigned
+
+///// As funções utilizadas foram: /////
+
+Texture2D LoadTexture(const char *fileName); - Carrega uma textura encontrada no caminho fileName para a memória de vídeo.
+
+void UnloadTexture(Texture2D texture); - Descarrega texture da memória de vídeo.
+
+void DrawText(const char *text, int posX, int posY, int fontSize, Color color); - Desenha texto na posição (posX, posY), com tamanho e cor passados como argumento.
+
+void DrawRectangleRec(Rectangle rec, Color color); - Desenha um retângulo, com certa cor.
+
+void DrawTextureEx(Texture2D texture, Vector2 position, float rotation, float scale, Color tint); - Desenha uma textura em uma posição passada por um vetor, com argumentos para rotação e escala, assim como uma pigmentação para a textura (normal seria Jaylib.WHITE);
+
+void DrawTexturePro(Texture2D texture, Rectangle source, Rectangle dest, Vector2 origin, float rotation, Color tint); - Desenha parte de uma textura selecionada com o retângulo source, no retângulo dest. O vetor origin seria a "origem" da imagem em caso de rotação.
+
+bool IsMouseButtonPressed(int button); - Verifica se um botão do mouse está pressionado. Botões são definidos como constantes na Jaylib, por exemplo Jaylib.MOUSE_BUTTON_LEFT
+
+Vector2 GetMousePosition(void); - Retorna um vetor com a posição atual do mouse.
+
+bool CheckCollisionPointRec(Vector2 point, Rectangle rec); - Verifica se o vetor point está dentro do retângulo rec. Utilizado para verificar a colisão do mouse do usuário com um botão, por exemplo.
