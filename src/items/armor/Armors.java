@@ -1,7 +1,6 @@
 package items.armor;
 
 import entities.player.ClassType;
-import entities.player.ClassTypeUtil;
 import exceptions.UnknownTypeException;
 import scene.TextureId;
 import utils.Randomic;
@@ -87,6 +86,7 @@ public final class Armors {
             
             "Traditional armor in excellent condition."
         ),
+        
         new Armor(
             ArmorType.LEATHER, 
             TextureId.ARMOR_MEDIUM_3,
@@ -156,7 +156,7 @@ public final class Armors {
             }
 
             default:
-                throw new UnknownTypeException(ClassTypeUtil.ERR_TYPE_MESSAGE);
+                throw new UnknownTypeException("The class type specified is unknown");
         }
     }
 }

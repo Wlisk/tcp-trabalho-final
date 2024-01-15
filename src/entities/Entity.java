@@ -5,6 +5,7 @@ import utils.Text;
 import exceptions.EmptyStringException;
 import exceptions.MaxStringSizeException;
 import exceptions.NumberOverflowException;
+import scene.Sprite;
 import scene.TextureId;
 import scene.bars.Bar;
 import scene.statbox.Statbox;
@@ -72,17 +73,24 @@ public abstract class Entity {
     private TextureId textureId;
     private Bar healthBar, manaBar;
     private Statbox statbox;
+    /** 
+     * Sprite do item para desenho na tela
+     * @see scene.Sprite
+     */
+    public final Sprite sprite;
 
     /**
      * Construtor da entidade base (Player e Boss)
-     * @param name (String) o nome da entidade 
+     * @param name o nome da entidade 
+     * @param imageSrc o caminho (desde a raiz do projeto) para a imagem da entidade
      */
-    public Entity(String name) {
+    public Entity(String name, String imageSrc) {
         resetToZero();
         this.name = name;
         baseRecRateHP = HEAL_DPercentage;
         baseRecRateMP = RCVR_DPercentage;
         ++countEntities;
+        sprite = new Sprite(imageSrc);
     }
 
     /**
@@ -207,13 +215,11 @@ public abstract class Entity {
     /**
      * Realiza o ataque especial na entidade (Player ou Boss)
      * <p>
-     * O dano não pose der desviado ou perdido
+     * O dano não pode ser desviado ou perdido
      * @param enemy a entidade a ser atacada com o especial
      * @return (int) o dano causado na entidade
-     * @throws NumberOverflowException 
-     * @see exceptions.NumberOverflowException
      */
-    public int attackSuper(Entity enemy) throws NumberOverflowException {
+    public int attackSuper(Entity enemy) {
         final int _mpReduction = (int)(getMaxMP() * SATTACK_MP_REDUCTION);
         setCurrMP(getCurrMP() - _mpReduction);
 
@@ -284,7 +290,7 @@ public abstract class Entity {
     }
 
     /** Reseta todas as estatísticas para seus valores base */
-    protected void resetToBase() {
+    public void resetToBase() {
         currHP = maxHP;
         currMP = maxMP;
         currDamage = baseDamage;
