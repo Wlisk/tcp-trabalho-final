@@ -70,7 +70,7 @@ public final class Player extends Entity {
 
         this.classType = classType;
 
-        setBaseStatistics();
+        setBaseStatistics(classType);
         resetToBase();
 
         applyItemBuff(inventory.getEquippedArmor());
@@ -240,7 +240,7 @@ public final class Player extends Entity {
      * @throws UnknownTypeException 
      * @see exceptions.UnknownTypeException 
      */
-    private void setBaseStatistics() throws UnknownTypeException {
+    private void setBaseStatistics(ClassType classType) throws UnknownTypeException {
         int _hp = 0, _mp = 0, _damage = 0, _defense = 0;
         double _critC = 0.0f, _critM = 0.0f, _accuracy = 0.0f, _defenseM = 0.0f;
         Armor _armor = null;
@@ -274,6 +274,7 @@ public final class Player extends Entity {
                 _armor = Armors.getArmorWarrior(Armors.INDEX_INITIAL_ARMOR);
                 _weapon = Weapons.getWeaponWarrior(Weapons.INDEX_INITIAL_WEAPON);
                 _textureId = TextureId.CLASS_2;
+                break;
 
             case ARCHER: 
                 _hp = (int)( BASE_HP * dPercentage(85) );
@@ -287,6 +288,7 @@ public final class Player extends Entity {
                 _armor = Armors.getArmorArcher(Armors.INDEX_INITIAL_ARMOR);
                 _weapon = Weapons.getWeaponArcher(Weapons.INDEX_INITIAL_WEAPON);
                 _textureId = TextureId.CLASS_3;
+                break;
 
             default: 
                 throw new UnknownTypeException("The class type specified is unknown");

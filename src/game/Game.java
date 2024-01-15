@@ -2,6 +2,7 @@ package game;
 
 import com.raylib.Jaylib;
 
+import entities.Entity;
 import entities.boss.Boss;
 import entities.boss.Bosses;
 import entities.player.ClassType;
@@ -81,7 +82,7 @@ public class Game {
             scene.drawWindow(gameState, player, currBoss);
             setWindowTitle(gameState);
 
-            if (delayTimer <= 0){ // Wait for timer to run out before game logic can progress
+            if(delayTimer <= 0){ // Wait for timer to run out before game logic can progress
                 switch(gameState) {
                     case MAIN_MENU: mainMenu(); break;
                     case SELECTING_CLASS: selectingClass(); break;
@@ -105,22 +106,22 @@ public class Game {
     }
 
     public void mainMenu(){
-        if (playButton.isMousePressed()) 
+        if(playButton.isMousePressed()) 
             transitionState(GameState.SELECTING_CLASS);
-        else if (exitButton.isMousePressed()) 
+        else if(exitButton.isMousePressed()) 
             exit = true;
     }
 
     public void selectingClass() throws UnknownTypeException, NumberOverflowException {
-        if (classButtons.get(ClassType.MAGE).isMousePressed()) {
+        if(classButtons.get(ClassType.MAGE).isMousePressed()) {
             newGame(ClassType.MAGE);
             transitionState(GameState.BATTLE_START);
             alertTextBox.newMessage(TextBoxes.BATTLE_START, delayTimer);
-        } else if (classButtons.get(ClassType.WARRIOR).isMousePressed()) {
+        } else if(classButtons.get(ClassType.WARRIOR).isMousePressed()) {
             newGame(ClassType.WARRIOR);
             transitionState(GameState.BATTLE_START);
             alertTextBox.newMessage(TextBoxes.BATTLE_START, delayTimer);
-        }  else if (classButtons.get(ClassType.ARCHER).isMousePressed()) {
+        }  else if(classButtons.get(ClassType.ARCHER).isMousePressed()) {
             newGame(ClassType.ARCHER);
             transitionState(GameState.BATTLE_START);
             alertTextBox.newMessage(TextBoxes.BATTLE_START, delayTimer);
@@ -142,18 +143,18 @@ public class Game {
         int inventoryLeftClicked = player.getInventory().checkLeftClickedIndex() - 2, // -2 because first two slots are currently equipped items
             inventoryRightClicked = player.getInventory().checkRightClickedIndex() - 2;
 
-        if (attack) { // Player chooses attack
+        if(attack) { // Player chooses attack
             int damage = player.attack(currBoss);
             transitionState(GameState.TURN_PLAYER_CHOSEN);
-            if (damage == 0) alertTextBox.newMessage(TextBoxes.ATTACK_MISSED, delayTimer); // Attack missed, display miss message
-        } else if (special && player.canSuper()) { // Player chooses super
+            if(damage == 0) alertTextBox.newMessage(TextBoxes.ATTACK_MISSED, delayTimer); // Attack missed, display miss message
+        } else if(special && player.canSuper()) { // Player chooses super
             int damage = player.attackSuper(currBoss);
             transitionState(GameState.TURN_PLAYER_CHOSEN);
-            if (damage == 0) alertTextBox.newMessage(TextBoxes.ATTACK_MISSED, delayTimer);
-        }  else if (defend) { // Player chooses defend
+            if(damage == 0) alertTextBox.newMessage(TextBoxes.ATTACK_MISSED, delayTimer);
+        }  else if(defend) { // Player chooses defend
             player.setDefend();
             transitionState(GameState.TURN_PLAYER_CHOSEN);
-        } else if (inventoryLeftClicked >= 0 && player.getItemInventory(inventoryLeftClicked) != null) { // Player left clicks item in inventory
+        } else if(inventoryLeftClicked >= 0 && player.getItemInventory(inventoryLeftClicked) != null) { // Player left clicks item in inventory
             switch (player.getItemInventory(inventoryLeftClicked).getItemType()){
                 case WEAPON:
                 case ARMOR:
@@ -165,14 +166,14 @@ public class Game {
                     transitionState(GameState.TURN_PLAYER_CHOSEN); // Using a consumable skips turn, switching armors/weapons does not
                     break;
             }
-        } else if (inventoryRightClicked >= 0 && player.getInventory().getItem(inventoryRightClicked) != null) { // Player right clicks item in inventory
+        } else if(inventoryRightClicked >= 0 && player.getInventory().getItem(inventoryRightClicked) != null) { // Player right clicks item in inventory
             player.getInventory().remove(inventoryRightClicked);
             transitionState(GameState.TURN_START);
         }
     }
 
     public void turnPlayerChosen(){
-        if (currBoss.getIsDead()){ // Checking if the boss is dead
+        if(currBoss.getIsDead()){ // Checking if the boss is dead
             transitionState(GameState.BATTLE_END);
         } else { // Boss not dead, simply go to boss' turn
             transitionState(GameState.TURN_ENEMY_CHOOSE);
@@ -180,13 +181,14 @@ public class Game {
     }
 
     public void turnEnemyChoose() throws NumberOverflowException {
-        int damage = currBoss.chooseAction(player);
+        int damage = currBoss.executeAction(player);
         transitionState(GameState.TURN_ENEMY_CHOSEN);
-        if (damage == 0) alertTextBox.newMessage(TextBoxes.ATTACK_MISSED, delayTimer);
+        if(damage == Entity.ATTACK_MISSED) 
+            alertTextBox.newMessage(TextBoxes.ATTACK_MISSED, delayTimer);
     }
 
     public void turnEnemyChosen(){
-        if (player.getIsDead()){ // Checking if the player is dead
+        if(player.getIsDead()){ // Checking if the player is dead
             transitionState(GameState.BATTLE_END);
         } else {
             transitionState(GameState.TURN_END);
@@ -200,7 +202,7 @@ public class Game {
     }
 
     public void battleEnd() throws NumberOverflowException, UnknownTypeException {
-        if (player.getIsDead()){ // If player dead, display game over message and return to main menu
+        if(player.getIsDead()){ // If player dead, display game over message and return to main menu
             transitionState(GameState.GAME_END);
             alertTextBox.newMessage(TextBoxes.GAME_OVER_LOSS, delayTimer);
         } else {// Otherwise, boss is dead
@@ -208,7 +210,7 @@ public class Game {
             player.addItemsInventory(currBoss.getDroppedItems(player.getClassType()));
 
             currBoss = Bosses.getNextBoss();
-            if (currBoss == null){ // If all bosses dead, display win message and return to main menu
+            if(currBoss == null){ // If all bosses dead, display win message and return to main menu
                 transitionState(GameState.GAME_END);
                 alertTextBox.newMessage(TextBoxes.GAME_OVER_WIN, delayTimer);
             } else { // Otherwise, update UI elements for new boss and return to battle start with next boss

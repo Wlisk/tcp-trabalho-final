@@ -86,6 +86,7 @@ public final class Armors {
             
             "Traditional armor in excellent condition."
         ),
+        
         new Armor(
             ArmorType.LEATHER, 
             TextureId.ARMOR_MEDIUM_3,

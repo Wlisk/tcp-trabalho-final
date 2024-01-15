@@ -81,7 +81,8 @@ public abstract class Entity {
 
     /**
      * Construtor da entidade base (Player e Boss)
-     * @param name (String) o nome da entidade 
+     * @param name o nome da entidade 
+     * @param imageSrc o caminho (desde a raiz do projeto) para a imagem da entidade
      */
     public Entity(String name, String imageSrc) {
         resetToZero();
@@ -214,13 +215,11 @@ public abstract class Entity {
     /**
      * Realiza o ataque especial na entidade (Player ou Boss)
      * <p>
-     * O dano não pose der desviado ou perdido
+     * O dano não pode ser desviado ou perdido
      * @param enemy a entidade a ser atacada com o especial
      * @return (int) o dano causado na entidade
-     * @throws NumberOverflowException 
-     * @see exceptions.NumberOverflowException
      */
-    public int attackSuper(Entity enemy) throws NumberOverflowException {
+    public int attackSuper(Entity enemy) {
         final int _mpReduction = (int)(getMaxMP() * SATTACK_MP_REDUCTION);
         setCurrMP(getCurrMP() - _mpReduction);
 
