@@ -1,0 +1,17 @@
+Controles:
+Clique esquerdo do mouse: Interação com botões, uso de items do inventário
+Clique direito do mouse: Dropar items do inventário
+
+Atacar, utilizar o Special, defender e utilizar um item terminam o turno do jogador. Dropar items não termina o turno.
+O special custa metade da barra de MP, possui dano alto e nunca erra.
+Defender aumenta o multiplicador de defesa do jogador em 75%.
+
+Ao subir de nível, o jogador tem um aumento de algumas de suas estatísticas.
+
+As estatísticas do jogador e do chefe são visíveis nos cantos superiores.
+- DMG: Dano atual da entidade
+- CRIT%: Chance de crítico
+- CRIT*: Multiplicador de crítico, ou seja, o aumento de dano para um crítico
+- HIT%: Chance de acerto de um ataque.
+- DEF: Defesa da entidade. Defesa diminui dano linearmente, em no máximo 80%. Ou seja, contra um ataque de 100 dano base, um entidade com 0 defesa leva 100 de dano. Uma entidade com 30 de defesa leva 70 de dano. Porém, devido à limitação de redução, uma entidade com 100 defesa ainda leva 20 de dano.
+- DEF*: Multiplicador de defesa. Multiplicar DEF por DEF* leva à defesa "real" da entidade
