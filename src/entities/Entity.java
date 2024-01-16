@@ -33,12 +33,13 @@ public abstract class Entity {
 
     protected final int MAX_DEFEND_DURATION = 2;
     private static int countEntities = 0;
+    /** Percentual de HP que entidades regeneram por turno */
     private static final double HEAL_DPercentage = Number.dPercentage(5);
+    /** Percentual de MP que entidades regeneram por turno */
     private static final double RCVR_DPercentage = Number.dPercentage(10);
     private static final double SATTACK_MP_REDUCTION = Number.dPercentage(50);
     private static final double DAMAGE_MULTIPLIER_SATTACK = Number.dPercentage(150);
     private static final double MINIMUM_DAMAGE_DPERCENTAGE = Number.dPercentage(10);
-    private static final int RECOVER_DEFAULT = 0;
 
     // base statistics
     private int maxHP;
@@ -87,44 +88,40 @@ public abstract class Entity {
         resetToZero();
         this.name = name;
         baseRecRateHP = HEAL_DPercentage;
+        currRecRateHP = HEAL_DPercentage;
         baseRecRateMP = RCVR_DPercentage;
+        currRecRateMP = RCVR_DPercentage;
         ++countEntities;
         sprite = new Sprite(imageSrc);
     }
 
     /**
-     * Cura a entidade (Player ou Boss) com base na sua taxa de cura
-     * @return (int) o valor curado
+     * Recupera o HP da entidade (Player ou Boss) por um valor passado como argumento
+     * @return (int) o nobo valor de mp da entidade
      */
-    protected int healHP(int amount) {
-        final int _amount =  (int)(maxHP * currRecRateHP) + amount;
+    protected int healHP(int _amount) {
         if(_amount > 0) {
-            final int _oldHP = currHP;
             final int _hpWithHeal = currHP + _amount;
-
             currHP = (_hpWithHeal > maxHP) ? maxHP : _hpWithHeal;
-
-            return (currHP - _oldHP);
         }
-        return 0;
+
+        return currHP;
     }
+
 
     /**
-     * Recupera o MP da entidade (Player ou Boss) com base na sua taxa de recuperação
-     * @return (int) o valor recuperado
+     * Recupera o MP da entidade (Player ou Boss) por um valor passado como argumento
+     * @return (int) o nobo valor de mp da entidade
      */
-    protected int recoverMP(int amount) {
-        final int _amount =  (int)(maxMP * currRecRateMP) + amount;
+    protected int recoverMP(int _amount) {
         if(_amount > 0) {
-            final int _oldMP = currMP;
             final int _mpWithRecover = currMP + _amount;
-
             currMP = (_mpWithRecover > maxMP) ? maxMP : _mpWithRecover;
-
-            return (currHP - _oldMP);
         }
-        return 0;
+        
+        return currMP;
     }
+
 
     /**
      * Calcula a defesa pura do jogador com multiplicador (caso aplicável)
@@ -256,8 +253,11 @@ public abstract class Entity {
             }
         }
 
-        healHP(RECOVER_DEFAULT);
-        recoverMP(RECOVER_DEFAULT);
+        int _healHP = (int) (getCurrRecRateHP() * getMaxHP());
+        int _healMP = (int) (getCurrRecRateMP() * getMaxMP());
+
+        healHP(_healHP);
+        recoverMP(_healMP);
     }
 
     // --------------------------- OTHERS --------------------------- //

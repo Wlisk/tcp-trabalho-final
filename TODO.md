@@ -111,10 +111,10 @@ Tarefas concluídas e ainda a serem feitas no projeto.
     - [x] em entities/player
     - [x] em entities/boss
   - [ ] testar classes em game/
-  - [ ] testar classes em items/
-    - [ ] em items/armor
-    - [ ] em items/consumable
-    - [ ] em items/weapon
+  - [x] testar classes em items/
+    - [x] em items/armor
+    - [x] em items/consumable
+    - [x] em items/weapon
   - [ ] testar classes em scene/
     - [ ] em scene/button
     - [ ] em scene/bars
