@@ -4,7 +4,6 @@ import utils.Randomic;
 import utils.Text;
 import exceptions.EmptyStringException;
 import exceptions.MaxStringSizeException;
-import scene.Sprite;
 import scene.TextureId;
 import scene.bars.Bar;
 import scene.statbox.Statbox;
@@ -73,18 +72,12 @@ public abstract class Entity {
     private TextureId textureId;
     private Bar healthBar, manaBar;
     private Statbox statbox;
-    /** 
-     * Sprite do item para desenho na tela
-     * @see scene.Sprite
-     */
-    public final Sprite sprite;
 
     /**
      * Construtor da entidade base (Player e Boss)
      * @param name o nome da entidade 
-     * @param imageSrc o caminho (desde a raiz do projeto) para a imagem da entidade
      */
-    public Entity(String name, String imageSrc) {
+    public Entity(String name) {
         resetToZero();
         this.name = name;
         baseRecRateHP = HEAL_DPercentage;
@@ -92,7 +85,6 @@ public abstract class Entity {
         baseRecRateMP = RCVR_DPercentage;
         currRecRateMP = RCVR_DPercentage;
         ++countEntities;
-        sprite = new Sprite(imageSrc);
     }
 
     /**

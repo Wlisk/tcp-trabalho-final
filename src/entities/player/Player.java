@@ -60,7 +60,7 @@ public final class Player extends Entity {
     public Player(String name, ClassType classType) 
     throws UnknownTypeException 
     {
-        super(name, classType.getImageSrc());
+        super(name);
 
         level = 1;
         exp = 0;

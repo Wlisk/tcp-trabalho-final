@@ -1,6 +1,5 @@
 package items;
 
-import scene.Sprite;
 import scene.TextureId;
 
 /** Classe base para os itens do jogo */
@@ -12,11 +11,6 @@ public abstract class Item {
     private final ItemType itemType;
     private final String description;
     private final TextureId textureId;
-    /** 
-     * Sprite do item para desenho na tela
-     * @see scene.Sprite
-     */
-    public final Sprite sprite;
 
     protected int 
         boostHP,
@@ -50,8 +44,6 @@ public abstract class Item {
 
         boostHP = boostMP = boostDamage = boostDefense = BASE_IBOOST;
         boostAccuracy = boostCritChance = boostCritMultiplier = BASE_DBOOST;
-
-        sprite = new Sprite(textureId.getPath());
     }
 
     /** Retorna o nome (String) do item */
