@@ -197,7 +197,7 @@ public final class Player extends Entity {
      * @see items.weapon.Weapon
      */
     private void applyItemBuff(Item equipment) {
-        final int _boostDefense = (int)(equipment.getBoostDefense() * getCurrDefenseMultiplier());
+        final int _boostDefense = (int)(equipment.getBoostDefense());
         setCurrDefense( getCurrDefense() + _boostDefense);
         setCurrDamage( getCurrDamage() + equipment.getBoostDamage() );
         setCurrCritChance( getCurrCritChance() + equipment.getBoostCritChance() );
