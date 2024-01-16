@@ -2,7 +2,6 @@ package tests.entities.player;
 
 import entities.player.ClassType;
 import entities.player.Player;
-import exceptions.NumberOverflowException;
 import exceptions.UnknownTypeException;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,7 +28,7 @@ class PlayerTest {
             assertEquals(131, player.getCurrDefense());
             assertNotNull(player.getInventory());
             assertNotNull(player.getClassType());
-        } catch (UnknownTypeException | NumberOverflowException e) {
+        } catch (UnknownTypeException e) {
             fail("Exception not expected");
         }
     }
@@ -49,8 +48,8 @@ class PlayerTest {
             assertEquals(110, player.getMaxMP());
             assertEquals(110, player.getCurrMP());
             assertEquals(198, player.getBaseDamage());
-            assertEquals(198, player.getCurrDamage());
-        } catch (UnknownTypeException | NumberOverflowException e) {
+            assertEquals(248, player.getCurrDamage());
+        } catch (UnknownTypeException e) {
             fail("Exception not expected");
         }
     }
@@ -68,10 +67,11 @@ class PlayerTest {
             player.receiveExp(150);
             assertEquals(2, player.getLevel());
             assertEquals(100, player.getExp());
-        } catch (UnknownTypeException | NumberOverflowException e) {
+        } catch (UnknownTypeException e) {
             fail("Exception not expected");
         }
     }
+
 
 
     

@@ -29,11 +29,10 @@ public class BossTest {
                     0.5,
                     0.2,
                     0.2,
-                    "Born at the Hell of Valathur, its protruding fangs drips venon that poison its enemies to death. Is a nightmare that no one wants to confront."
+                    0, 0, "Born at the Hell of Valathur, its protruding fangs drips venon that poison its enemies to death. Is a nightmare that no one wants to confront."
                 );
 
         assertEquals(StateType.BASE, boss.getCurrState());
-        assertEquals(0.5, boss.getPercentageBerserk());
         assertEquals(500, boss.getExpReward());
     }
 
