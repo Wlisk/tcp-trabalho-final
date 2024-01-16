@@ -1,0 +1,104 @@
+📦tcp-trabalho-final
+ ┣ 📂lib
+ ┃ ┣ 📜jaylib-4.5.0-0.jar
+ ┃ ┗ 📜junit-platform-console-standalone-1.10.1.jar
+ ┣ 📂resources
+ ┃ ┣ 📂sprites
+ ┃ ┃ ┣ 📂bosses
+ ┃ ┃ ┣ 📂classes
+ ┃ ┃ ┣ 📂items
+ ┃ ┃ ┃ ┣ 📂armor
+ ┃ ┃ ┃ ┣ 📂consumables
+ ┃ ┃ ┃ ┗ 📂weapons
+ ┃ ┃ ┗ 📂sheet
+ ┣ 📂src
+ ┃ ┣ 📂entities
+ ┃ ┃ ┣ 📂boss
+ ┃ ┃ ┃ ┣ 📜Boss.java
+ ┃ ┃ ┃ ┣ 📜Bosses.java
+ ┃ ┃ ┃ ┣ 📜StateType.java
+ ┃ ┃ ┃ ┗ 📜package-info.java
+ ┃ ┃ ┣ 📂player
+ ┃ ┃ ┃ ┣ 📜ClassType.java
+ ┃ ┃ ┃ ┣ 📜Player.java
+ ┃ ┃ ┃ ┗ 📜package-info.java
+ ┃ ┃ ┣ 📜Entity.java
+ ┃ ┃ ┗ 📜package-info.java
+ ┃ ┣ 📂exceptions
+ ┃ ┃ ┣ 📜EmptyStringException.java
+ ┃ ┃ ┣ 📜MaxStringSizeException.java
+ ┃ ┃ ┣ 📜NullObjectException.java
+ ┃ ┃ ┣ 📜NumberOverflowException.java
+ ┃ ┃ ┣ 📜UnknownTypeException.java
+ ┃ ┃ ┗ 📜package-info.java
+ ┃ ┣ 📂game
+ ┃ ┃ ┣ 📜Game.java
+ ┃ ┃ ┣ 📜GameState.java
+ ┃ ┃ ┗ 📜package-info.java
+ ┃ ┣ 📂interfaces
+ ┃ ┃ ┣ 📜IClickable.java
+ ┃ ┃ ┣ 📜IDrawable.java
+ ┃ ┃ ┣ 📜IKeyboardable.java
+ ┃ ┃ ┣ 📜IMouseOverable.java
+ ┃ ┃ ┗ 📜package-info.java
+ ┃ ┣ 📂items
+ ┃ ┃ ┣ 📂armor
+ ┃ ┃ ┃ ┣ 📜Armor.java
+ ┃ ┃ ┃ ┣ 📜ArmorType.java
+ ┃ ┃ ┃ ┣ 📜Armors.java
+ ┃ ┃ ┃ ┗ 📜package-info.java
+ ┃ ┃ ┣ 📂consumable
+ ┃ ┃ ┃ ┣ 📜Consumable.java
+ ┃ ┃ ┃ ┣ 📜ConsumableType.java
+ ┃ ┃ ┃ ┣ 📜Consumables.java
+ ┃ ┃ ┃ ┗ 📜package-info.java
+ ┃ ┃ ┣ 📂weapon
+ ┃ ┃ ┃ ┣ 📜Weapon.java
+ ┃ ┃ ┃ ┣ 📜WeaponType.java
+ ┃ ┃ ┃ ┣ 📜Weapons.java
+ ┃ ┃ ┃ ┗ 📜package-info.java
+ ┃ ┃ ┣ 📜Inventory.java
+ ┃ ┃ ┣ 📜Item.java
+ ┃ ┃ ┣ 📜ItemType.java
+ ┃ ┃ ┗ 📜package-info.java
+ ┃ ┣ 📂scene
+ ┃ ┃ ┣ 📂bars
+ ┃ ┃ ┃ ┣ 📜Bar.java
+ ┃ ┃ ┃ ┗ 📜Bars.java
+ ┃ ┃ ┣ 📂button
+ ┃ ┃ ┃ ┣ 📜Button.java
+ ┃ ┃ ┃ ┣ 📜Buttons.java
+ ┃ ┃ ┃ ┗ 📜package-info.java
+ ┃ ┃ ┣ 📂inventory
+ ┃ ┃ ┃ ┣ 📜InventorySlotUI.java
+ ┃ ┃ ┃ ┣ 📜InventoryUI.java
+ ┃ ┃ ┃ ┗ 📜InventoryUIInst.java
+ ┃ ┃ ┣ 📂statbox
+ ┃ ┃ ┃ ┣ 📜MouseOverInventoryBox.java
+ ┃ ┃ ┃ ┣ 📜Statbox.java
+ ┃ ┃ ┃ ┗ 📜Statboxes.java
+ ┃ ┃ ┣ 📂textbox
+ ┃ ┃ ┃ ┣ 📜TextBox.java
+ ┃ ┃ ┃ ┗ 📜TextBoxes.java
+ ┃ ┃ ┣ 📜Scene.java
+ ┃ ┃ ┣ 📜Sprite.java
+ ┃ ┃ ┣ 📜TextureId.java
+ ┃ ┃ ┗ 📜package-info.java
+ ┃ ┣ 📂utils
+ ┃ ┃ ┣ 📜Number.java
+ ┃ ┃ ┣ 📜Randomic.java
+ ┃ ┃ ┣ 📜Text.java
+ ┃ ┃ ┗ 📜package-info.java
+ ┃ ┗ 📜Main.java
+ ┗ 📂tests
+   ┗ 📂entities
+     ┣ 📂boss
+     ┃ ┣ 📜BossTest.java
+     ┃ ┣ 📜BossesTest.java
+     ┃ ┗ 📜StateTypeTest.java
+     ┣ 📂player
+     ┃ ┣ 📜ClassTypeTest.java
+     ┃ ┣ 📜ClassTypeUtilTest.java
+     ┃ ┗ 📜PlayerTest.java
+     ┗ 📜EntityTest.java
+https://convertio.co/
