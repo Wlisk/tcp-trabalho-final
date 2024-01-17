@@ -77,7 +77,7 @@ public class InventoryUI {
     public int checkLeftClickedIndex(){
         // Returns the index of a slot being clicked by the mouse. -1 if none are being clicked.
         for (int i = 0; i < Inventory.MAX_ITEMS + 2; i++){
-            if (slots[i].isMouseLeftPressed()){
+            if (slots[i].isMousePressed()){
                 return i;
             }
         }
