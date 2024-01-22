@@ -23,7 +23,6 @@ public final class Armors {
             20, 
             "It has seen better days."
         ),
-
         new Armor(
             ArmorType.ROBE, 
             TextureId.ARMOR_LIGHT_2,
@@ -31,7 +30,6 @@ public final class Armors {
             40, 
             "An item fit for a young scholar."
         ),
-
         new Armor(
             ArmorType.ROBE, 
             TextureId.ARMOR_LIGHT_3,
@@ -51,7 +49,6 @@ public final class Armors {
             50, 
             "Be aware that any punch can scrap it."
         ), 
-
         new Armor(
             ArmorType.PLATE, 
             TextureId.ARMOR_HEAVY_2,
@@ -59,7 +56,6 @@ public final class Armors {
             100, 
             "Typical dwarvish armor. Quite sturdy."
         ),
-
         new Armor(
             ArmorType.PLATE, 
             TextureId.ARMOR_HEAVY_3,
@@ -77,7 +73,6 @@ public final class Armors {
             35, 
             "Quite old and rusty.."
         ),
-
         new Armor(
             ArmorType.LEATHER, 
             TextureId.ARMOR_MEDIUM_2,
@@ -86,7 +81,6 @@ public final class Armors {
             
             "Traditional armor in excellent condition."
         ),
-        
         new Armor(
             ArmorType.LEATHER, 
             TextureId.ARMOR_MEDIUM_3,

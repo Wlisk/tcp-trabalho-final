@@ -2,12 +2,12 @@ package entities;
 
 import utils.Randomic;
 import utils.Text;
+import config.Config;
 import exceptions.EmptyStringException;
 import exceptions.MaxStringSizeException;
 import scene.Sprite;
 import scene.TextureId;
-import scene.bars.Bar;
-import scene.statbox.Statbox;
+import scene.box.Statbox;
 import utils.Number;
 
 /**
@@ -28,9 +28,8 @@ public abstract class Entity {
     public static final double MAX_CRIT_MULTIPLIER = 10.0;
     /** Porcentagem em dicimal (double) do multiplicador de defesa quando se defende */
     public static final double DEFEND_MULTIPLIER = 0.75;
-    /**?  */
-    public static final double MIN_DAMAGE_POST_REDUCTION = 0.2;
 
+    /** tempo máximo de duração da defesa */
     protected final int MAX_DEFEND_DURATION = 2;
     private static int countEntities = 0;
     /** Percentual de HP que entidades regeneram por turno */
@@ -40,6 +39,7 @@ public abstract class Entity {
     private static final double SATTACK_MP_REDUCTION = Number.dPercentage(50);
     private static final double DAMAGE_MULTIPLIER_SATTACK = Number.dPercentage(150);
     private static final double MINIMUM_DAMAGE_DPERCENTAGE = Number.dPercentage(10);
+    private static final double LOW_HP_DPERCENTAGE = Number.dPercentage(30);
 
     // base statistics
     private int maxHP;
@@ -71,7 +71,6 @@ public abstract class Entity {
     private int defendDuration;
 
     private TextureId textureId;
-    private Bar healthBar, manaBar;
     private Statbox statbox;
     /** 
      * Sprite do item para desenho na tela
@@ -108,7 +107,6 @@ public abstract class Entity {
         return currHP;
     }
 
-
     /**
      * Recupera o MP da entidade (Player ou Boss) por um valor passado como argumento
      * @return (int) o nobo valor de mp da entidade
@@ -121,7 +119,6 @@ public abstract class Entity {
         
         return currMP;
     }
-
 
     /**
      * Calcula a defesa pura do jogador com multiplicador (caso aplicável)
@@ -258,6 +255,14 @@ public abstract class Entity {
 
         healHP(_healHP);
         recoverMP(_healMP);
+    }
+
+    /**
+     * Verifica se a entidade está com HP baixo
+     * @return (boolean) se está com HP baixo
+     */
+    public boolean isLowHP() {
+        return currHP <= (int)(maxHP * LOW_HP_DPERCENTAGE);
     }
 
     // --------------------------- OTHERS --------------------------- //
@@ -450,25 +455,17 @@ public abstract class Entity {
     public TextureId getTextureId() { return textureId; }
 
     /**
-     * Retorna o gerenciador de desenho da barra de HP da entidade
-     * @return (Bar) a barra de HP
-     * @see scene.bars.Bar
-     */
-    public Bar getHealthBar() { return healthBar; }
-
-    /**
-     * Retorna o gerenciador de desenho da barra de MP da entidade
-     * @return (Bar) a barra de MP
-     * @see scene.bars.Bar
-     */
-    public Bar getManaBar() { return manaBar; }
-
-    /**
      * Retorna o gerenciador de desenho das estatísticas da entidade
      * @return (Statbox) a caixa de estatísticas
-     * @see scene.statbox.Statbox
+     * @see scene.box.Statbox
      */
     public Statbox getStatbox() { return statbox; }
+
+    /**
+     * Retorna se a entidade está defendendo
+     * @return (boolean) se está defendendo ou não
+     */
+    public boolean getIsDefending() { return isDefending; }
     
 
     // --------------------------- SETTERS --------------------------- //
@@ -483,7 +480,7 @@ public abstract class Entity {
     public void setName(String name) throws EmptyStringException, MaxStringSizeException { 
         if(name.length() > MAX_NAME_SIZE) 
             throw new MaxStringSizeException("Max string size is " + MAX_NAME_SIZE);
-        else if(Text.stringIsEmpty(name))
+        else if(Text.isEmptyString(name))
             throw new EmptyStringException("Name cannot be null");
         this.name = name;
     }
@@ -670,29 +667,38 @@ public abstract class Entity {
     }
 
     /**
-     * Seta o gerenciador de desenho da barra de HP da entidade
-     * @param healthBar a barra de HP
-     * @see scene.bars.Bar
-     */
-    public void setHealthBar(Bar healthBar) {
-        this.healthBar = healthBar;
-    }
-
-    /**
-     * Seta o gerenciador de desenho da barra de MP da entidade
-     * @param manaBar a barra de HP
-     * @see scene.bars.Bar
-     */
-    public void setManaBar(Bar manaBar) {
-        this.manaBar = manaBar;
-    }
-
-    /**
      * Retorna o gerenciador de desenho das estatísticas da entidade
      * @return (Statbox) a caixa de estatísticas
-     * @see scene.statbox.Statbox
+     * @see scene.box.Statbox
      */
     public void setStatbox(Statbox statbox) {
         this.statbox = statbox;
+    }
+
+    /*
+     * Retorna uma lista de textos para mostrar na sua caixa de estatísticas (statbox)
+     * @return (String[]) a lista de textos
+     */
+    public String[] getStatboxText() {
+        final String _textList[] = {
+            Config.STATBOX_TEXT_DMG 
+                + Integer.toString(getCurrDamage()),
+
+            Config.STATBOX_TEXT_CRIT 
+                + Integer.toString((int)(getCurrCritChance() * 100)) + "%",
+
+            Config.STATBOX_TEXT_CRITMULT 
+                + Integer.toString((int)(getCurrCritMultiplier() * 100)) + "%",
+
+            Config.STATBOX_TEXT_ACC 
+                + Integer.toString((int)(getCurrAccuracy() * 100)) + "%",
+
+            Config.STATBOX_TEXT_DEF 
+                + Integer.toString(getCurrDefense()),
+
+            Config.STATBOX_TEXT_DEFMULT 
+                + Integer.toString((int)(getCurrDefenseMultiplier() * 100)) + "%" 
+        };
+        return _textList;
     }
 }

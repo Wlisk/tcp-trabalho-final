@@ -2,14 +2,16 @@ package entities.boss;
 
 import entities.player.Player;
 import entities.player.ClassType;
+import config.Config;
 import entities.Entity;
 import exceptions.NumberOverflowException;
 import exceptions.UnknownTypeException;
 import utils.Number;
 import utils.Randomic;
+import utils.Text;
+import scene.DrawableEntity;
 import scene.TextureId;
-import scene.bars.Bars;
-import scene.statbox.Statboxes;
+import scene.box.Statbox;
 import items.Item;
 import items.weapon.Weapons;
 import items.armor.Armors;
@@ -19,7 +21,7 @@ import items.consumable.Consumables;
  * Classe para gerenciar e manipular o Chefão, herdando da classe Entity
  * @see entities.Entity
  */
-public final class Boss extends Entity {
+public final class Boss extends DrawableEntity {
     public static final int DEFENDED = -1;
     // constants to change the boss BERSERK state statistics
     private static final double 
@@ -128,9 +130,7 @@ public final class Boss extends Entity {
         this.durationBerserk = durationBerserk;
         this.durationWeak = durationWeak;
 
-        setHealthBar(Bars.newBossHealthBar(this));
-        setManaBar(Bars.newBossManaBar(this));
-        setStatbox(Statboxes.newBossStatbox(this));
+        setStatbox(new Statbox(this));
     }
     
     /**
@@ -341,5 +341,18 @@ public final class Boss extends Entity {
     private boolean reachedBerserkThreshold() {
         double healthPercent = (double)this.getCurrHP() / (double)this.getMaxHP();
         return healthPercent < berserkThreshold;
+    }
+
+    /*
+     * Retorna uma lista de textos para mostrar na sua caixa de estatísticas (statbox)
+     * @return (String[]) a lista de textos
+     */
+    @Override
+    public String[] getStatboxText() {
+        final String[] _textList = {
+            getName(),
+            Config.STATBOX_TEXT_XP + Integer.toString(getExpReward()), 
+        };
+        return Text.concat(_textList, super.getStatboxText());
     }
 }

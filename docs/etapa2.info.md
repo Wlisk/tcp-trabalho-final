@@ -58,17 +58,17 @@ Consiste em testes ao nível de desenvolver (testes unitários automatizados)
 
 ## 1.5) Executável (Aplicação e Interface)
 
-Consiste em apresentar a aplicação e sua interface gráfica]
+Consiste em apresentar a aplicação e sua interface gráfica
 
 - descrever e apresentar as funcionalidades desenvolvidas
   - apresentar imagens da aplicação em execução
     - mostrar interfaces
     - mostrar interação com as interfaces
-- deve haver pelo menos algumtipo de interface gráfica
+- deve haver pelo menos algum tipo de interface gráfica
 - relatório deve incluir um "manual de uso" simplificado
   - deve mostrar detalhes de como executar a aplicação
   - apresentar imagens da interface seguidas de explicações gerais das funcionalidades da interface mostrada
-- deve ser escrito uma discussão em linhas gerais onfrontando a interface atual com a prototipada na etapa anterior
+- deve ser escrito uma discussão em linhas gerais confrontando a interface atual com a prototipada na etapa anterior
 
 &nbsp;
 

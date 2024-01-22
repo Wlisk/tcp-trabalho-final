@@ -1,25 +1,27 @@
 package entities.player;
 
-import entities.Entity;
 import exceptions.UnknownTypeException;
-import items.Inventory;
 import items.consumable.Consumable;
 import items.weapon.Weapon;
 import items.weapon.Weapons;
+import scene.DrawableEntity;
+import scene.DrawableInventory;
 import scene.TextureId;
-import scene.bars.Bars;
-import scene.statbox.Statboxes;
+import scene.box.Statbox;
+import utils.Text;
 import items.Item;
 import items.ItemType;
 import items.armor.Armor;
 import items.armor.Armors;
 import static utils.Number.dPercentage;
 
+import config.Config;
+
 /**
  * Classe para gerenciar e manipular o Jogador, herdando da classe Entity
  * @see entities.Entity
  */
-public final class Player extends Entity {
+public final class Player extends DrawableEntity {
     private final static int STARTING_EXP_TO_LEVEL = 100;
 
     private static final int 
@@ -45,7 +47,7 @@ public final class Player extends Entity {
     private int level;
     private int exp;
     private int expToLevel = 0;
-    private final Inventory inventory;
+    private final DrawableInventory inventory;
     private final ClassType classType;
     //private int temporaryDamageBoost;
 
@@ -66,7 +68,7 @@ public final class Player extends Entity {
         exp = 0;
         expToLevel = calcExpToLevel(level);
         //temporaryDamageBoost = 0;
-        inventory = new Inventory();
+        inventory = new DrawableInventory();
 
         this.classType = classType;
 
@@ -76,9 +78,7 @@ public final class Player extends Entity {
         applyItemBuff(inventory.getEquippedArmor());
         applyItemBuff(inventory.getEquippedWeapon());
 
-        setHealthBar(Bars.newPlayerHealthBar(this));
-        setManaBar(Bars.newPlayerManaBar(this));
-        setStatbox(Statboxes.newPlayerStatbox(this));
+        setStatbox(new Statbox(this));
     }
 
     /**
@@ -338,11 +338,12 @@ public final class Player extends Entity {
     public int getExpToLevel() { return expToLevel; }
 
     /**
-     * Retorna o {@link items.Inventory inventário} do jogador
-     * @return (Inventory) o inventário
+     * Retorna o {@link scene.DrawableInventory inventário} do jogador
+     * @return (DrawableInventory) o inventário
+     * @see scene.DrawableInventory
      * @see items.Inventory
      */
-    public Inventory getInventory() { return inventory; }
+    public DrawableInventory getInventory() { return inventory; }
 
     /**
      * Retorna o {@link entities.player.ClassType tipo de classe} do jogador
@@ -350,4 +351,22 @@ public final class Player extends Entity {
      * @see entities.player.ClassType
      */
     public ClassType getClassType() { return classType; }
+
+    /*
+     * Retorna uma lista de textos para mostrar na sua caixa de estatísticas (statbox)
+     * @return (String[]) a lista de textos
+     */
+    @Override 
+    public String[] getStatboxText() {
+        final String[] _textList = {
+            /*getName(),*/
+            Config.STATBOX_TEXT_LVL 
+                + Integer.toString(getLevel()),
+
+            Config.STATBOX_TEXT_XP 
+                + Integer.toString(getExp()) + "/" 
+                + Integer.toString(getExpToLevel()),
+        };
+        return Text.concat(_textList, super.getStatboxText());
+    }
 }

@@ -1,8 +1,10 @@
 package items.consumable;
 
+import config.Config;
 import items.Item;
 import items.ItemType;
 import scene.TextureId;
+import utils.Text;
 
 /** 
  * Classe para os itens do tipo conumível do jogo 
@@ -12,6 +14,7 @@ import scene.TextureId;
 public final class Consumable extends Item {
     private ConsumableType consumableType;
     //private int turnsDuration;
+    private final String[] textLines;
 
     // * @param boostDamage a quantidade de aumento de dano
     // * @param turnsDuration o número de turnos que o consumível dura
@@ -44,13 +47,33 @@ public final class Consumable extends Item {
         this.boostMP = boostMP;
         //this.boostDamage = boostDamage;
         //this.turnsDuration = turnsDuration;
+        textLines = createTextLines();
+    }
+
+    /**
+     * Cria a lista de informações do item para a sua caixa de informações (infobox)
+     * @return (String[]) a lista de informações do item
+     */
+    private String[] createTextLines() {
+        return new String[]{
+            Config.INFOBOX_TEXT_HP + Integer.toString(getBoostHP()),
+            Config.INFOBOX_TEXT_MP + Integer.toString(getBoostMP()),
+            Text.wrap(getDescription(), Config.INFOBOX_WRAP_SIZE)
+        };
     }
 
     /** 
      * Retorna o tipo (ConsumableType) do consumível 
      * @return (ConsumableType) tipo do consúmivel
      */
-    public ConsumableType getConsumableType() { return consumableType; }
+    public ConsumableType getType() { return consumableType; }
+
     ///* Retorna o número (int) de duração (turnos totais) do consumível */
     //public int getTurnsDuration() { return turnsDuration; }
+
+    /**
+     * Retorna a lista de informações  do item para a sua caixa de informações (infobox)
+     * @return (String[]) a lista de informações do item
+     */
+    public String[] getTextLines() { return textLines; }
 }

@@ -44,8 +44,6 @@ public final class Consumables {
                 "A perfectly cooked slab of meat.")
     };
 
-    
-
     /** Índice (int) da posição da poção de HP básica */
     public static final int INDEX_POTION_HP = 0;
     /** Índice (int) da posição da poção de MP básica */
@@ -87,8 +85,6 @@ public final class Consumables {
             "Can turn a battle around."
         )
     };
-
-    
 
     /*private static final Consumable[] POISONS = {
         new Consumable(

@@ -1,6 +1,6 @@
 /**
- * Provides interfaces to padronize code development  
- * so certain classes can have some methods that acts
- * in the same pattern or way.
+ * Fornece interfaces para padronizar o desenvolvimento 
+ * de código, assim certas classes podem ter métodos que 
+ * agem de um mesmo padrão ou forma.
  */
 package interfaces;

@@ -1,8 +1,10 @@
 package items.armor;
 
+import config.Config;
 import items.Item;
 import items.ItemType;
 import scene.TextureId;
+import utils.Text;
 
 /** 
  * Classe para os itens do tipo armadura do jogo 
@@ -11,6 +13,7 @@ import scene.TextureId;
  */
 public final class Armor extends Item {
     private ArmorType armorType;
+    private final String[] textLines;
 
     // * @param boostHP a quantidade de aumento de hp
     // * @param boostMP a quantidade de aumento de mp
@@ -39,8 +42,26 @@ public final class Armor extends Item {
         this.boostDefense = boostDefense;
         //this.boostHP = boostHP;
         //this.boostMP = boostMP;
+        textLines = createTextLines();
+    }
+
+    /**
+     * Cria a lista de informações do item para a sua caixa de informações (infobox)
+     * @return (String[]) a lista de informações do item
+     */
+    private String[] createTextLines() {
+        return new String[]{
+            Config.INFOBOX_TEXT_DEF + Integer.toString(getBoostDefense()),
+            Text.wrap(getDescription(), Config.INFOBOX_WRAP_SIZE)
+        };
     }
 
     /** Retorna o tipo (ArmorType) da armadura  */
-    public ArmorType getArmorType() { return armorType; }
+    public ArmorType getType() { return armorType; }
+
+    /**
+     * Retorna a lista de informações  do item para a sua caixa de informações (infobox)
+     * @return (String[]) a lista de informações do item
+     */
+    public String[] getTextLines() { return textLines; }
 }

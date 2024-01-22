@@ -6,19 +6,21 @@ import items.armor.Armor;
 import items.consumable.Consumable;
 import items.consumable.Consumables;
 import items.weapon.Weapon;
-import scene.inventory.InventoryUI;
-import scene.inventory.InventoryUIInst;
-
 
 /** Gerencia o inventário do jogador, podendo-se adicinar, remover e usar itens do inventário. */
-public final class Inventory {
+public class Inventory {
     /** Número máximo de items permitidos no inventário */
     public static final int MAX_ITEMS = 5;
+    /** Número de slots para os equipamentos equipados pelo jogador. */
+    public static final int NUM_EQUIPABLE_SLOTS = 2;
 
-    private Weapon equippedWeapon;
-    private Armor equippedArmor;
-    private InventoryUI inventoryUI;
-    private final ArrayList<Item> items = new ArrayList<Item>(MAX_ITEMS);
+    private static final int EQUIPPED_INDEX_ARMOR = 0;
+    private static final int EQUIPPED_INDEX_WEAPON = 1;
+
+    protected Weapon equippedWeapon;
+    protected Armor equippedArmor;
+    protected final ArrayList<Item> items = new ArrayList<Item>(MAX_ITEMS);
+    protected final Item[] equippedList = new Item[NUM_EQUIPABLE_SLOTS];
 
     /** Inicializa o inventário com 2 consumíveis, uma poção de MP e outra de HP */
     public Inventory() { 
@@ -26,7 +28,6 @@ public final class Inventory {
         equippedWeapon = null;
         items.add( (Item)Consumables.getConsumablePotion(Consumables.INDEX_POTION_HP) );
         items.add( (Item)Consumables.getConsumablePotion(Consumables.INDEX_POTION_MP) );
-        this.inventoryUI = InventoryUIInst.newInventoryUI(this);
     }
 
     /**
@@ -64,13 +65,14 @@ public final class Inventory {
             remove(index); // remove from inventory the selected armor
             add(equippedArmor);
             equippedArmor = (Armor)_selectedItem;
-            
+            equippedList[EQUIPPED_INDEX_ARMOR] = equippedArmor;
         }
 
         else if(_itemType == ItemType.WEAPON) {
             remove(index); // remove from inventory the selected weapon
             add(equippedWeapon);
             equippedWeapon = (Weapon)_selectedItem;
+            equippedList[EQUIPPED_INDEX_WEAPON] = equippedWeapon;
         }
 
         else return null;
@@ -103,10 +105,6 @@ public final class Inventory {
         return items.get(index);
     }
 
-    public int checkLeftClickedIndex(){ return inventoryUI.checkLeftClickedIndex(); } 
-    public int checkRightClickedIndex(){ return inventoryUI.checkRightClickedIndex(); } 
-
-
     /**
      * Verifica se o inventário está cheio
      * @return (boolean) se o inventário está cheio ou não
@@ -133,7 +131,8 @@ public final class Inventory {
      * @param armor a armadura a ser equipada, pode ser null
      */
     public void equipArmor(Armor armor) {
-        this.equippedArmor = armor;
+        equippedArmor = armor;
+        equippedList[EQUIPPED_INDEX_ARMOR] = equippedArmor;
     }
 
     /**
@@ -141,8 +140,13 @@ public final class Inventory {
      * @param weapon a arma a ser equipada, pode ser null
      */
     public void equipWeapon(Weapon weapon) {
-        this.equippedWeapon = weapon;
+        equippedWeapon = weapon;
+        equippedList[EQUIPPED_INDEX_WEAPON] = equippedWeapon;
     }
 
-    public InventoryUI getInventoryUI() { return inventoryUI; }
+    /**
+     * Retorna os itens equipados no Player com uma lista de itens
+     * @return (Item[]) a lista dos itens equipados
+     */
+    public Item[] getEquipped() { return equippedList; }
 }

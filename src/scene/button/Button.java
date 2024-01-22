@@ -13,7 +13,14 @@ import static com.raylib.Jaylib.MOUSE_BUTTON_LEFT;
 import interfaces.IClickable;
 import interfaces.IDrawable;
 import interfaces.IMouseOverable;
+import utils.Objects;
 
+/**
+ * Classe para gerenciar e desenhar botões na tela/janela 
+ * @see interfaces.IDrawable
+ * @see interfaces.IMouseOverable 
+ * @see interfaces.IClickable
+ */
 public class Button 
 implements IDrawable, IMouseOverable, IClickable 
 {
@@ -24,6 +31,16 @@ implements IDrawable, IMouseOverable, IClickable
     private float textSize;
     private Color textColor;
 
+    /**
+     * Construtor do Button, inicializando ele com parametros diversos
+     * para configuração de estilos
+     * @param rectangle a posicação e o tamanho do botão na tela 
+     * @param buttonColor a cor do botão 
+     * @param mouseOverColor a cor do botão com hover (mouse por cima)
+     * @param text o texto do botão
+     * @param textSize o tamanho do texto no botão
+     * @param textColor a cor do texto no botão
+     */
     public Button(
         Rectangle rectangle, 
         Color buttonColor, Color mouseOverColor, 
@@ -38,25 +55,40 @@ implements IDrawable, IMouseOverable, IClickable
         this.textColor = textColor;
     }
 
-    public boolean isMouseOver() {
-        Vector2 mousePoint = GetMousePosition();    
-        return CheckCollisionPointRec(mousePoint, rectangle);
+    /**
+     * Verifica se o mouse está por cima do botão e retorna a posição do mouse em cima dele
+     * @return (Vector2) a posição do mouse em cima do botão ou null caso contrário
+     * @see interfaces.IMouseOverable 
+     */
+    @Override
+    public Vector2 isMouseOver() {
+        Vector2 mousePoint = GetMousePosition();  
+        return CheckCollisionPointRec(mousePoint, rectangle) ? mousePoint : null;
     }
 
+    /** 
+     * Verifica se o mouse está pressionando o botão com o botão do mouse especificado
+     * @param mousebutton qual dos botões do mouse para verificar 
+     * @return (boolean) se o mouve está precionado ou não
+     * @see interfaces.IClickable 
+     */
+    @Override 
+    public boolean isMousePressed(int mouseButton) {
+        return Objects.toBool(isMouseOver()) && IsMouseButtonDown(mouseButton);
+    }
+
+    /**
+     * Verifica se o mouse está pressionando o botão com o botão do mouse esquerdo
+     * @return (boolean) se o mouve está precionado ou não
+     */
     public boolean isMousePressed() {
-        return isMouseOver() && IsMouseButtonDown(MOUSE_BUTTON_LEFT);
+        return isMousePressed(MOUSE_BUTTON_LEFT);
     }
     
-    public Rectangle getRectangle() { return this.rectangle; }
-    public Color getButtonColor() { return this.buttonColor; }
-    public Color getMouseOverColor() { return this.mouseOverColor; }
-
-    public String getText() { return this.text; }
-    public float getTextSize() { return this.textSize; }
-    public Color getTextColor() { return this.textColor; }
-    
+    /** Desenha o botão na tela */
+    @Override
     public void draw() {
-        Color _currColor = this.isMouseOver() ? mouseOverColor : buttonColor;
+        Color _currColor = Objects.toBool(this.isMouseOver()) ? mouseOverColor : buttonColor;
 
         Jaylib.DrawRectangleRec(rectangle, _currColor);
 

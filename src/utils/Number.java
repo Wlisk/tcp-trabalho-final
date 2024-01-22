@@ -49,4 +49,7 @@ public final class Number {
     public static double dPercentage(double percent) {
         return percent * 0.01;
     }
+
+    /** Usado quando índice numérico não encontrado */
+    public static final int NOT_FOUND = -1;
 }

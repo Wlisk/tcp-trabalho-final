@@ -1,7 +1,7 @@
 package interfaces;
 
-/** Methods to draw things on the screen */
+/** Padronização de métodos para desenhar na tela */
 public interface IDrawable {
-    /** Method to draw the object into the screen */
+    /** Método para desenhar o objeto na tela */
     public void draw();
 }
