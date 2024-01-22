@@ -25,7 +25,7 @@ class PlayerTest {
             assertEquals(160, player.getBaseDamage());
             assertEquals(200, player.getCurrDamage());
             assertEquals(72, player.getBaseDefense());
-            assertEquals(131, player.getCurrDefense());
+            assertEquals(152, player.getCurrDefense());
             assertNotNull(player.getInventory());
             assertNotNull(player.getClassType());
         } catch (UnknownTypeException e) {

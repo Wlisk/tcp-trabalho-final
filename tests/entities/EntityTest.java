@@ -11,7 +11,7 @@ class EntityTest {
 
     private static class entity extends Entity {
         public entity(String name) {
-            super(name, name);
+            super(name);
         }
     }
 

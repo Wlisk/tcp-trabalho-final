@@ -24,15 +24,15 @@ import entities.Entity;
 public class DrawableEntity extends Entity {
     private Rectangle recBarHP, recBarMP;
 
+    //@param imageSrc o caminho para a textura da imagem 
     /**
      * Construtor da classe DrawableEntity, precisa dos parâmetros para 
      * poder repassá-los para a super classe
      * @param name o nome da entidade
-     * @param imageSrc o caminho para a textura da imagem 
      * @see entities.Entity
      */
-    public DrawableEntity(String name, String imageSrc) {
-        super(name, imageSrc);
+    public DrawableEntity(String name/*, String imageSrc*/) {
+        super(name/*, imageSrc*/);
 
         recBarHP = new Rectangle(0.0f, Config.BAR_POS_Y_HP, Config.BAR_WIDTH_HP, Config.BAR_HEIGHT_HP);
         recBarMP = new Rectangle(0.0f, Config.BAR_POS_Y_MP, Config.BAR_WIDTH_MP, Config.BAR_HEIGHT_MP);

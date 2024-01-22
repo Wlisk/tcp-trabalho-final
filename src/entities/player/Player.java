@@ -62,7 +62,7 @@ public final class Player extends DrawableEntity {
     public Player(String name, ClassType classType) 
     throws UnknownTypeException 
     {
-        super(name, classType.getImageSrc());
+        super(name/*, classType.getImageSrc()*/);
 
         level = 1;
         exp = 0;
@@ -197,7 +197,7 @@ public final class Player extends DrawableEntity {
      * @see items.weapon.Weapon
      */
     private void applyItemBuff(Item equipment) {
-        final int _boostDefense = (int)(equipment.getBoostDefense() * getCurrDefenseMultiplier());
+        final int _boostDefense = (int)(equipment.getBoostDefense());
         setCurrDefense( getCurrDefense() + _boostDefense);
         setCurrDamage( getCurrDamage() + equipment.getBoostDamage() );
         setCurrCritChance( getCurrCritChance() + equipment.getBoostCritChance() );
@@ -260,9 +260,9 @@ public final class Player extends DrawableEntity {
                 _damage = (int)( BASE_DAMAGE * dPercentage(90) );
                 _defense = (int)( BASE_DEFENSE * dPercentage(70) );
                 _critC = BASE_CRIT_C * dPercentage(20);
-                _critM = BASE_CRIT_M * dPercentage(115);
+                _critM = BASE_CRIT_M * dPercentage(125);
                 _accuracy = BASE_ACCURACY * dPercentage(85);
-                _defenseM = BASE_DEFENSE_M * dPercentage(75);
+                _defenseM = BASE_DEFENSE_M * dPercentage(100);
                 _armor = Armors.getArmorMage(Armors.INDEX_INITIAL_ARMOR);
                 _weapon = Weapons.getWeaponMage(Weapons.INDEX_INITIAL_WEAPON);
                 _textureId = TextureId.CLASS_1;
@@ -274,9 +274,9 @@ public final class Player extends DrawableEntity {
                 _damage = (int)( BASE_DAMAGE * dPercentage(80) );
                 _defense = (int)( BASE_DEFENSE * dPercentage(90) );
                 _critC = BASE_CRIT_C * dPercentage(20);
-                _critM = BASE_CRIT_M * dPercentage(110);
+                _critM = BASE_CRIT_M * dPercentage(125);
                 _accuracy = BASE_ACCURACY * dPercentage(80);
-                _defenseM = BASE_DEFENSE_M * dPercentage(75);
+                _defenseM = BASE_DEFENSE_M * dPercentage(100);
                 _armor = Armors.getArmorWarrior(Armors.INDEX_INITIAL_ARMOR);
                 _weapon = Weapons.getWeaponWarrior(Weapons.INDEX_INITIAL_WEAPON);
                 _textureId = TextureId.CLASS_2;
@@ -287,10 +287,10 @@ public final class Player extends DrawableEntity {
                 _mp = (int)( BASE_MP * dPercentage(85) );
                 _damage = (int)( BASE_DAMAGE * dPercentage(70) );
                 _defense = (int)( BASE_DEFENSE * dPercentage(80) );
-                _critC = BASE_CRIT_C * dPercentage(20);
-                _critM = BASE_CRIT_M * dPercentage(115);
+                _critC = BASE_CRIT_C * dPercentage(40);
+                _critM = BASE_CRIT_M * dPercentage(150);
                 _accuracy = BASE_ACCURACY * dPercentage(90);
-                _defenseM = BASE_DEFENSE_M * dPercentage(75);
+                _defenseM = BASE_DEFENSE_M * dPercentage(100);
                 _armor = Armors.getArmorArcher(Armors.INDEX_INITIAL_ARMOR);
                 _weapon = Weapons.getWeaponArcher(Weapons.INDEX_INITIAL_WEAPON);
                 _textureId = TextureId.CLASS_3;

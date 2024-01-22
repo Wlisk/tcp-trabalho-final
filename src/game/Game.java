@@ -167,7 +167,7 @@ public class Game {
     }
 
     /** Realiza atransição para o ínicio dos turnos Player x Boss */
-    private void battleStart() {
+    public void battleStart() {
         transitionState(GameState.TURN_START);
     }
 
@@ -175,12 +175,12 @@ public class Game {
      * Realiza a transição para a batalha Player x Boss, 
      * turno inicial do jogador
      */
-    private void turnStart() {
+    public void turnStart() {
         transitionState(GameState.TURN_PLAYER_CHOOSE);
     }
 
     /** Realiza a transição de fim de jogo, indo para menu incial */
-    private void gameEnd() {
+    public void gameEnd() {
         transitionState(GameState.MAIN_MENU);
     }
 
@@ -463,4 +463,6 @@ public class Game {
      * @see scene.box.TextBox 
      */
     public TextBox getAlertTextBox() { return alertTextBox; }
+
+    public Scene getScene() { return scene; }
 }

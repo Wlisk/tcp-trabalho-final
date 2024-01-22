@@ -98,7 +98,7 @@ public final class Boss extends DrawableEntity {
     )
     throws NumberOverflowException
     {
-        super(name, textureId.getPath());
+        super(name/*, textureId.getPath()*/);
 
         Number.limitTo(Number.MIN_DPERCENTAGE, Number.MAX_DPERCENTAGE, berserkThreshold);
         currState = StateType.BASE;
