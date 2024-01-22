@@ -173,6 +173,9 @@ public final class Bosses {
         return _boss;
     }
 
-    /** Reseta o contador de próximo chefão */
-    public static void resetBossNextCounter() { bossNextCounter = 0; }
+    /** Reseta os chefões e o contador de próximo chefão */
+    public static void resetBossNextCounter() { 
+        bossList = createBosses();
+        bossNextCounter = 0; 
+    }
 }
