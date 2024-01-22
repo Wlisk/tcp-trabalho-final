@@ -68,7 +68,7 @@ implements IDrawable, IMouseOverable, IClickable
 
     /** 
      * Verifica se o mouse está pressionando o botão com o botão do mouse especificado
-     * @param mousebutton qual dos botões do mouse para verificar 
+     * @param mouseButton qual dos botões do mouse para verificar 
      * @return (boolean) se o mouve está precionado ou não
      * @see interfaces.IClickable 
      */

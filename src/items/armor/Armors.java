@@ -130,7 +130,6 @@ public final class Armors {
      * @throws UnknownTypeException tipo de classe passado desconhecido
      * @see entities.player.ClassType
      * @see exceptions.UnknownTypeException
-     * @see entities.player.ClassTypeUtil#ERR_TYPE_MESSAGE
      */
     public static Armor getRandomByClass(ClassType classType) throws UnknownTypeException {
         switch(classType) {

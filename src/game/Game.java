@@ -363,7 +363,7 @@ public class Game {
 
     /**
      * Realiza o loop do jogo
-     * throws UnknownTypeException gerado por 
+     * @throws UnknownTypeException gerado por 
      *   {@link game.Game#selectingClass()}
      *   {@link game.Game#battleEnd()}
      */
@@ -451,7 +451,7 @@ public class Game {
 
     /**
      * Retorna a hash que liga as classes do jogador com seus botões
-     * @return (HashMap<ClassType, Button>) a hash de ligação
+     * @return (HashMap) a hash de ligação
      * @see entities.player.ClassType
      * @see scene.button.Button
      */
@@ -464,5 +464,9 @@ public class Game {
      */
     public TextBox getAlertTextBox() { return alertTextBox; }
 
+    /**
+     * Retorna a instância da cena do jogo para fins de teste
+     * @return (Scene) a cena do jogo (instância)
+     */
     public Scene getScene() { return scene; }
 }

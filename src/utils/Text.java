@@ -212,10 +212,11 @@ public final class Text {
 
     /**
      * Realiza a quebra de linhas de um texto, identificando palavras por espaço {@code ' '}.
-     * 
-     * <p> Código Retirado de org.apache.commons.text.WordUtils.wrap() 
-     * {@link https://commons.apache.org/proper/commons-text/}
-     * 
+     * <p>
+     * Código Retirado de org.apache.commons.text.WordUtils.wrap() 
+     * <a href="https://commons.apache.org/proper/commons-text/">
+     *   commons.apache.org/proper/commons-text/
+     * </a> 
      * @param str string para realizar a quebra de linhas
      * @param wrapLength o tamanho máximo para a quebra de linhas
      * @return (String) o texto com quebras de linhas {@code '\n'}
@@ -226,7 +227,11 @@ public final class Text {
 
     /**
      * Concantena duas listas de texto criando uma nova lista de texto
-     * <p> Retirado de {@link https://stackoverflow.com/questions/80476/how-can-i-concatenate-two-arrays-in-java StackOverflow}
+     * <p> 
+     * Retirado de 
+     * <a href="https://stackoverflow.com/questions/80476/how-can-i-concatenate-two-arrays-in-java">
+     *   StackOverflow
+     * </a> 
      * @param firstList a primeira lista na ordem
      * @param secondList a segunda lista na ordem
      * @return (String[]) a nova lista de texto concatenada

@@ -22,7 +22,6 @@ import items.consumable.Consumables;
  * @see entities.Entity
  */
 public final class Boss extends DrawableEntity {
-    public static final int DEFENDED = -1;
     // constants to change the boss BERSERK state statistics
     private static final double 
         BERSERK_DAMAGE_MULTIPLIER  = 1.5, 

@@ -76,10 +76,16 @@ public class Sprite {
         position.y(y);
     }
 
-    /** Retorna a posição x */
+    /**
+     * Retorna a posição x
+     * @return (float) a posição x
+     */
     public float x() { return position.x(); }
 
-    /** Retorna a posição y */
+    /**
+     * Retorna a posição y
+     * @return (float) a posição y
+     */
     public float y() { return position.y(); }
 
     /**

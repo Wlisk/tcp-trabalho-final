@@ -266,7 +266,6 @@ public final class Weapons {
      * @throws UnknownTypeException tipo de classe passado desconhecido
      * @see entities.player.ClassType
      * @see exceptions.UnknownTypeException
-     * @see entities.player.ClassTypeUtil#ERR_TYPE_MESSAGE
      */
     public static Weapon getRandomByClass(ClassType classType) throws UnknownTypeException {
         switch(classType) {

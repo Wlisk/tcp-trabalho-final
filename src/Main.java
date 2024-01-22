@@ -11,6 +11,7 @@ import game.Game;
 public class Main {
     /**
      * Erros gerados por erros de dev
+     * @param args lista de strings do vetor de argumentos do programa
      * @throws NumberOverflowException caso um número fora dos limites especificados for passado
      * @throws UnknownTypeException caso um tipo errado for passado
      */

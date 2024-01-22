@@ -28,6 +28,8 @@ public final class Weapon extends Item {
      * @param boostCritChance a quantidade de aumento de chance de crítico
      * @param boostCritMultiplier a quantidade de aumento de multiplicador de crítico
      * @param description a descrição da arma
+     * @throws NumberOverflowException gerado no contrutor por 
+     *   {@link Number#limitTo(double, double, double)}
      * @see items.weapon.WeaponType
      * @see scene.TextureId
      */
@@ -73,7 +75,10 @@ public final class Weapon extends Item {
         };
         }
 
-    /** Retorna o tipo (WeaponType) da arma  */
+    /**
+     * Retorna o tipo da arma
+     * @return (WeaponType) o tipo da arma
+     */
     public WeaponType getType() { return this.weaponType; }
 
     /**

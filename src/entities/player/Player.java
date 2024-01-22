@@ -55,7 +55,7 @@ public final class Player extends DrawableEntity {
      * Construtor do jogador, inicializando dados da herança e atributos base
      * @param name o nome do jogador
      * @param classType o tipo de classe do jogador (mago, guerreiro, arqueiro)
-     * @throws UnknownTypeException gerado por {@link #setBaseStatistics()}
+     * @throws UnknownTypeException gerado por {@link #setBaseStatistics(ClassType)}
      * @see entities.player.ClassType
      * @see exceptions.UnknownTypeException 
      */

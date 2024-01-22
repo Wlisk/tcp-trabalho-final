@@ -56,7 +56,10 @@ public final class Armor extends Item {
         };
     }
 
-    /** Retorna o tipo (ArmorType) da armadura  */
+    /**
+     * Retorna o tipo da armadura 
+     * @return (ArmorType) o tipo de armadura
+     */
     public ArmorType getType() { return armorType; }
 
     /**

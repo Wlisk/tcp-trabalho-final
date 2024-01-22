@@ -17,9 +17,13 @@ public class Inventory {
     private static final int EQUIPPED_INDEX_ARMOR = 0;
     private static final int EQUIPPED_INDEX_WEAPON = 1;
 
+    /** A arma equipada */
     protected Weapon equippedWeapon;
+    /** A armadura equipada */
     protected Armor equippedArmor;
+    /** Os itens do inventário */
     protected final ArrayList<Item> items = new ArrayList<Item>(MAX_ITEMS);
+    /** A lista de itens equipados */
     protected final Item[] equippedList = new Item[NUM_EQUIPABLE_SLOTS];
 
     /** Inicializa o inventário com 2 consumíveis, uma poção de MP e outra de HP */
@@ -111,7 +115,10 @@ public class Inventory {
      */
     public boolean isFull() { return items.size() >= MAX_ITEMS; }
 
-    /** Retorna o número (int) de itens atualmente no inventário */
+    /**
+     * Retorna o número (int) de itens atualmente no inventário
+     * @return (int) a quantidade de itens no inventário
+     */
     public int size() { return items.size(); }
 
     /** 

@@ -91,11 +91,12 @@ public abstract class Entity {
 
     /**
      * Recupera o HP da entidade (Player ou Boss) por um valor passado como argumento
+     * @param amount o valor extra de HP a ser adiciono
      * @return (int) o nobo valor de mp da entidade
      */
-    protected int healHP(int _amount) {
-        if(_amount > 0) {
-            final int _hpWithHeal = currHP + _amount;
+    protected int healHP(int amount) {
+        if(amount > 0) {
+            final int _hpWithHeal = currHP + amount;
             currHP = (_hpWithHeal > maxHP) ? maxHP : _hpWithHeal;
         }
 
@@ -104,11 +105,12 @@ public abstract class Entity {
 
     /**
      * Recupera o MP da entidade (Player ou Boss) por um valor passado como argumento
+     * @param amount o valor extra de MP a ser adiciono
      * @return (int) o nobo valor de mp da entidade
      */
-    protected int recoverMP(int _amount) {
-        if(_amount > 0) {
-            final int _mpWithRecover = currMP + _amount;
+    protected int recoverMP(int amount) {
+        if(amount > 0) {
+            final int _mpWithRecover = currMP + amount;
             currMP = (_mpWithRecover > maxMP) ? maxMP : _mpWithRecover;
         }
         
@@ -662,15 +664,15 @@ public abstract class Entity {
     }
 
     /**
-     * Retorna o gerenciador de desenho das estatísticas da entidade
-     * @return (Statbox) a caixa de estatísticas
+     * Seta o gerenciador de desenho das estatísticas da entidade
+     * @param statbox a caixa de estatísticas
      * @see scene.box.Statbox
      */
     public void setStatbox(Statbox statbox) {
         this.statbox = statbox;
     }
 
-    /*
+    /**
      * Retorna uma lista de textos para mostrar na sua caixa de estatísticas (statbox)
      * @return (String[]) a lista de textos
      */

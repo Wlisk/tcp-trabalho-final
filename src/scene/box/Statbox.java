@@ -40,6 +40,7 @@ public class Statbox implements IDrawable {
     /**
      * Construtor do Statbox, inicializando qual a sua entidade (Player ou Boss)
      * e quais informações vai mostrar 
+     * @param entity a entidade
      * @see entities.Entity 
      */
     public Statbox(Entity entity) {

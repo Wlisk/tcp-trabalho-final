@@ -81,7 +81,7 @@ public class Buttons {
 
     /** 
      * Cria os botões para selecionar a classe do jogador
-     * @return (HashMap<ClassType, Button>) a lista dos botões como hash
+     * @return (HashMap) a lista dos botões como hash
      */
     public static final HashMap<ClassType, Button> newClassButtons() {
         final HashMap<ClassType, Button> _buttons = new HashMap<ClassType, Button>();
